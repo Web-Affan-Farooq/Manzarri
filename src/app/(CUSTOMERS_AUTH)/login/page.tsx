@@ -1,5 +1,5 @@
 import React from 'react'
-import Section_login from './Login-form'
+import Section_login from './Login-form';
 
 const Login = () => {
   return (

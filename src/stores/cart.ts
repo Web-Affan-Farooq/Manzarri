@@ -2,7 +2,8 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 interface CartItem {
-    id: number;
+    id: number;    
+    image:string;
     name: string;
     price: number;
 }
@@ -20,9 +21,10 @@ export const useCart = create<CartState>()(
         (set) => (
             {
                 cart: [
-                    { id: 1, name: "T-shirt", price: 25 },
-                    { id: 2, name: "Jeans", price: 45 },
-                    { id: 3, name: "Sneakers", price: 80 },
+                    { id: 1, name: "Elegant Earrings", price: 25, image:"/images/earrings/1.jpeg" },
+                    { id: 2, name: "Stylish Ring", price: 45, image:"/images/earrings/1.jpeg" },
+                    { id: 3, name: "Gold Necklace dfjkdljfklsdjflkjdkfjsdkfj", price: 80 , image:"/images/earrings/1.jpeg"},
+                    { id: 4, name: "Gold Necklace", price: 80 , image:"/images/earrings/1.jpeg"},
                 ],
 
                 addItem: (item: CartItem) =>

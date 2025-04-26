@@ -1,8 +1,8 @@
 import React from 'react';
 import UserProfileHeader from '@/components/Header/UserProfiles/Header';
-import ProfileSection from './ProfileSection';
+import ProfileSection from './CartSection';
 
-const Profile = () => {
+const CartPage= () => {
   return (
     <main className="flex min-h-screen">
       <UserProfileHeader />
@@ -11,4 +11,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default CartPage;
