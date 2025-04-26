@@ -1,0 +1,5 @@
+@media (max-width:768px) {
+    .scroll-container::-webkit-scrollbar {
+        display: none;
+    }
+}
