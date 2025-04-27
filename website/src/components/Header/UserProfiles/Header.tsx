@@ -8,13 +8,13 @@ const UserProfileHeader = () => {
         <h2 className="text-2xl font-bold mb-8">Profile</h2>
         <div className="flex flex-col gap-4">
           <Link href={"/profile/cart"} className="hover:text-white w-full transition-all duration-100 ease-in-out cursor-pointer hover:bg-[var(--faun-light)] py-[5px] px-[10px] rounded-md">🛒 Cart</Link>
-          <Link href={"/profile/cart"} className="hover:text-white w-full transition-all duration-100 ease-in-out cursor-pointer hover:bg-[var(--faun-light)] py-[5px] px-[10px] rounded-md">❤️ Liked Items</Link>
+          <Link href={"/profile/wishlist"} className="hover:text-white w-full transition-all duration-100 ease-in-out cursor-pointer hover:bg-[var(--faun-light)] py-[5px] px-[10px] rounded-md">❤️ Wishlist</Link>
           <Link href={"/profile/cart"} className="hover:text-white w-full transition-all duration-100 ease-in-out cursor-pointer hover:bg-[var(--faun-light)] py-[5px] px-[10px] rounded-md">📈 Your Activity</Link>
           <Link href={"/profile/cart"} className="hover:text-white w-full transition-all duration-100 ease-in-out cursor-pointer hover:bg-[var(--faun-light)] py-[5px] px-[10px] rounded-md">⚙️ Settings</Link>
         </div>
       </nav>
 
-      <div className="hover:text-white w-full transition-all duration-100 ease-in-out cursor-pointer hover:bg-[var(--faun-light)] py-[5px] px-[10px] rounded-md">Logout </div>
+      <div className="hover:text-white w-full transition-all duration-100 ease-in-out cursor-pointer hover:bg-[var(--faun-light)] py-[5px] px-[10px] rounded-md">Logout &nbps; <i className="fa-solid fa-right-from-bracket"></i></div>
     </aside>
   );
 };

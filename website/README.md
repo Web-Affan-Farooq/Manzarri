@@ -1,4 +1,12 @@
 # Manzarri | Project :
+## Technologies : 
+Typescript (programming language)
+NextJS (main meta framework )
+ReactJS (main ui library)
+tailwindcss (for styling and design systems)
+zod (for validating login and signup forms)
+nodemailer (for implementing otp verification)
+
 Milestone-1 : Finalized home page (completed) 
 Finalize the home page of the website without any animations and prior nested layouts . complete all ten sections that contain important contents of website 
 

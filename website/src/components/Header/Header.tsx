@@ -1,20 +1,16 @@
 "use client";
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { useCartVisibilityStatus } from '@/stores/cart-status';
 import { useCart } from '@/stores/cart';
+import { useWishlist } from '@/stores/wishlist';
 import { usePathname } from 'next/navigation';
 
 const Header = () => {
     const [navStatus, setnavStatus] = useState(false);
-    const { status, toogleStatus } = useCartVisibilityStatus();
     const { cart } = useCart();
-
-    useEffect(() => {
-        console.log(`Status : ${status}`);
-    }, [status]);
+    const {wishlist} = useWishlist();
 
     const pathname = usePathname();
 
@@ -92,7 +88,7 @@ const Header = () => {
                     <div className='relative w-5 h-5 sm:w-5 sm:h-5 md:w-5 md:h-5'>
                         <Image src="/icons/heart.svg" alt="Liked items" fill className="object-contain" />
                         <span className='absolute bg-red-600 text-xs right-[-8px] bottom-[10px] rounded-full w-[18px] h-[18px] flex justify-center items-center text-white'>
-                            1
+                            {wishlist.length}
                         </span>
                     </div>
                     <div className='relative w-5 h-5 sm:w-5 sm:h-5 md:w-5 md:h-5'>
@@ -102,7 +98,7 @@ const Header = () => {
                         </span>
                     </div>
                     <div className='relative w-5 h-5 sm:w-5 sm:h-5 md:w-5 md:h-5'>
-                        <Image src="/icons/cart.svg" alt="cart" fill className="object-contain" onClick={toogleStatus} />
+                        <Image src="/icons/cart.svg" alt="cart" fill className="object-contain" />
                         <span className='absolute bg-red-600 text-xs right-[-8px] bottom-[10px] rounded-full w-[18px] h-[18px] flex justify-center items-center text-white'>
                             {cart.length}
                         </span>

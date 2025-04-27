@@ -9,7 +9,7 @@ import Section_7 from '@/components/Section-7/Section-7';
 import Section_8 from '@/components/Section-8/Section-8';
 import Section_9 from '@/components/Section-9/Section-9';
 import Section_10 from '@/components/Section-10/Section-10';
-import CartSection from '@/components/Cart/CartSection';
+// import CartSection from '@/components/Cart/CartSection';
 
 
 const Home = () => {
@@ -17,7 +17,7 @@ const Home = () => {
     <main>
       <article>
         <div className="flex flex-col flex-wrap gap-[100px] pt-[180px] md:pt-[150px]">
-        <CartSection/>
+        {/* <CartSection/> */}
         <Hero />
         <Section_2 />
         <Section_3 />

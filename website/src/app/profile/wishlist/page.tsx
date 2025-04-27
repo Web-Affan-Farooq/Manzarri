@@ -1,12 +1,12 @@
 import React from 'react';
 import UserProfileHeader from '@/components/Header/UserProfiles/Header';
-import ProfileSection from './CartSection';
+import WishlistSection from '../../../components/Profile-Sections/WishlistSection';
 
 const CartPage= () => {
   return (
     <main className="flex min-h-screen">
       <UserProfileHeader />
-      <ProfileSection />
+      <WishlistSection/>
     </main>
   );
 };

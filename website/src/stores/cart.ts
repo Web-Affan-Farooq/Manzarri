@@ -17,7 +17,7 @@ interface CartState {
 }
 
 export const useCart = create<CartState>()(
-    persist(
+    // persist(
         (set) => (
             {
                 cart: [
@@ -50,9 +50,9 @@ export const useCart = create<CartState>()(
                     })),
 
             }
-        ),
-        {
-            name: "manzarri-cart",
-        }
-    )
+        )
+        // {
+            // name: "manzarri-cart",
+        // }
+    // )
 );
