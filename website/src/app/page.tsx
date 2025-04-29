@@ -11,8 +11,7 @@ import Section_9 from '@/components/Section-9/Section-9';
 import Section_10 from '@/components/Section-10/Section-10';
 // import CartSection from '@/components/Cart/CartSection';
 
-
-const Home = () => {
+const Home = async () => {
   return (
     <main>
       <article>

@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 import { ZodError } from 'zod';
@@ -12,91 +13,75 @@ const Section_signup = () => {
     });
 
     const handleSignup = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        const data = {
-            name: userData.name,
-            email: userData.email,
-            password: userData.password,
-        }
-
+        e.preventDefault();
         try {
-            SignupSchema.parse(data);
-            // toast.success("No errors found ")
-  
-            //_____ redirect logic ...
+            SignupSchema.parse(userData);
+            // redirect or further logic...
         } catch (err) {
             if (err instanceof ZodError) {
-                toast.error(err.errors[0].message)
+                toast.error(err.errors[0].message);
             }
         }
-    }
+    };
 
     return (
-        <section className="min-h-screen flex items-center justify-center bg-[var(--faun-dark)] py-16 px-4">
-            <div className="w-full max-w-md bg-[var(--faun-light)] rounded-xl shadow-2xl p-8 space-y-6">
-                <h1 className="text-[36px] font-bold font-rye text-white text-center">
-                    Create Your Account
-                </h1>
+        <section className="min-h-screen flex items-center justify-center bg-[var(--faun-dark)] px-4 py-20">
+            <div className="w-full max-w-md bg-[var(--faun-light)] rounded-2xl shadow-lg p-8 space-y-6">
+                <h1 className="text-3xl font-semibold text-white text-center">Sign Up</h1>
 
-                <form action="" className="space-y-5" onSubmit={handleSignup}>
-                    <div className="flex flex-col">
-                        <label htmlFor="username" className="text-white font-lato mb-2">
-                            Enter your username
+                <form className="space-y-5" onSubmit={handleSignup}>
+                    <div>
+                        <label htmlFor="username" className="block text-sm font-medium text-white mb-1">
+                            Username
                         </label>
                         <input
                             type="text"
-                            name="username"
                             id="username"
-                            placeholder="Username"
-                            className="bg-white px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
-                            onChange={(e) => {
-                                setuserData({ ...userData, name: e.target.value })
-                            }}
+                            placeholder="Your username"
+                            onChange={(e) => setuserData({ ...userData, name: e.target.value })}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-white focus:outline-none"
                         />
                     </div>
 
-                    <div className="flex flex-col">
-                        <label htmlFor="email" className="text-white font-lato mb-2">
-                            Enter your email
+                    <div>
+                        <label htmlFor="email" className="block text-sm font-medium text-white mb-1">
+                            Email
                         </label>
                         <input
                             type="email"
-                            name="email"
                             id="email"
-                            placeholder="Email"
-                            className="bg-white px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
-                            onChange={(e) => {
-                                setuserData({ ...userData, email: e.target.value })
-                            }}
+                            placeholder="you@example.com"
+                            onChange={(e) => setuserData({ ...userData, email: e.target.value })}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-white focus:outline-none"
                         />
                     </div>
 
-                    <div className="flex flex-col">
-                        <label htmlFor="password" className="text-white font-lato mb-2">
-                            Create a strong password
+                    <div>
+                        <label htmlFor="password" className="block text-sm font-medium text-white mb-1">
+                            Password
                         </label>
                         <input
                             type="password"
-                            name="password"
                             id="password"
-                            placeholder="Password"
-                            className="bg-white px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
-                            onChange={(e) => {
-                                setuserData({ ...userData, password: e.target.value })
-                            }}
+                            placeholder="********"
+                            onChange={(e) => setuserData({ ...userData, password: e.target.value })}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-white focus:outline-none"
                         />
                     </div>
 
                     <button
                         type="submit"
-                        className="w-full bg-white text-[var(--faun-dark)] font-rye py-2 rounded-md shadow-md hover:bg-gray-100 transition"
+                        className="w-full bg-white text-[var(--faun-dark)] font-medium py-2 rounded-md shadow-md hover:bg-gray-100 transition"
                     >
                         Sign Up
                     </button>
                 </form>
 
-                <p className="text-center text-sm text-white font-lato">
-                    Already have an account? <a href="/login" className="text-faun-dark">Login To your account</a>
+                <p className="text-center text-sm text-white">
+                    Already have an account?{" "}
+                    <a href="/login" className="underline hover:text-gray-200">
+                        Log in
+                    </a>
                 </p>
             </div>
         </section>

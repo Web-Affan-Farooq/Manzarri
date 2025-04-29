@@ -44,7 +44,7 @@ const WishlistSection = () => {
   const { wishlist } = useWishlist();
 
   return (
-    <section className="flex-1 p-8 bg-gray-100 min-h-screen">
+    <section className="h-[100vh] overflow-y-scroll flex-1 p-8 bg-gray-100 min-h-screen">
       <h1 className="text-3xl font-bold mb-8 text-gray-800">Your Wishlist</h1>
 
       {wishlist.length === 0 ? (
@@ -64,6 +64,10 @@ const WishlistSection = () => {
           ))}
         </div>
       )}
+
+      <div className='border-2 border-solid border-black'>
+
+      </div>
     </section>
   );
 };
