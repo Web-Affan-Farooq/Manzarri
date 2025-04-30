@@ -6,19 +6,24 @@ export default interface Product {
     discountPercentage: number;
     applicableOffers: string[]
     stockKeepingUnit: string;
-    productImages: {
-        asset: {
-            url: string;
-            _id: string;
-        }
-    },
     stockQuantity: number;
     productMaterial: string;
     productWeight: number;
     productDimensions: string;
-    productColors: string[]
     category: string;
     ocassions: string[];
     tags: string[];
     ratings: number;
+    colors: [
+        {
+            color: string;
+            images: [
+                {
+                    asset: {
+                        url: string;
+                    }
+                }
+            ]
+        }
+    ]
 }

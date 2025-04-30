@@ -39,13 +39,6 @@ export default {
             title: "Enter SKU.id"
         },
         {
-            name: "productImages",
-            title: "Product Images",
-            type: "array",
-            of: [{ type: "image", options: { hotspot: true } }],
-            validation: (Rule: any) => Rule.required().min(1),
-        },
-        {
             name: "stockQuantity",
             type: "number",
             title: "Stock quantity"
@@ -65,13 +58,6 @@ export default {
             name: "productDimensions",
             type: "string",
             title: "Product dimensions"
-        },
-        {
-            name: "productColors",
-            type: "array",
-            of: [{ type: "string" }],
-            title: "Colors available",
-            description:"Must be corresponding to images"
         },
         {
             name: 'category',
@@ -107,6 +93,37 @@ export default {
             title: "Enter ratings",
             description: "Enter ratings between 1 to 5",
         },
+
+        {
+            name: 'colors',
+            title: 'Color Variants',
+            type: 'array',
+            of: [
+              {
+                type: 'object',
+                title: 'Color Variant',
+                fields: [
+                  {
+                    name: 'color',
+                    title: 'Color (hex or name)',
+                    type: 'string',
+                    description: 'e.g. "#d4af37" or "gold"',
+                    validation: (Rule:any) => Rule.required(),
+                  },
+                  {
+                    name: 'images',
+                    title: 'Images for this color',
+                    type: 'array',
+                    of: [{ type: 'image' }],
+                    options: {
+                      layout: 'grid',
+                    },
+                    validation: (Rule:any) => Rule.required().min(1),
+                  },
+                ],
+              },
+            ],
+          }
 
         // {
         //     name: "ratingsInCount",
