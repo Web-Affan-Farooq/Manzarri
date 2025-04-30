@@ -16,7 +16,8 @@ const Card = ({ id, image, name, price }: CartItem) => {
   const { deleteItem } = useCart();
 
   return (
-    <div className="bg-white shadow-md rounded-lg overflow-hidden flex flex-col w-[180px] hover:shadow-lg transition-shadow duration-300">
+    <div className="bg-white shadow-md rounded-lg overflow-hidden flex flex-col w-[180px] hover:shadow-lg transition-shadow duration-300
+    max-sm:w-[160px]">
       <Image
         src={image}
         alt={name}
@@ -73,7 +74,7 @@ const CartSection = () => {
     <section className="h-[100vh] overflow-y-scroll flex-1 p-8 bg-gray-100 min-h-screen">
       <h1 className="text-3xl font-bold mb-8 text-gray-800">Your Cart</h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="flex flex-row flex-wrap justify-start items-center gap-6 max-[500px]:grid max-[500px]:grid-cols-2 ">
         {cart.map((cartitem:CartItem, idx: number) => {
           return <Card image={"/images/earrings/1.jpeg"} id={cartitem.id} price={cartitem.price} name={cartitem.name} key={idx} />
         })}

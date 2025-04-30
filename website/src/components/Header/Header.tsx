@@ -14,7 +14,7 @@ const Header = () => {
 
     const pathname = usePathname();
 
-    const landingpages = ["/"];
+    const landingpages = ["/","/marketplace"];
 
     if (landingpages.includes(pathname)) {
         return (
