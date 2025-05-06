@@ -50,6 +50,12 @@ export default {
             title: "Material"
         },
         {
+            name: "availableMaterials",
+            type: "array",
+            of: [{ type: "string" }],
+            title: "Available in"
+        },
+        {
             name: "productWeight",
             type: "number",
             title: "Weightage (in grams)"
