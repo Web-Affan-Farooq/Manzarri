@@ -10,13 +10,15 @@ import { usePathname } from 'next/navigation';
 const Header = () => {
     const [navStatus, setnavStatus] = useState(false);
     const { cart } = useCart();
-    const {wishlist} = useWishlist();
+    const { wishlist } = useWishlist();
 
     const pathname = usePathname();
 
-    const landingpages = ["/","/marketplace"];
-
-    if (landingpages.includes(pathname)) {
+    const dashboardPages = ["/profile", "/profile/cart", "/profile/wishlist","/profile/settings"];
+    
+    if (dashboardPages.includes(pathname)) {
+        return <></>
+    } else {
         return (
             <header className='z-10 w-full fixed text-white bg-[var(--faun-light)] 
             2xl:px-[60px] 2xl:py-[20px]
@@ -106,11 +108,6 @@ const Header = () => {
                 </div>
 
             </header>
-        )
-    }
-    else {
-        return (
-            <></>
         )
     }
 }
