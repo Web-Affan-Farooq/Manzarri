@@ -1,36 +1,44 @@
-import z from "zod";
+import { z } from "zod";
 
-const SignupSchema = z.object({
-    name: z.string({ message: "Username is required" }).min(10, "Name must contain minimum 10 characters").max(30, "Name can maximum contains 30 characters"),
+// Define a TypeScript type for signup data (optional but recommended)
+export type SignupData = z.infer<typeof SignupSchema>;
+
+const SignupSchema = z
+  .object({
+    name: z
+      .string({ message: "Username is required" })
+      .min(10, { message: "Name must contain minimum 10 characters" })
+      .max(30, { message: "Name can contain a maximum of 30 characters" }),
+
     email: z
-        .string({ message: "Email with correct format is required" })
-        .email({ message: "Invalid email address" }),
+      .string({ message: "Email with correct format is required" })
+      .email({ message: "Invalid email address" }),
 
     password: z
-        .string({ message: "Please Enter password" })
-        .min(8, "Password must be at least 8 characters long")
-        .max(20, "Password must be shorter than 20 characters")
+      .string({ message: "Please enter password" })
+      .min(8, { message: "Password must be at least 8 characters long" })
+      .max(20, { message: "Password must be shorter than 20 characters" })
 
-        // _____ Validate lowercase characters 
-        .refine((val) => /[a-z]/.test(val), {
-            message: "Password must include lowercase characters"
-        })
+      // Validate lowercase characters
+      .refine((val) => /[a-z]/.test(val), {
+        message: "Password must include lowercase characters",
+      })
 
-        // _____ Validate uppercase characters 
-        .refine((val) => /[A-Z]/.test(val), {
-            message: "Password must include lowercase characters"
-        })
+      // Validate uppercase characters
+      .refine((val) => /[A-Z]/.test(val), {
+        message: "Password must include uppercase characters",
+      })
 
-        // _____ Validate numbers characters 
-        .refine((val) => /\d/.test(val), {
-            message: "Password must include digits"
-        })
+      // Validate numeric digits
+      .refine((val) => /\d/.test(val), {
+        message: "Password must include digits",
+      })
 
-        // _____ Validate lowercase characters 
-        .refine((val) => /[@$!%*?&]/.test(val), {
-            message: "Password must include special characters"
-        })
-
-}).strict();
+      // Validate special characters
+      .refine((val) => /[@$!%*?&]/.test(val), {
+        message: "Password must include special characters",
+      }),
+  })
+  .strict();
 
 export default SignupSchema;
