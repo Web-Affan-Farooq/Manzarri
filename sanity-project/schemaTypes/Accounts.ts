@@ -14,9 +14,9 @@ export default {
             title:"User password"
         },
         {
-            name:"userToken",
+            name:"userEmail",
             type:"string",
-            title:"User token"
+            title:"User email"
         },
     ]
 }

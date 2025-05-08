@@ -1,0 +1,4 @@
+requests
+fastapi[standard]
+pydantic
+dotenv-python
