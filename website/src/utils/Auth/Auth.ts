@@ -1,33 +1,114 @@
 import sanityClient from "@/lib/sanity";
-import LoginSchema from "@/validations/LoginSchema";
 import SignupSchema from "@/validations/SignupSchema";
-import bcrypt from "bcryptjs";
 import { cookies } from "next/headers";
+/* Importing extra packages  */
+import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
+import "dotenv/config";
+import LoginSchema from "@/validations/LoginSchema";
 
 interface Authentication {
     name?: string;
     email: string;
     password: string;
+    secret?: string | undefined;
+    VerifyUser(): Promise<{ message: string; success: boolean } | {
+        success: boolean, user: {
+            userName: string;
+            userPassword: string;
+            userEmail: string;
+            _id: string;
+        }
+    }>;
     Signup(): Promise<{ message?: string; success: boolean }>;
+
+    Login(): Promise<
+        { message?: string; success: boolean } |
+        {
+            message: string;
+            success: true;
+            user: {
+                _id: string;
+                userName: string;
+                userPassword: string;
+                userEmail: string;
+            };
+        }
+    >;
+
 }
 
 class AUTH implements Authentication {
     name?: string;
     email: string;
     password: string;
+    secret?: string | undefined;
 
     constructor(email: string, password: string, name?: string) {
         this.name = name;
         this.email = email;
         this.password = password;
+        this.secret = process.env.jWT_SECRET_TOKEN;
+    }
+    VerifyUser = async () => {
+        const q = `*[_type == "Accounts" && userPassword == "${this.password}" &&  userEmail == "${this.email}"] {
+        _id,
+        userEmail,
+        userPassword,
+        userName,
+        }`;
+        const response = await sanityClient.fetch(q);
+
+        if (response.length === 0) {
+            return { success: false, message: "User not found" };
+        }
+
+        // user found
+        const user = response[0];
+        return { success: true, user: user.user, };
+    }
+
+    /* Async function for verifying token */
+    // async VerifyToken() {
+    //     const clientCookies = await cookies();
+    //     const token = clientCookies.get("manzarri-authorization-token")?.value;
+    //     if (token && this.secret) {
+    //         const result = jwt.verify(token, this.secret);
+    //         console.log("line 54 (Auth.ts) .  Extracted result from token : ", result);
+    //     }
+    // }
+
+    /* Async function for generating authorization token */
+    async GenerateToken() {
+        const clientCookies = await cookies();
+        if (this.secret) {
+            const token = jwt.sign({ email: this.email, }, this.secret, { expiresIn: '1h' });
+            clientCookies.set("manzarri-authorization-token", token, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === "production",
+                path: "/",
+                expires: 180,
+                sameSite: "lax"
+            });
+            return {
+                message: "Successfully authorized",
+                success: true,
+            }
+        }
+        else {
+            return {
+                message: "Missing enviroment variable JWT_SECRET_TOKEN",
+                success: false,
+            }
+        }
     }
 
     /* ______ Signup method ... */
     async Signup() {
         /* ____Function for hashing password ... */
         const HashPassword = async () => {
-                const hashPassword = bcrypt.hash(this.password, 10);
-                return hashPassword;
+            const hashPassword = bcrypt.hash(this.password, 10);
+            return hashPassword;
         }
 
         /* Function for sanitization of data ... */
@@ -60,7 +141,7 @@ class AUTH implements Authentication {
             const hashed = await HashPassword();
 
             /* replacing password with hashed password */
-            [name,email,password] = [name, email, hashed]
+            [name, email, password] = [name, email, hashed]
 
             const user = {
                 _type: "Accounts",
@@ -103,8 +184,59 @@ class AUTH implements Authentication {
         }
 
     }
-    Login() {
 
+    Login = async () => {
+
+        /* Function for sanitization of data ... */
+        const sanitize = async (data: { email: string; password: string }) => {
+            const result = LoginSchema.safeParse(data);
+            if (result.success) {
+                return { success: true };
+            } else {
+                // console.log("All errors : ", result.error.errors);     
+                const ErrorMessage = result.error.errors[0].message;
+                return {
+                    message: result.error.errors[0]?.message || "Validation error",
+                    success: false,
+                };
+                /* no return on else case */
+            }
+        };
+
+        /* sanitize data and check for errors */
+        const data = await sanitize({ email: this.email, password: this.password });
+
+        if (!data.success && data.message) {
+            return {
+                message: data.message,
+                success: false,
+            }
+        }
+
+        /* Find user from database  */
+        const user = await this.VerifyUser();
+        if (!user.success) {
+            return {
+                message: user.message,
+                success: false
+            }
+        }
+
+        /* Compare password */
+        const passwordMatched = await bcrypt.compare(this.password, user.user.userPassword);
+
+        if (!passwordMatched) {
+            return {
+                message: "Invalid password",
+                success: false,
+            }
+        }
+
+        return {
+            message: "Login successfull",
+            success: true,
+            user: user.user,
+        }
     }
 }
 export default AUTH
