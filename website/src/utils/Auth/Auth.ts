@@ -1,12 +1,14 @@
 import sanityClient from "@/lib/sanity";
 import SignupSchema from "@/validations/SignupSchema";
 import { cookies } from "next/headers";
-/* Importing extra packages  */
+
+/* ___Importing packages  ... */
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import "dotenv/config";
 import LoginSchema from "@/validations/LoginSchema";
 
+/* ___ Interface for auth class */
 interface Authentication {
     name?: string;
     email: string;
@@ -35,8 +37,11 @@ interface Authentication {
             };
         }
     >;
-
 }
+
+/* ____ Auth class 
+ -- contains nessessasy authentication functions for jwt token based authentication ...
+*/
 
 class AUTH implements Authentication {
     name?: string;
