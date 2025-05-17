@@ -1,24 +1,79 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { ZodError } from 'zod';
 import SignupSchema from '@/validations/SignupSchema';
 
 const Section_signup = () => {
+    /* ___ State for handling form data ... */
     const [userData, setuserData] = useState({
         name: "",
         email: "",
         password: "",
     });
 
+    /* ___ State for activate signup ... */
+    const [loading, setloading] = useState(false);
+
+    /* ___ State for activate error... */
+    const [error, seterror] = useState({
+        active: false,
+        message: ""
+    });
+
+    /* ___ UseEffect for running signup request ... */
+    useEffect(() => {
+        const SignupUser = async () => {
+            const signupData = {
+                username: userData.name,
+                email: userData.email,
+                password: userData.password
+            }
+
+            const response = await fetch("/api/signup-customer", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(signupData)
+            });
+            const data = await response.json();
+            if (!data.success) {
+                seterror({
+                    active: true,
+                    message: data.message
+                })
+            }
+            if (data.success) {
+                toast.success("Signup successfull !");
+            }
+
+        }
+        if (loading) {
+            SignupUser()
+            setloading(false)
+        }
+    }, [loading]);
+
+    /* ___ UseEffect handling error ... */
+    useEffect(() => {
+        if (error.active) {
+            toast.error(error.message);
+        }
+    }, [error]);
+
+    /* ___ Event listener on form ... */
     const handleSignup = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            SignupSchema.parse(userData);
-            // redirect or further logic...
+            //  ____ Parse the data then activate signup state ...
+            const signupData = SignupSchema.parse(userData);
+            setloading(true);
+
         } catch (err) {
             if (err instanceof ZodError) {
+                // ____ Show validation errors ...
                 toast.error(err.errors[0].message);
             }
         }

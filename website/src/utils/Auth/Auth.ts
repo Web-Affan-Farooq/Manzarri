@@ -22,7 +22,11 @@ interface Authentication {
             _id: string;
         }
     }>;
-    Signup(): Promise<{ message?: string; success: boolean }>;
+    Signup(): Promise<{ message?: string; success: boolean } | {
+        message?: string;
+        success: string;
+        autoLogin: true;
+    }>;
 
     Login(): Promise<
         { message?: string; success: boolean } |
@@ -56,7 +60,7 @@ class AUTH implements Authentication {
         this.secret = process.env.jWT_SECRET_TOKEN;
     }
     VerifyUser = async () => {
-        const q = `*[_type == "Accounts" && userPassword == "${this.password}" &&  userEmail == "${this.email}"] {
+        const q = `*[_type == "Accounts" && userEmail == "${this.email}"] {
         _id,
         userEmail,
         userPassword,
@@ -92,7 +96,7 @@ class AUTH implements Authentication {
                 httpOnly: true,
                 secure: process.env.NODE_ENV === "production",
                 path: "/",
-                expires: 180,
+                maxAge: 60 * 60 * 24 * 30,
                 sameSite: "lax"
             });
             return {
@@ -110,6 +114,16 @@ class AUTH implements Authentication {
 
     /* ______ Signup method ... */
     async Signup() {
+
+        /* ____ First verify user from database ... */
+        const userAlreadyExists = await this.VerifyUser();
+        if (userAlreadyExists.success) {
+            return {
+                message: "User already exists",
+                success: false,
+            }
+        }
+
         /* ____Function for hashing password ... */
         const HashPassword = async () => {
             const hashPassword = bcrypt.hash(this.password, 10);

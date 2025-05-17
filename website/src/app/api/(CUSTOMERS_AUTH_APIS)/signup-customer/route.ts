@@ -34,6 +34,6 @@ export const POST = async (req: NextRequest) => {
     else if (!setAuthorizationToken.success) {
         return NextResponse.json({message:setAuthorizationToken.message, success:setAuthorizationToken.success});
     }
-
+    
     return NextResponse.json({ success: SignupUser.success, message: SignupUser.message })
 }
