@@ -28,7 +28,8 @@ export const useCart = create<CartState>()(
                 ],
 
                 addItem: (item: CartItem) =>
-                    set((state: CartState) => ({
+                    set(
+                        (state: CartState) => ({
                         cart: [...state.cart, item],
                     })),
 
