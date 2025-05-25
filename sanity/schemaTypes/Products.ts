@@ -66,7 +66,7 @@ export default {
             title: "Product dimensions"
         },
         {
-            name: 'category',
+            name: 'jewelleryType',
             type: 'string',
             options: {
                 list: ['Earrings', 'Necklace', "Bracelet","Nose jewellery", "Hair jewellery"],
