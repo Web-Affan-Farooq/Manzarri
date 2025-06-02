@@ -7,8 +7,8 @@ export default defineConfig({
   name: 'default',
   title: 'manzarri',
 
-  projectId: import.meta.env.VITE_SANITY_PROJECT_PROJECT_ID ? import.meta.env.VITE_SANITY_PROJECT_PROJECT_ID : "",
-  dataset: import.meta.env.VITE_SANITY_PROJECT_SANITY_DATASET ? import.meta.env.VITE_SANITY_PROJECT_SANITY_DATASET : "",
+  projectId:  "fy8fosvw" ,
+  dataset: "production",
   plugins: [structureTool(), visionTool()],
 
   schema: {
