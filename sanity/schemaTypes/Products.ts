@@ -16,16 +16,10 @@ export default {
             title: "Enter product description",
         },
         {
-            name: "price",
-            type: "number",
-            title: "Product price",
-            description: "Product price in PKR",
-        },
-        {
             name: "discountPercentage",
             type: "number",
             title: "Enter discount percentage",
-            descritpion: "Eg. 15 for 15% off"
+            description: "Eg. 15 for 15% off"
         },
         {
             name: "applicableOffers",
@@ -39,37 +33,10 @@ export default {
             title: "Enter SKU.id"
         },
         {
-            name: "stockQuantity",
-            type: "number",
-            title: "Stock quantity"
-        },
-        {
-            name: "productMaterial",
-            type: "array",
-            of: [{ type: "string" }],
-            title: "Material"
-        },
-        {
-            name: "availableMaterials",
-            type: "array",
-            of: [{ type: "string" }],
-            title: "Available in"
-        },
-        {
-            name: "productWeight",
-            type: "number",
-            title: "Weightage (in grams)"
-        },
-        {
-            name: "productDimensions",
-            type: "string",
-            title: "Product dimensions"
-        },
-        {
             name: 'jewelleryType',
             type: 'string',
             options: {
-                list: ['Earrings', 'Necklace', "Bracelet","Nose jewellery", "Hair jewellery"],
+                list: ['Earrings', 'Necklace', "Bracelet", "Nose jewellery", "Hair jewellery"],
                 layout: 'radio',
             },
         },
@@ -81,17 +48,17 @@ export default {
                 list: [
                     { title: "Weddings", value: "Weddings" },
                     { title: "Party and gatherings", value: "Party and gatherings" },
-                    {title:"Daily wear", value:"Daily wear"}
+                    { title: "Daily wear", value: "Daily wear" }
                 ],
                 layout: "grid",
             },
             title: "Select for ocassions",
         },
         {
-            name:"tags",
-            type:"array",
-            of:[{type:"string"}],
-            title:"Tags"
+            name: "tags",
+            type: "array",
+            of: [{ type: "string" }],
+            title: "Tags"
         },
         {
             name: "ratings",
@@ -99,44 +66,55 @@ export default {
             title: "Enter ratings",
             description: "Enter ratings between 1 to 5",
         },
+        {
+            name: "price",
+            type: "number",
+            title: "Price in PKR",
+        },
+        {
+            name: "stockQuantity",
+            type: "number",
+            title: "Stock quantity",
+        },
+        {
+            name: "weightInGrams",
+            type: "number",
+            title: "Weight in grams",
+        },
+        {
+            name: "dimensions",
+            type: "string",
+            title: "dimensions"
+        },
+        {
+            name: "material",
+            type: "string",
+            title: "material",
+        },
 
         {
-            name: 'colors',
-            title: 'Color Variants',
-            type: 'array',
-            of: [
-              {
-                type: 'object',
-                title: 'Color Variant',
-                fields: [
-                  {
-                    name: 'color',
-                    title: 'Color (hex or name)',
-                    type: 'string',
-                    description: 'e.g. "#d4af37" or "gold"',
-                    validation: (Rule:any) => Rule.required(),
-                  },
-                  {
-                    name: 'images',
-                    title: 'Images for this color',
-                    type: 'array',
-                    of: [{ type: 'image' }],
-                    options: {
-                      layout: 'grid',
-                    },
-                    validation: (Rule:any) => Rule.required().min(1),
-                  },
+            name: "availableSizes",
+            type: "array",
+            of: [{ type: "string" }],
+            options: {
+                list: [
+                    { title: "Small", value: "sm" },
+                    { title: "Medium", value: "md" },
+                    { title: "Large", value: "lg" }
                 ],
-              },
-            ],
-          }
-
-        // {
-        //     name: "ratingsInCount",
-        //     type: "number",
-        //     title: "Enter ratings count",
-        //     description: "How many people had fully rated your products",
-        // },
-
+                layout: "grid",
+            },
+            title: "Available sizes",
+        },
+        {
+            name: 'images',
+            title: 'Product images',
+            type: 'array',
+            of: [{ type: 'image' }],
+            options: {
+                layout: 'grid',
+            },
+            validation: (Rule: any) => Rule.required().min(1),
+        },
     ]
 }
