@@ -9,10 +9,10 @@ import { useRouter } from 'next/navigation';
 const AdminHeader = () => {
   const menuItems = [
   { href: "/Admin/", label: "Dashboard" },
-  { href: "/Admin/workers", label: "Workers" },
   { href: "/Admin/inventory", label: "Inventory" },
   { href: "/Admin/orders", label: "Orders" },
   { href: "/Admin/accounts", label: "Accounts" },
+  { href: "/Admin/settings", label: "Settings" },
 ];
 
   /* _____ router instance ... */
@@ -53,7 +53,7 @@ const AdminHeader = () => {
       logout();
       setlogoutStatus(false);
     }
-  }, [logoutStatus]);
+  }, [logoutStatus,router]);
 
   /* _____ useEffect checking for errors and show fallback ... */
   useEffect(() => {
@@ -75,7 +75,7 @@ const AdminHeader = () => {
                 <Link
                   key={idx}
                   href={item.href}
-                  className="hover:text-white w-full transition-all duration-150 ease-in-out cursor-pointer hover:bg-[var(--faun-light)] py-2 px-3 rounded-md"
+                  className="hover:text-white w-full transition-all duration-150 ease-in-out cursor-pointer hover:bg-gray-400 py-2 px-3 rounded-md"
                 >
                   {item.label}
                 </Link>
@@ -96,7 +96,7 @@ const AdminHeader = () => {
 
       {/* Toggle Button */}
       <button
-        className="md:hidden fixed top-4 right-4 z-30 text-white bg-gray-900 rounded-full p-3 focus:outline-none focus:ring-2 focus:ring-white"
+        className="md:hidden fixed top-4 right-4 z-30 text-white bg-gray-900 rounded-full p-3"
         onClick={() => setNavOpen(prev => !prev)}
         aria-label={navOpen ? "Close menu" : "Open menu"}
       >

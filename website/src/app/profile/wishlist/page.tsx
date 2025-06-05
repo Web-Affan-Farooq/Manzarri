@@ -1,11 +1,11 @@
 import React from 'react';
-import UserProfileHeader from '@/components/Header/UserProfiles/Header';
-import WishlistSection from './WishlistSection';
+import {ProfileSidebar} from "@/components/layout";
+import { WishlistSection } from '@/components/pages/Profile';
 
 const CartPage= () => {
   return (
     <main className='flex min-h-screen'>
-      <UserProfileHeader />
+      <ProfileSidebar />
       <WishlistSection/>
     </main>
   );

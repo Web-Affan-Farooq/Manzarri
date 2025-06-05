@@ -5,12 +5,10 @@ import { usePathname } from 'next/navigation';
 
 const Footer = () => {
     const pathname = usePathname();
-/*
-i hav esuccessfully setup the login api and it's setting the token on client cookies . Tell me how to implement that functionality that when the user visits website it automatically logged in when there is token and how 
-*/
-    const dashboardPages = ["/profile", "/profile/cart", "/profile/wishlist","/profile/settings"];
 
-    if(dashboardPages.includes(pathname)) {
+    const dashboardPages = ["/profile", "/profile/cart", "/profile/wishlist", "/profile/settings", "/Admin", "/Admin/inventory", "/Admin/orders", "/Admin/accounts", "/Admin/settings"];
+
+    if (dashboardPages.includes(pathname)) {
         return <></>
     }
     return (

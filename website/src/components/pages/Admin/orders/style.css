@@ -1,0 +1,10 @@
+.scroll-container::-webkit-scrollbar {
+    height: 10px;
+}
+.scroll-container::-webkit-scrollbar-track {
+    background-color: black;
+}
+.scroll-container::-webkit-scrollbar-thumb {
+    background-color: #1e2939;
+    border-radius: 10px;
+}

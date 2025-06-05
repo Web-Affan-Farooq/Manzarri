@@ -1,50 +1,36 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-
-interface WishlistItem {
-    id: number;    
-    image:string;
-    name: string;
-    price: number;
-}
+import { Product } from "@/@types/product";
 
 interface WishlistState {
-    wishlist: WishlistItem[];
-    addItem: (item: WishlistItem) => void;
-    deleteItem: (item: WishlistItem) => void;
-    clearWishlist: () => void;
+  wishlist: Product[];
+  addToWishlist: (item: Product) => void;
+  removeFromWishlist: (id: string) => void;
+  clearWishlist: () => void;
 }
 
 export const useWishlist = create<WishlistState>()(
-    // persist(
-        (set) => (
-            {
-                wishlist: [
-                    { id: 1, name: "Elegant Earrings", price: 25, image:"/images/earrings/1.jpeg" },
-                    { id: 2, name: "Stylish Ring", price: 45, image:"/images/earrings/1.jpeg" },
-                    { id: 3, name: "Gold Necklace dfjkdljfklsdjflkjdkfjsdkfj", price: 80 , image:"/images/earrings/1.jpeg"},
-                    { id: 4, name: "Gold Necklace", price: 80 , image:"/images/earrings/1.jpeg"},
-                ],
+  persist(
+    (set, get) => ({
+      wishlist: [],
+      
+      addToWishlist: (item: Product) => {
+        const existingItem = get().wishlist.find((i) => i._id === item._id);
+        if (existingItem) return;
+        set((state) => ({
+          wishlist: [...state.wishlist, item],
+        }));
+      },
 
-                addItem: (item: WishlistItem) =>
-                    set((state: WishlistState) => ({
-                        wishlist: [...state.wishlist, item],
-                    })),
+      removeFromWishlist: (id: string) =>
+        set((state) => ({
+          wishlist: state.wishlist.filter((wishlistItem) => wishlistItem._id !== id),
+        })),
 
-                deleteItem: (item) =>
-                    set((state) => ({
-                        wishlist: state.wishlist.filter((wishlistitem) => wishlistitem.id !== item.id),
-                    })),
-
-                clearWishlist: () =>
-                    set(() => ({
-                        wishlist: [],
-                    })),
-
-            }
-        )
-    //     {
-    //         name: "manzarri-wishlist",
-    //     }
-    // )
+      clearWishlist: () => set({ wishlist: [] }),
+    }),
+    {
+      name: "manzarri-wishlist", // key used in localStorage
+    }
+  )
 );

@@ -6,7 +6,7 @@ import { useCart } from '@/stores/cart';
 import { useWishlist } from '@/stores/wishlist';
 import { usePathname } from 'next/navigation';
 
-import {Heart, Cart ,Profile} from "@/components/icons";
+import {Heart, ShoppingBag ,Profile} from "@/components/icons";
 
 const Header = () => {
     const [navStatus, setnavStatus] = useState(false);
@@ -15,7 +15,7 @@ const Header = () => {
 
     const pathname = usePathname();
 
-    const dashboardPages = ["/Admin","/Admin/orders", "/Admin/inventory","/Admin/accounts","/Admin/workers","/profile", "/profile/cart", "/profile/wishlist","/profile/settings"];
+    const dashboardPages = ["/Admin","/Admin/orders", "/Admin/inventory","/Admin/accounts","/Admin/settings","/Admin/workers","/profile", "/profile/cart", "/profile/wishlist","/profile/settings"];
     
     if (dashboardPages.includes(pathname)) {
         return <></>
@@ -101,7 +101,7 @@ const Header = () => {
                         </span>
                     </Link>
                     <Link href={"/profile/cart"} className='relative w-5 h-5 sm:w-5 sm:h-5 md:w-5 md:h-5'>
-                        <Cart className="object-contain" />
+                        <ShoppingBag className="object-contain" />
                         <span className='absolute bg-red-600 text-xs right-[-8px] bottom-[10px] rounded-full w-[18px] h-[18px] flex justify-center items-center text-white'>
                             {cart.length}
                         </span>

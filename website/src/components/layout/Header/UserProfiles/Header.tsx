@@ -10,7 +10,7 @@ const menuItems = [
   { href: "/profile/cart", label: "🛒 Cart" },
   { href: "/profile/wishlist", label: "❤️ Wishlist" },
   { href: "/profile", label: "📈 Your Activity" },
-  { href: "/profile", label: "⚙️ Settings" },
+  { href: "/profile/settings", label: "⚙️ Settings" },
   { href: "/marketplace", label: "⚙️ Marketplace" },
 ];
 
@@ -31,29 +31,16 @@ const UserProfileHeader = () => {
   });
 
   /* _____ useEffect for Logout ... */
-  useEffect(() => {
-    const logout = async () => {
-      const response = await axios.get("/api/logout");
-      const data = await response.data;
-      if (!data.success) {
-        seterror({
-          active: true,
-          message: data.message,
-        });
-      }
-      /* _____ Show success fallback ... */
-      toast.success(data.message);
-      /* _____ redirect user... */
-      router.push("/");
-    }
+  // useEffect(() => {
 
-    /* _____ Only run functions when state is true... */
-    if (logoutStatus) {
-      /* _____ Run the logout and then switch the logoutstatus ... */
-      logout();
-      setlogoutStatus(false);
-    }
-  }, [logoutStatus]);
+
+  //   /* _____ Only run functions when state is true... */
+  //   if (logoutStatus) {
+  //     /* _____ Run the logout and then switch the logoutstatus ... */
+  //     logout();
+  //     setlogoutStatus(false);
+  //   }
+  // }, [logoutStatus,router]);
 
   /* _____ useEffect checking for errors and show fallback ... */
   useEffect(() => {
@@ -62,6 +49,21 @@ const UserProfileHeader = () => {
       seterror({ ...error, active: false });
     }
   }, [error]);
+
+  const handleLogout = async () => {
+    const response = await axios.get("/api/logout");
+    const data = await response.data;
+    if (!data.success) {
+      seterror({
+        active: true,
+        message: data.message,
+      });
+    }
+    /* _____ Show success fallback ... */
+    toast.success(data.message);
+    /* _____ redirect user... */
+    router.push("/");
+  }
 
   return (
     <div className="relative flex">
@@ -85,9 +87,7 @@ const UserProfileHeader = () => {
           <button
             className="w-full text-left hover:text-white transition-all duration-150 ease-in-out cursor-pointer hover:bg-[var(--faun-light)] py-2 px-3 rounded-md"
             aria-label="Logout"
-            onClick={() => {
-              setlogoutStatus(true);
-            }}
+            onClick={handleLogout}
           >
             Logout &nbsp; <i className="fa-solid fa-right-from-bracket"></i>
           </button>

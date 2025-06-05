@@ -3,7 +3,7 @@ export interface Product {
   productName: string;
   productDescription: PortableTextBlock[]; // See below for PortableTextBlock type
   discountPercentage: number;
-  applicableOffers: string | null;
+  applicableOffers: string []| null;
   stockKeepingUnit: string;
   jewelleryType: string;
   ocassions: string[];
@@ -14,6 +14,7 @@ export interface Product {
   weightInGrams: number;
   dimensions: string;
   material: string;
+  availableSizes:string[];
   images: ProductImage[];
 }
 
@@ -32,3 +33,18 @@ export interface PortableTextBlock {
     text: string;
   }[];
 }
+/*
+Package {
+productId:string;
+productName:string;
+productSKU:string;
+size:string;
+}
+
+order {
+userId:string;
+weightageInGrams:number;
+amountPayable:number;
+packages: Packages[]
+}
+*/

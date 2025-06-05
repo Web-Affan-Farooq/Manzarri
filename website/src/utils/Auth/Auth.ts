@@ -1,70 +1,52 @@
-import sanityClient from "@/lib/sanity";
-import SignupSchema from "@/validations/SignupSchema";
+/* _____ Utilities ... */
 import { cookies } from "next/headers";
+import GenerateString from "../Token/Generatetoken";
 
-/* ___Importing packages  ... */
-import jwt from "jsonwebtoken";
+/* _____ library functions */
 import bcrypt from "bcryptjs";
 import "dotenv/config";
+
+/* _____ library functions */
+import sanityClient from "@/lib/sanity";
+
+/* _____ Validation schemas ... */
+import SignupSchema from "@/validations/SignupSchema";
 import LoginSchema from "@/validations/LoginSchema";
 
-/* ___ Interface for auth class */
-interface Authentication {
-    name?: string;
-    email: string;
-    password: string;
-    secret?: string | undefined;
-    VerifyUser(): Promise<{ message: string; success: boolean } | {
-        success: boolean, user: {
-            userName: string;
-            userPassword: string;
-            userEmail: string;
-            _id: string;
-        }
-    }>;
-    Signup(): Promise<{ message?: string; success: boolean } | {
-        message?: string;
-        success: string;
-        autoLogin: true;
-    }>;
+/* _____ Type of authentication system ... */
+import { Authentication } from "@/@types/auth";
 
-    Login(): Promise<
-        { message?: string; success: boolean } |
-        {
-            message: string;
-            success: true;
-            user: {
-                _id: string;
-                userName: string;
-                userPassword: string;
-                userEmail: string;
-            };
-        }
-    >;
-}
-
-/* ____ Auth class 
+/* _____ Auth class 
  -- contains nessessasy authentication functions for jwt token based authentication ...
 */
 
+
+/* ______ Interface for AUTH class ... */
 class AUTH implements Authentication {
     name?: string;
     email: string;
     password: string;
-    secret?: string | undefined;
-
+    private secret: string | undefined;
     constructor(email: string, password: string, name?: string) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.secret = process.env.jWT_SECRET_TOKEN;
     }
+
+    /*
+    -----------------  For verifying user from database ...
+    */
     VerifyUser = async () => {
+        if (!this.email) {
+            throw new Error("Email and password must be provided to use VerifyUser ")
+        }
         const q = `*[_type == "Accounts" && userEmail == "${this.email}"] {
         _id,
         userEmail,
         userPassword,
         userName,
+        isAdmin
         }`;
         const response = await sanityClient.fetch(q);
 
@@ -74,24 +56,16 @@ class AUTH implements Authentication {
 
         // user found
         const user = response[0];
-        return { success: true, user: user.user, };
+        // console.log(`user from database : `, user)
+
+        return { success: true, user: user, };
     }
 
-    /* Async function for verifying token */
-    // async VerifyToken() {
-    //     const clientCookies = await cookies();
-    //     const token = clientCookies.get("manzarri-authorization-token")?.value;
-    //     if (token && this.secret) {
-    //         const result = jwt.verify(token, this.secret);
-    //         console.log("line 54 (Auth.ts) .  Extracted result from token : ", result);
-    //     }
-    // }
-
     /* Async function for generating authorization token */
-    async GenerateToken() {
+    GenerateToken = async () => {
         const clientCookies = await cookies();
         if (this.secret) {
-            const token = jwt.sign({ email: this.email, }, this.secret, { expiresIn: '1h' });
+            const token = GenerateString(100);
             clientCookies.set("manzarri-authorization-token", token, {
                 httpOnly: true,
                 secure: process.env.NODE_ENV === "production",
@@ -112,11 +86,36 @@ class AUTH implements Authentication {
         }
     }
 
-    /* ______ Signup method ... */
-    async Signup() {
 
+    GenerateAdminToken = async () => {
+        const clientCookies = await cookies();
+        if (this.secret) {
+            const token = GenerateString(100);
+            clientCookies.set("manzarri-admin-authorization-token", token, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === "production",
+                path: "/",
+                maxAge: 60 * 60 * 24 * 30,
+                sameSite: "lax"
+            });
+            return {
+                message: "Successfully authorized",
+                success: true,
+            }
+        }
+        else {
+            return {
+                message: "Missing enviroment variable JWT_SECRET_TOKEN",
+                success: false,
+            }
+        }
+    }
+
+    /* ______ Signup method for user ... */
+    Signup = async () => {
         /* ____ First verify user from database ... */
         const userAlreadyExists = await this.VerifyUser();
+
         if (userAlreadyExists.success) {
             return {
                 message: "User already exists",
@@ -167,20 +166,32 @@ class AUTH implements Authentication {
                 userName: name,
                 userPassword: password,
                 userEmail: email,
+                isAdmin: false,
             }
-            // console.log("Final user : ", user);            
+            // console.log("Final user : ", user);
 
             try {
-                await sanityClient.create(user);
+                const data = await sanityClient.create(user);
+                // console.log("User after signup : ",data);
+
                 return {
                     success: true,
+                    redirect: "/profile",
                     message: "Account created successfully",
+                    user: {
+                        name: data.userName,
+                        email: data.userEmail,
+                        isAdmin: data.isAdmin,
+                        password: data.userPassword,
+                    }
                 }
             }
             catch (err) {
+                console.log("Error : ", err);
+
                 return {
                     success: false,
-                    message: "Error while processing signup ",
+                    message: "Error while processing user signup ",
                 }
             }
         }
@@ -204,6 +215,7 @@ class AUTH implements Authentication {
 
     }
 
+    /* _____ Login method ... */
     Login = async () => {
 
         /* Function for sanitization of data ... */
@@ -215,7 +227,7 @@ class AUTH implements Authentication {
                 // console.log("All errors : ", result.error.errors);     
                 const ErrorMessage = result.error.errors[0].message;
                 return {
-                    message: result.error.errors[0]?.message || "Validation error",
+                    message: ErrorMessage || "Validation error",
                     success: false,
                 };
                 /* no return on else case */
@@ -245,17 +257,72 @@ class AUTH implements Authentication {
         const passwordMatched = await bcrypt.compare(this.password, user.user.userPassword);
 
         if (!passwordMatched) {
+            console.log("__________Password not matched___________");
+            console.log("Actual Password in instance : ", this.password);
+            console.log("Hashed password from database : ", user.user.userPassword);
+            console.log("is admin : ", user.user.isAdmin);
+
             return {
                 message: "Invalid password",
                 success: false,
             }
         }
 
+        if (user.user.isAdmin) {
+            return {
+                message: "Welcome Admin",
+                success: true,
+                user: {
+                    user_id: user.user._id,
+                    email: user.user.userEmail,
+                    name: user.user.userName,
+                    isAdmin: true
+                    // Dont return the passwords to client
+                },
+            }
+        }
+
         return {
             message: "Login successfull",
             success: true,
-            user: user.user,
+            user: {
+                user_id: user.user._id,
+                email: user.user.userEmail,
+                name: user.user.userName,
+                isAdmin: false,
+                // Dont return the passwords to client
+            },
         }
     }
+
 }
-export default AUTH
+
+/* ______ Logout method ... */
+
+const Logout = async (): Promise<{
+    success: boolean;
+    redirect: string;
+    message: string;
+}> => {
+    const clientCookies = await cookies();
+    const userToken = clientCookies.get("manzarri-authorization-token")?.value;
+    const adminToken = clientCookies.get("manzarri-admin-authorization-token")?.value;
+    if (userToken) {
+        clientCookies.delete("manzarri-authorization-token");
+    }
+    else if (adminToken) {
+        /* Admin has two tokens ... one for viewing his profile as user and other for admin authorization */
+        clientCookies.delete("manzarri-authorization-token");
+        clientCookies.delete("manzarri-admin-authorization-token");
+    }
+
+    return {
+        success: true,
+        message: "Logout successfull",
+        redirect: "/marketplace"
+    }
+}
+export {
+    Logout,
+}
+export default AUTH;

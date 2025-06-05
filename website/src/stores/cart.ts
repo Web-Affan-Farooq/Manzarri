@@ -1,59 +1,68 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
-
-interface CartItem {
-    id: number;    
-    image:string;
-    name: string;
-    price: number;
-}
+import { devtools, persist } from "zustand/middleware";
+import { CartProduct } from "@/@types/cart";
 
 interface CartState {
-    cart: CartItem[];
-    addItem: (item: CartItem) => void;
-    updateItem: (item: CartItem) => void;
-    deleteItem: (item: CartItem) => void;
-    clearCart: () => void;
+  cart: CartProduct[]
+  addToCart: (item: CartProduct) => void;
+  updateQuantity: (item: CartProduct) => void;
+  removeFromCart: (id: string) => void;
+  clearCart: () => void;
 }
 
 export const useCart = create<CartState>()(
-    // persist(
-        (set) => (
-            {
-                cart: [
-                    { id: 1, name: "Elegant Earrings", price: 25, image:"/images/earrings/1.jpeg" },
-                    { id: 2, name: "Stylish Ring", price: 45, image:"/images/earrings/1.jpeg" },
-                    { id: 3, name: "Gold Necklace dfjkdljfklsdjflkjdkfjsdkfj", price: 80 , image:"/images/earrings/1.jpeg"},
-                    { id: 4, name: "Gold Necklace", price: 80 , image:"/images/earrings/1.jpeg"},
-                ],
+  devtools(
 
-                addItem: (item: CartItem) =>
-                    set(
-                        (state: CartState) => ({
-                        cart: [...state.cart, item],
-                    })),
+    persist(
+      (set, get) => ({
+        cart: [],
 
-                updateItem: (item) =>
-                    set((state) => ({
-                        cart: state.cart.map((cartitem) =>
-                            cartitem.id === item.id ? item : cartitem
-                        ),
-                    })),
+        updateQuantity: (item) => {
+          const { cart } = get();
 
-                deleteItem: (item) =>
-                    set((state) => ({
-                        cart: state.cart.filter((cartitem) => cartitem.id !== item.id),
-                    })),
+          const findProduct = cart.find((i) => i.id === item.id && i.size === item.size);
+          if (findProduct) {
+            set({
+              cart: cart.map((cartProduct) =>
+                cartProduct.id === findProduct.id && cartProduct.size === findProduct.size
+                  ? { ...cartProduct, quantity: item.quantity }
+                  : cartProduct
+              ),
+            });
+          }
+        },
 
-                clearCart: () =>
-                    set(() => ({
-                        cart: [],
-                    })),
 
-            }
-        )
-        // {
-            // name: "manzarri-cart",
-        // }
-    // )
+        addToCart: (item: CartProduct) => {
+          const { cart } = get();
+          const existingProduct = cart.find((i) => i.item._id === item.item._id && i.size === item.size);
+
+          if (existingProduct) {
+            return set({
+              cart: cart.map((i) =>
+                i.item._id === item.item._id && i.size === item.size
+                  ? { ...i, quantity: i.quantity + item.quantity }
+                  : i
+              ),
+            });
+          }
+
+          return set({
+            cart: [...cart, { ...item, quantity: item.quantity, }],
+          });
+        },
+
+        removeFromCart: (id: string) =>
+          set((state) => ({
+            cart: state.cart.filter((cartItem) => cartItem.id !== id),
+          })),
+
+        clearCart: () => set({ cart: [] }),
+      }),
+      {
+        name: "manzarri-cart",
+      }
+    )
+
+  )
 );

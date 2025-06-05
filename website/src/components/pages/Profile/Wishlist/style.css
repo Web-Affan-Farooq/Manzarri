@@ -1,0 +1,27 @@
+.button-move-to-cart {
+    overflow:hidden;
+}
+.button-move-to-cart::before {
+  content: '\f061'; 
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  position: absolute;
+  right: 25px;
+  bottom: 0px;
+  transition: all 0.5s ease-in-out;
+}
+.button-move-to-cart::after {
+  content: '\f061'; 
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  position: absolute;
+  right:4px;
+  bottom: 0px;
+  transition: all 0.4s ease-in-out;
+}
+.button-move-to-cart:hover::before {
+    right:4px;
+}
+.button-move-to-cart:hover::after {
+    right:-20px;
+}

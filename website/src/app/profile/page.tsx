@@ -1,11 +1,11 @@
 import React from 'react';
-import UserProfileHeader from '@/components/Header/UserProfiles/Header';
-import ProfileSection from '../../components/Profile-Sections/ProfileSection';
+import {ProfileSidebar} from "@/components/layout";
+import { ProfileSection } from '@/components/pages/Profile';
 
 const Profile = () => {
   return (
     <main className="flex min-h-screen">
-      <UserProfileHeader />
+      <ProfileSidebar/>
       <ProfileSection />
     </main>
   );

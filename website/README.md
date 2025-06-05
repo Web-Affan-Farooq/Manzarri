@@ -26,3 +26,8 @@ Milestone-3 : Create cart page with functionalities
 Create a cart page that perform carud on user's cart, the cart data should be stored in local storage .
 
 Implament that functionality that if user can click add to cart update the cart status in the dashboard of sellers account dynamically and infom him that his product is added to cart with quantity 
+
+first run the stripe cli with thi command stripe listen --forward-to localhost:3000/api/webhook
+and run the nextjs app 
+then check the order placement button and order packages feeding logic , and how it can be handled on the stripe .
+integrate functions in the webhook route an create order placement functionalities
