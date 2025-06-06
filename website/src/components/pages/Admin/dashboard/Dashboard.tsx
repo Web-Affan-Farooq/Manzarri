@@ -1,10 +1,12 @@
 import React from 'react';
 import Flashcards from './Flashcards';
+import SalesChart from './SalesChart';
 
 const Dashboard = () => {
   return (
     <section className="p-1">
         <Flashcards/>
+        <SalesChart/>
     </section>
   );
 };

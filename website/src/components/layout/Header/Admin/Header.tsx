@@ -1,20 +1,12 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
+import { DashboardOption, InventoryOption, OrdersOption, SettingsOption, AccountsOption } from './Options';
 
 const AdminHeader = () => {
-  const menuItems = [
-  { href: "/Admin/", label: "Dashboard" },
-  { href: "/Admin/inventory", label: "Inventory" },
-  { href: "/Admin/orders", label: "Orders" },
-  { href: "/Admin/accounts", label: "Accounts" },
-  { href: "/Admin/settings", label: "Settings" },
-];
-
   /* _____ router instance ... */
   const router = useRouter();
 
@@ -53,7 +45,7 @@ const AdminHeader = () => {
       logout();
       setlogoutStatus(false);
     }
-  }, [logoutStatus,router]);
+  }, [logoutStatus, router]);
 
   /* _____ useEffect checking for errors and show fallback ... */
   useEffect(() => {
@@ -71,15 +63,11 @@ const AdminHeader = () => {
           <div>
             <h2 className="text-2xl font-bold mb-8">Admin Dashboard</h2>
             <div className="flex flex-col gap-4">
-              {menuItems.map((item, idx) => (
-                <Link
-                  key={idx}
-                  href={item.href}
-                  className="hover:text-white w-full transition-all duration-150 ease-in-out cursor-pointer hover:bg-gray-400 py-2 px-3 rounded-md"
-                >
-                  {item.label}
-                </Link>
-              ))}
+              <DashboardOption />
+              <InventoryOption />
+              <OrdersOption />
+              <AccountsOption />
+              <SettingsOption />
             </div>
           </div>
           <button

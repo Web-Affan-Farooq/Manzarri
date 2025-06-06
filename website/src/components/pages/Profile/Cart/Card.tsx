@@ -78,7 +78,7 @@ const Card = ({ cartProduct }: { cartProduct: CartProduct }) => {
         {/* Price */}
         <div className="flex flex-row flex-nowrap justify-start items-center gap-[20px]">
           <p className="text-green-600 font-semibold text-base mt-1">
-            RS {cartProduct.item.price}
+            $ {cartProduct.item.price}
           </p>
           <button
             type="button"

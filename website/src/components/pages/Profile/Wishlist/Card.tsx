@@ -34,7 +34,7 @@ const Card = ({ wishlistProduct }: { wishlistProduct: Product }) => {
         {/* Price */}
         <div className="flex flex-row flex-nowrap justify-start items-center gap-[20px]">
           <p className="text-green-600 font-semibold text-base mt-1">
-            RS {wishlistProduct.price}
+            $ {wishlistProduct.price}
           </p>
           <button
             type="button"

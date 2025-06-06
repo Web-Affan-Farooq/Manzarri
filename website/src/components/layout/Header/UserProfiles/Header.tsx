@@ -21,26 +21,11 @@ const UserProfileHeader = () => {
   /* _____ State for toogling sidebar... */
   const [navOpen, setNavOpen] = useState(false);
 
-  /* _____ State for activating logout functions ... */
-  const [logoutStatus, setlogoutStatus] = useState(false);
-
   /* _____ State for activating errors ... */
   const [error, seterror] = useState({
     active: false,
     message: "",
   });
-
-  /* _____ useEffect for Logout ... */
-  // useEffect(() => {
-
-
-  //   /* _____ Only run functions when state is true... */
-  //   if (logoutStatus) {
-  //     /* _____ Run the logout and then switch the logoutstatus ... */
-  //     logout();
-  //     setlogoutStatus(false);
-  //   }
-  // }, [logoutStatus,router]);
 
   /* _____ useEffect checking for errors and show fallback ... */
   useEffect(() => {
