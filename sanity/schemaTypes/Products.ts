@@ -69,7 +69,7 @@ export default {
         {
             name: "price",
             type: "number",
-            title: "Price in PKR",
+            title: "Price in USDT",
         },
         {
             name: "stockQuantity",

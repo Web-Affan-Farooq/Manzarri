@@ -1,49 +1,60 @@
 export default {
-    name:"Orders",
-    type:"document",
-    title:"Orders",
+    name: "Orders",
+    type: "document",
+    title: "Orders",
     fields: [
         {
-            name:"userId",
+            name: "userId",
+            type: "string",
+            title: "user Id"
+        },
+        {
+            name:"status",
             type:"string",
-            title:"user Id"
+            title:"Status",
+            initialValue:"Pending",
         },
         {
-            name:"weightageInGrams",
-            type:"number",
-            title:"weight in grams"
+            name: "weightageInGrams",
+            type: "number",
+            title: "weight in grams"
         },
         {
-            name:"amountPayable",
-            type:"number",
-            title:"Amount payable"
+            name: "amountPayable",
+            type: "number",
+            title: "Amount payable"
         },
         {
-            name:"packages",
-            type:"array",
-            of:[
+            name: "packages",
+            type: "array",
+            of: [
                 {
-                    type:"object",
-                    fields:[
+                    type: "object",
+                    fields: [
                         {
-                            name:"productId",
-                            type:"string",
-                            title:"Product Id",
-                        },
-                                                {
-                            name:"productName",
-                            type:"string",
-                            title:"Product",
+                            name: "productId",
+                            type: "string",
+                            title: "Product Id",
                         },
                         {
-                            name:"productSKU",
-                            type:"string",
-                            title:"Stock Keeping unit (SKU)",
+                            name: "quantity",
+                            type: "number",
+                            title: "Quantity",
                         },
                         {
-                            name:"size",
-                            type:"string",
-                            title:"Size"
+                            name: "productName",
+                            type: "string",
+                            title: "Product",
+                        },
+                        {
+                            name: "productSKU",
+                            type: "string",
+                            title: "Stock Keeping unit (SKU)",
+                        },
+                        {
+                            name: "size",
+                            type: "string",
+                            title: "Size"
                         },
                     ]
                 }
