@@ -1,11 +1,13 @@
 import React from 'react';
 import Flashcards from './Flashcards';
 import SalesChart from './SalesChart';
+// import SampleChart from './SampleChart';
 
 const Dashboard = () => {
   return (
     <section className="p-1">
         <Flashcards/>
+        {/* <SampleChart/> */}
         <SalesChart/>
     </section>
   );

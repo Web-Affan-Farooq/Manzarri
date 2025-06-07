@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Header, Footer } from "@/components/layout";
 import { Toaster } from "react-hot-toast";
-
 export const metadata: Metadata = {
   title: "Manzarri | Drape Yourself in Luxury",
   description: "Explore various varieties of jewelleries ",

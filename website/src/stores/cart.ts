@@ -1,6 +1,6 @@
 import { create } from "zustand";
-import { devtools, persist } from "zustand/middleware";
 import { CartProduct } from "@/@types/cart";
+import { persist } from "zustand/middleware";
 
 interface CartState {
   cart: CartProduct[]
@@ -11,8 +11,6 @@ interface CartState {
 }
 
 export const useCart = create<CartState>()(
-  devtools(
-
     persist(
       (set, get) => ({
         cart: [],
@@ -62,7 +60,6 @@ export const useCart = create<CartState>()(
       {
         name: "manzarri-cart",
       }
-    )
 
   )
 );

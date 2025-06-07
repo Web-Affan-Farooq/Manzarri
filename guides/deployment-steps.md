@@ -1,9 +1,13 @@
 ## Deployement steps for project Manzarri :
-First check all the routes,
-Create Docs 
-then lint ,format and test,
-then build,
-resolve all errors,
-resolve common security conflicts 
-resolve common performance issues and apply optimization techniques
-First make sure to configure the eiviroment variables before creating deployment.  
+- check all the routes.
+- Read all files and folders , make all the code readable .
+- Create docs 
+- lint code 
+- format code
+- test the code with playwrigth,
+- build the app
+- resolve all errors,
+- perform security test to resolve common security conflicts 
+- use ngrok for testing website on phones 
+- resolve common performance issues and apply optimization techniques in components
+- First make sure to configure the enviroment variables before creating deployment.  

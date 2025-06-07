@@ -10,7 +10,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_TOKEN!, {
 
 export async function POST(req: NextRequest) {
   const { products, order } = await req.json();
-  console.log("Order : ", order);
+  // console.log("Order : ", order);
   try {
     const lineItems: CartProduct[] = products.map((item: CartProduct) => ({
       price_data: {

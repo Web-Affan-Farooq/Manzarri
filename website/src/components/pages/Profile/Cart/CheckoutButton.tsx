@@ -42,7 +42,7 @@ const CheckoutButton = () => {
                 _key:GenerateString(60)
             })
         });
-        console.log("Order : ", order);
+        // console.log("Order : ", order);
 
         const response = await axios.post("/api/checkout", {
             products: cart,

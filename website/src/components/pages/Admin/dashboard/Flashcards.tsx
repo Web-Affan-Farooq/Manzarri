@@ -26,8 +26,8 @@ const Flashcards = async () => {
                 <p className="text-3xl font-bold text-white max-sm:text-xl">{accountsCount}</p>
             </div>
             <div className="bg-purple-500 rounded-2xl w-[160px] h-[80px] px-4 py-2 max-sm:w-[130px] max-sm:h-[65px]">
-                <span className="text-sm text-gray-200">Revenue (USD)</span>
-                <p className="text-3xl font-bold text-white max-sm:text-xl">{totalRevenue}</p>
+                <span className="text-sm text-gray-200">Revenue</span>
+                <p className="text-3xl font-bold text-white max-sm:text-xl">$ {totalRevenue}</p>
             </div>
         </div>
     )
