@@ -1,10 +1,5 @@
 ## Manzarri
 
-### Test account : 
-- muhammad affan
-- affanamir903@gmail.com
-- eeeeeeeeEE11@#
-
 Milestones : 
 | Feature             | Status |
 | ------------------- | ------ |

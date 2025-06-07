@@ -4,7 +4,7 @@ import GenerateString from "../Token/Generatetoken";
 
 /* _____ library functions */
 import bcrypt from "bcryptjs";
-import "dotenv/config";
+import dotenv from "dotenv";
 
 /* _____ library functions */
 import sanityClient from "@/lib/sanity";
@@ -20,6 +20,7 @@ import { Authentication } from "@/@types/auth";
  -- contains nessessasy authentication functions for jwt token based authentication ...
 */
 
+dotenv.config();
 
 /* ______ Interface for AUTH class ... */
 class AUTH implements Authentication {
@@ -28,6 +29,7 @@ class AUTH implements Authentication {
     password: string;
     private secret: string | undefined;
     constructor(email: string, password: string, name?: string) {
+        dotenv.config();
         this.name = name;
         this.email = email;
         this.password = password;

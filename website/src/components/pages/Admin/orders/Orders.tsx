@@ -17,7 +17,7 @@ const Orders = async () => {
     status,
     weightageInGrams,
     packages
-  } | order(_updatedAt desc)`;
+  }`;
 
   const orders: FetchedOrder[] = await sanityClient.fetch(query);
 
