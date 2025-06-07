@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
     const data = await sanityClient.create({
       _type: "Orders",
       userId: order.userId,
-      status:"Pending",
+      status: "Pending",
       weightageInGrams: order.weightageInGrams,
       amountPayable: order.amountPayable,
       packages: order.packages,
@@ -36,8 +36,8 @@ export async function POST(req: NextRequest) {
       mode: 'payment',
       line_items: lineItems,
       metadata: {
-        orderId:data._id,
-        userId:data.userId
+        orderId: data._id,
+        userId: data.userId
       },
       /*
 Package {
@@ -66,5 +66,3 @@ packages: Packages[]
     return NextResponse.json({ error: 'Something went wrong.' }, { status: 500 });
   }
 }
-
-

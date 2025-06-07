@@ -1,9 +1,9 @@
 ## Manzarri
 
-Test account : 
-muhammad affan
-affanamir903@gmail.com
-eeeeeeeeEE11@#
+### Test account : 
+- muhammad affan
+- affanamir903@gmail.com
+- eeeeeeeeEE11@#
 
 Milestones : 
 | Feature             | Status |
@@ -21,20 +21,20 @@ Milestones :
 | Payment Integration | Completed     |
 
 Timestamps :
-2-6-2025.1:30 pm    fixed login token issue
-2-6-2025.2:30pm     fixed cart duplication issue
-2-6-2025.2:45pm     fixed cart card responsiveness
-2-6-2025.3:00pm     Created wishlist card
-2-6-2025.3:00pm     fixed wishlist card responsiveness
-2-6-2025.3:10pm     Created checkout success page
-2-6-2025.3:30pm     Created logs
-2-6-2025.3:33pm     Fixed repeat product issue in product details
-2-6-2025.4:30pm     Completed Basic order placement
-5-6-2025.2:10pm     Integrated payment system and completed order placement
-5-6-2025.3:30pm     Created Orders table
-5-6-2025.9:25pm     Created frontend of contact form
-5-6-2025.10:05pm    Completed Contact form functionality
-5-6-2025.11:25pm    Lint and fix simple bugs
+- 2-6-2025.1:30 pm    fixed login token issue
+- 2-6-2025.2:30pm     fixed cart duplication issue
+- 2-6-2025.2:45pm     fixed cart card responsiveness
+- 2-6-2025.3:00pm     Created wishlist card
+- 2-6-2025.3:00pm     fixed wishlist card responsiveness
+- 2-6-2025.3:10pm     Created checkout success page
+- 2-6-2025.3:30pm     Created logs
+- 2-6-2025.3:33pm     Fixed repeat product issue in product details
+- 2-6-2025.4:30pm     Completed Basic order placement
+- 5-6-2025.2:10pm     Integrated payment system and completed order placement
+- 5-6-2025.3:30pm     Created Orders table
+- 5-6-2025.9:25pm     Created frontend of contact form
+- 5-6-2025.10:05pm    Completed Contact form functionality
+- 5-6-2025.11:25pm    Lint and fix simple bugs
 
 Notes:Implement header functionality.If user is not authorized, the header that's shown can contains options or buttons for login and signup
 Learn chart.js or similar libraries for creating analytics module
