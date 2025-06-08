@@ -31,20 +31,29 @@ const Section_login = () => {
                 password: userData.password
             });
             const { data } = response;
-            // console.log("Data : ",data);
+            /* ____ Error tracking ... */
+            console.log("login api response : ", data);
 
             /* ___ Add error to the state when occured ...*/
             if (!data.success) {
                 toast.error(response.data.message);
             }
-            console.log("Data : ", data);
-
             /* ____ Show success popup and store userId in localstorage ... */
             toast.success(response.data.message);
             window.localStorage.setItem("userID", data.user.user_id)
 
             /* ___ Redirect to dashhboard if user is admin ...*/
-            return data.user.isAdmin ? router.push(`/Admin/`) : router.push(`/profile/`)
+            if (data.user.isAdmin) {
+                router.push(`/Admin/`);
+                /* ____ Error tracking ... */
+                console.log("Redirected to admin dashboard ...");
+
+            }
+            else {
+                router.push(`/profile/`);
+                /* ____ Error tracking ... */
+                console.log("Redirected to profile ...");
+            }
         }
 
         try {

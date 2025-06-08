@@ -4,6 +4,8 @@ import SalesChart from './SalesChart';
 // import SampleChart from './SampleChart';
 
 const Dashboard = () => {
+          /* ____ Error tracking ... */
+    console.log("/Admin/");
   return (
     <section className="p-1">
         <Flashcards/>

@@ -11,6 +11,9 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_TOKEN!, {
 export async function POST(req: NextRequest) {
   const { products, order } = await req.json();
   // console.log("Order : ", order);
+      /* ____ Error tracking ... */
+      console.log("Checkout api req body : ",products,order);
+      
   try {
     const lineItems: CartProduct[] = products.map((item: CartProduct) => ({
       price_data: {
@@ -30,6 +33,9 @@ export async function POST(req: NextRequest) {
       amountPayable: order.amountPayable,
       packages: order.packages,
     });
+        /* ____ Error tracking ... */
+    console.log("Created order : ",sanityClient);
+    console.log("products data sending to stripe : ",lineItems);
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
@@ -59,7 +65,9 @@ packages: Packages[]
       success_url: new URL("/checkout/success", req.url).toString(),
       cancel_url: new URL("/checkout/failed", req.url).toString(),
     });
-
+        /* ____ Error tracking ... */
+        console.log("Created payment : ",session);
+        
     return NextResponse.json({ url: session.url });
   } catch (err) {
     console.log("Error : ", err);

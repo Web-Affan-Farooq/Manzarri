@@ -33,7 +33,7 @@ const ProductDetails = ({ id }: { id: string }) => {
 
     /* _____  State for storing product ... */
     const [product, setProduct] = useState<Product | null>(null);
-    
+
     /*Optional : get products if fetched earlier for caching like experience ... */
     const { products } = useCatalog();
 
@@ -92,7 +92,14 @@ const ProductDetails = ({ id }: { id: string }) => {
             const id = pathname.split("/")[pathname.split("/").length - 1]
             getIndivisualproduct(id);
         }
-    }, [id, products, router , pathname]);
+    }, [id, products, router, pathname]);
+
+    useEffect(() => {
+        /* ____ Error tracking ... */
+        console.log("/product details");
+        console.log("Current catalog state : ", products);
+        console.log("Product : ", product);
+    }, [product, products]);
 
     if (!product) {
         return <div className="text-center mt-20 text-lg text-gray-500">Loading product details...</div>;
@@ -135,7 +142,7 @@ const ProductDetails = ({ id }: { id: string }) => {
                             <div className='flex flex-row flex-wrap justify-between items-center gap-[10px]'>
                                 <div>
                                     {
-                                        product.availableSizes.map((IndivisualSize,idx) => {
+                                        product.availableSizes.map((IndivisualSize, idx) => {
                                             return <span className={`bg-white text-black rounded-full py-1 px-3 ${size === IndivisualSize ? "border-2 border-solid border-black" : ""}`} onClick={(() => {
                                                 setsize(IndivisualSize);
                                             })} key={idx}>{IndivisualSize}</span>

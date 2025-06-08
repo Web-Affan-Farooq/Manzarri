@@ -2,6 +2,9 @@ import React from 'react'
 import Card from './Card'
 
 const Main = () => {
+        /* ____ Error tracking ... */
+    console.log("/Admin/accounts");
+    
     return (
         <section className='w-full p-1'>
             <h1 className='font-semibold text-gray-400 text-[24px]'>Accounts</h1>

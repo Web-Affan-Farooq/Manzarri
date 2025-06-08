@@ -12,13 +12,7 @@ export interface Authentication {
         }
     }>;
 
-    GenerateToken(): Promise<{
-        message: string;
-        success: boolean;
-    }>;
-
-    GenerateAdminToken(): Promise<{
-        message: string;
+    SendAuthToken(forAdmin:boolean):Promise<{
         success: boolean;
     }>
 
@@ -27,9 +21,9 @@ export interface Authentication {
         success: string;
         redirect: "/profile";
         user: {
-            name:string;
-            email:string;
-            isAdmin:boolean;
+            name: string;
+            email: string;
+            isAdmin: boolean;
         }
     }>;
 

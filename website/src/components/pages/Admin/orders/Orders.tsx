@@ -21,6 +21,9 @@ const Orders = async () => {
 
   const orders: FetchedOrder[] = await sanityClient.fetch(query);
 
+  /* ____ Error tracking ... */
+  console.log("/Admin/orders");
+  console.log("Fetched Orders : ", orders);
   return (
     <section className="p-6">
       <h1 className="text-2xl font-bold text-white mb-4">Orders</h1>
@@ -48,11 +51,10 @@ const Orders = async () => {
                 <td className="p-3">$ {order.amountPayable}</td>
                 <td className="p-3">
                   <span
-                    className={`px-[10px] py-[3px] rounded-full text-[11px] tracking-[0.5px] font-semibold ${
-                      order.status === 'Paid'
+                    className={`px-[10px] py-[3px] rounded-full text-[11px] tracking-[0.5px] font-semibold ${order.status === 'Paid'
                         ? 'text-green-500 bg-gray-600'
                         : 'text-red-500 bg-gray-600'
-                    }`}
+                      }`}
                   >
                     {order.status}
                   </span>
@@ -177,7 +179,7 @@ export default Orders;
 //     _id:string;
 //     _updatedAt:string;
 // }
-//     const response = await sanityClient.fetch(q);    
+//     const response = await sanityClient.fetch(q);
 //     const data:FetchedOrders = response[0];
 
 //     return (

@@ -9,7 +9,7 @@ import { useCart } from '@/stores/cart';
 import { CartProduct } from '@/@types/cart';
 
 /* ____ Functions ... */
-import GenerateString from '@/utils/Token/Generatetoken';
+import GenerateString from '@/utils/randomstring/GenerateString';
 
 interface Packages {
     productId: string;

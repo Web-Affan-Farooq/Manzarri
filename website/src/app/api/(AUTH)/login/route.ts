@@ -8,8 +8,8 @@
  }
 */
 import type { NextRequest } from 'next/server'
-import { NextResponse } from 'next/server'
-import AUTH from '@/utils/Auth/Auth'
+import { NextResponse } from 'next/server';
+import AUTH from "@/utils/Auth/Auth";
 
 export async function POST(req: NextRequest) {
   const { email, password } = await req.json();
@@ -22,9 +22,7 @@ export async function POST(req: NextRequest) {
   }
 
   if (response.user?.isAdmin) {
-    const response1 = await Authmodel.GenerateAdminToken();
-    const response2 = await Authmodel.GenerateToken();
-
+    await Authmodel.SendAuthToken(true); // because user can be admin at the time of login ...
     return NextResponse.json({
       message: "Welcome Admin",
       user: response.user,
@@ -33,10 +31,11 @@ export async function POST(req: NextRequest) {
     });
   }
   else {
-    const setAuthorizationToken = await Authmodel.GenerateToken();
+    const setAuthorizationToken = await Authmodel.SendAuthToken(false);
     if (!setAuthorizationToken.success) {
       return NextResponse.json(response);
     }
+
     return NextResponse.json({
       message: `Welcome ${response.user?.name} `,
       user: response.user,

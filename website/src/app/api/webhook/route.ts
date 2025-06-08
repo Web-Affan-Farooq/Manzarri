@@ -11,7 +11,13 @@ export async function POST(req: NextRequest) {
   const sig = req.headers.get('stripe-signature')!;
   const buf = await req.arrayBuffer();
   const body = Buffer.from(buf);
-
+      /* ____ Error tracking ... */
+      console.log("signature : ", sig);
+      console.log("Buffer from req : ",buf);
+      console.log("Buffer body : ",body);
+      
+      
+      
   let event: Stripe.Event;
 
   try {
@@ -20,6 +26,8 @@ export async function POST(req: NextRequest) {
       sig,
       process.env.STRIPE_WEBHOOK_SECRET!
     );
+    console.log("Created event in stripe : ",event);
+    
   } catch (err) {
     console.error('❌ Webhook signature verification failed.', err);
     return new NextResponse('Webhook Error', { status: 400 });
@@ -30,8 +38,10 @@ export async function POST(req: NextRequest) {
     const session = event.data.object as Stripe.Checkout.Session;
     const order_id = session.metadata?.orderId;
     if(order_id) {
-      await sanityClient.patch(order_id).set({status:"Paid"}).commit();
-    }
+      const editedOrder = await sanityClient.patch(order_id).set({status:"Paid"}).commit();
+          /* ____ Error tracking ... */
+          console.log("Order successfull : ",editedOrder);
+        }
   }
 
   return new NextResponse('Webhook received', { status: 200 });

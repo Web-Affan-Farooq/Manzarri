@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import axios from 'axios';
 import toast from 'react-hot-toast';
@@ -21,29 +21,15 @@ const UserProfileHeader = () => {
   /* _____ State for toogling sidebar... */
   const [navOpen, setNavOpen] = useState(false);
 
-  /* _____ State for activating errors ... */
-  const [error, seterror] = useState({
-    active: false,
-    message: "",
-  });
-
-  /* _____ useEffect checking for errors and show fallback ... */
-  useEffect(() => {
-    if (error.active) {
-      toast(error.message);
-      seterror({ ...error, active: false });
-    }
-  }, [error]);
-
+  /* onclick Event : attemp GET request on logout api and redirect the user to landing page ... */
   const handleLogout = async () => {
     const response = await axios.get("/api/logout");
     const data = await response.data;
     if (!data.success) {
-      seterror({
-        active: true,
-        message: data.message,
-      });
+      toast.error(data.message);
     }
+    /* Remove id from localstorage */
+    localStorage.removeItem("userID");
     /* _____ Show success fallback ... */
     toast.success(data.message);
     /* _____ redirect user... */

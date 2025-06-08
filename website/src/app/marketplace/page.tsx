@@ -4,6 +4,9 @@ import React from 'react';
 import { Searchbar, Bannerscroll, Tags, ProductCatalog } from "@/components/pages/Marketplace";
 
 const MarketplaceSection = () => {
+                    /* ____ Error tracking ... */
+                    console.log("/marketplace");
+                    
   return (
     <section className="min-h-screen bg-gray-100 p-8">
       <br />

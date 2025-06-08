@@ -1,10 +1,8 @@
 /* _____ Utilities ... */
 import { cookies } from "next/headers";
-import GenerateString from "../Token/Generatetoken";
-
+import GenerateString from "../randomstring/GenerateString";
 /* _____ library functions */
 import bcrypt from "bcryptjs";
-import dotenv from "dotenv";
 
 /* _____ library functions */
 import sanityClient from "@/lib/sanity";
@@ -20,26 +18,21 @@ import { Authentication } from "@/@types/auth";
  -- contains nessessasy authentication functions for jwt token based authentication ...
 */
 
-dotenv.config();
-
 /* ______ Interface for AUTH class ... */
 class AUTH implements Authentication {
     name?: string;
     email: string;
     password: string;
-    private secret: string | undefined;
     constructor(email: string, password: string, name?: string) {
-        dotenv.config();
         this.name = name;
         this.email = email;
         this.password = password;
-        this.secret = process.env.jWT_SECRET_TOKEN;
     }
 
-    /*
-    -----------------  For verifying user from database ...
-    */
+
+
     VerifyUser = async () => {
+        /* ____ For verifying user in databse ... */
         if (!this.email) {
             throw new Error("Email and password must be provided to use VerifyUser ")
         }
@@ -63,61 +56,37 @@ class AUTH implements Authentication {
         return { success: true, user: user, };
     }
 
-    /* Async function for generating authorization token */
-    GenerateToken = async () => {
-        const clientCookies = await cookies();
-        if (this.secret) {
-            const token = GenerateString(100);
+    SendAuthToken = async (forAdmin: boolean) => {
+        /* ____ For sending auth tokens ... */
+
+        /* _____ Main logic ... */
+        const sendToken = async (token: string) => {
+            const clientCookies = await cookies();
             clientCookies.set("manzarri-authorization-token", token, {
                 httpOnly: true,
-                secure: process.env.NODE_ENV === "production",
                 path: "/",
                 maxAge: 60 * 60 * 24 * 30,
                 sameSite: "lax"
             });
-            return {
-                message: "Successfully authorized",
-                success: true,
+            if (forAdmin) {
+                clientCookies.set("manzarri-admin-authorization-token", token, {
+                    httpOnly: true,
+                    path: "/",
+                    maxAge: 60 * 60 * 24 * 30,
+                    sameSite: "lax"
+                });
             }
         }
-        else {
-            return {
-                message: "Missing enviroment variable JWT_SECRET_TOKEN",
-                success: false,
-            }
+        await sendToken(GenerateString(100));
+        return {
+            success: true,
         }
+
     }
 
-
-    GenerateAdminToken = async () => {
-        const clientCookies = await cookies();
-        if (this.secret) {
-            const token = GenerateString(100);
-            clientCookies.set("manzarri-admin-authorization-token", token, {
-                httpOnly: true,
-                secure: process.env.NODE_ENV === "production",
-                path: "/",
-                maxAge: 60 * 60 * 24 * 30,
-                sameSite: "lax"
-            });
-            return {
-                message: "Successfully authorized",
-                success: true,
-            }
-        }
-        else {
-            return {
-                message: "Missing enviroment variable JWT_SECRET_TOKEN",
-                success: false,
-            }
-        }
-    }
-
-    /* ______ Signup method for user ... */
     Signup = async () => {
-        /* ____ First verify user from database ... */
+        /* ____ Run verification method ... */
         const userAlreadyExists = await this.VerifyUser();
-
         if (userAlreadyExists.success) {
             return {
                 message: "User already exists",
@@ -125,13 +94,13 @@ class AUTH implements Authentication {
             }
         }
 
-        /* ____Function for hashing password ... */
+        /* _____ Implemennt password hashing ... */
         const HashPassword = async () => {
             const hashPassword = bcrypt.hash(this.password, 10);
             return hashPassword;
         }
 
-        /* Function for sanitization of data ... */
+        /* ______ Implement sanitization and validation ... */
         const sanitize = async (data: { name: string; email: string; password: string }) => {
             const result = SignupSchema.safeParse(data);
             if (result.success) {
@@ -145,11 +114,10 @@ class AUTH implements Authentication {
             }
         };
 
-        /* _____ Funcion for creating account ... */
+        /* _____ Create account function ... */
         const createAccount = async ({ name, email, password }: { name: string; email: string; password: string }) => {
             const data = await sanitize({ name: name, email: email, password: password });
             // console.log("Data after sanitization : ", data);
-
             if (!data?.success) {
                 return {
                     success: false,
@@ -157,12 +125,13 @@ class AUTH implements Authentication {
                 }
             }
 
-            /* _____ hashing password ... */
+            /* _____ Run password hashing ... */
             const hashed = await HashPassword();
 
-            /* replacing password with hashed password */
+            /* replacing password with hash */
             [name, email, password] = [name, email, hashed]
 
+            /* _____ Create payload ... */
             const user = {
                 _type: "Accounts",
                 userName: name,
@@ -197,7 +166,8 @@ class AUTH implements Authentication {
                 }
             }
         }
-
+        /* _____ Important ! Only call Signup() is instance has name attribute ... */
+        /* _____ Run createAccount() if name is found ... */
         if (this.name) {
             return createAccount(
                 {
@@ -259,11 +229,6 @@ class AUTH implements Authentication {
         const passwordMatched = await bcrypt.compare(this.password, user.user.userPassword);
 
         if (!passwordMatched) {
-            console.log("__________Password not matched___________");
-            console.log("Actual Password in instance : ", this.password);
-            console.log("Hashed password from database : ", user.user.userPassword);
-            console.log("is admin : ", user.user.isAdmin);
-
             return {
                 message: "Invalid password",
                 success: false,
@@ -300,7 +265,7 @@ class AUTH implements Authentication {
 }
 
 /* ______ Logout method ... */
-
+/* ______ Logout() is outside the class because it requires no AUTH instance ... */
 const Logout = async (): Promise<{
     success: boolean;
     redirect: string;
@@ -312,7 +277,7 @@ const Logout = async (): Promise<{
     if (userToken) {
         clientCookies.delete("manzarri-authorization-token");
     }
-    else if (adminToken) {
+    if (adminToken) {
         /* Admin has two tokens ... one for viewing his profile as user and other for admin authorization */
         clientCookies.delete("manzarri-authorization-token");
         clientCookies.delete("manzarri-admin-authorization-token");

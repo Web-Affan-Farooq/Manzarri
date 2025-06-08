@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
@@ -13,47 +13,20 @@ const AdminHeader = () => {
   /* _____ State for toogling sidebar... */
   const [navOpen, setNavOpen] = useState(false);
 
-  /* _____ State for activating logout functions ... */
-  const [logoutStatus, setlogoutStatus] = useState(false);
-
-  /* _____ State for activating errors ... */
-  const [error, seterror] = useState({
-    active: false,
-    message: "",
-  });
-
-  /* _____ useEffect for Logout ... */
-  useEffect(() => {
-    const logout = async () => {
-      const response = await axios.get("/api/logout");
-      const data = await response.data;
-      if (!data.success) {
-        seterror({
-          active: true,
-          message: data.message,
-        });
-      }
-      /* _____ Show success fallback ... */
-      toast.success(data.message);
-      /* _____ redirect user... */
-      router.push("/");
+  /* onclick Event : attemp GET request on logout api and redirect the user to landing page ... */
+  const handleLogout = async () => {
+    const response = await axios.get("/api/logout");
+    const data = await response.data;
+    if (!data.success) {
+      toast.error(data.message)
     }
-
-    /* _____ Only run functions when state is true... */
-    if (logoutStatus) {
-      /* _____ Run the logout and then switch the logoutstatus ... */
-      logout();
-      setlogoutStatus(false);
-    }
-  }, [logoutStatus, router]);
-
-  /* _____ useEffect checking for errors and show fallback ... */
-  useEffect(() => {
-    if (error.active) {
-      toast(error.message);
-      seterror({ ...error, active: false });
-    }
-  }, [error]);
+    /* Remove id from localstorage */
+    localStorage.removeItem("userID");
+    /* _____ Show success fallback ... */
+    toast.success(data.message);
+    /* _____ redirect user... */
+    router.push("/");
+  }
 
   return (
     <div className="relative flex">
@@ -73,9 +46,7 @@ const AdminHeader = () => {
           <button
             className="w-full text-left hover:text-white transition-all duration-150 ease-in-out cursor-pointer hover:bg-gray-400 py-2 px-3 rounded-md"
             aria-label="Logout"
-            onClick={() => {
-              setlogoutStatus(true);
-            }}
+            onClick={handleLogout}
           >
             Logout &nbsp; <i className="fa-solid fa-right-from-bracket"></i>
           </button>

@@ -14,11 +14,15 @@ export const POST = async (req: NextRequest) => {
     /* _____ get data from request ... */
     const data: ContactFormData = await req.json();
 
+        /* ____ Error tracking ... */
+        console.log("Contact api req body : ",data);
+        
+
     try {
         /* ____ Parse data and throw error if any .Then send message in sanity ... */
         const sanitizedData = ContactFormSchema.parse(data);
 
-        await sanityClient.create({
+        const submittedResponse = await sanityClient.create({
             _type: "FormSubmissions",
             customerName: sanitizedData.name,
             customerEmail: sanitizedData.email,
@@ -27,6 +31,8 @@ export const POST = async (req: NextRequest) => {
         }).catch(() =>
             NextResponse.json({ message: "Error while sending message" }, { status: 500 })
         );
+        console.log("Submitted contact data : ",submittedResponse);
+        
 
         return NextResponse.json({ message: "Message sent" }, { status: 200 });
 
