@@ -6,10 +6,6 @@ import { CartProduct } from "@/@types/cart";
 
 const CartSection = () => {
   const { cart } = useCart();
-
-  // useEffect(() => {
-  //   console.log("Cart : ", cart);
-  // },[]);
   return (
     <section className="h-[100vh] overflow-y-scroll flex-1 p-8 bg-gray-100 min-h-screen">
       <h1 className="text-3xl font-bold mb-8 text-gray-800">Your Cart</h1>

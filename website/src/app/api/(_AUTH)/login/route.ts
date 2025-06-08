@@ -22,8 +22,8 @@ export async function POST(req: NextRequest) {
   }
 
   if (response.user?.isAdmin) {
-    await Authmodel.GenerateAdminToken();
-    await Authmodel.GenerateToken();
+    const response1 = await Authmodel.GenerateAdminToken();
+    const response2 = await Authmodel.GenerateToken();
 
     return NextResponse.json({
       message: "Welcome Admin",
@@ -46,8 +46,5 @@ export async function POST(req: NextRequest) {
   }
 
   // console.log("Login function response : ", response);
-
   /* generate and sent token using generate token method i auth class */
-
-
 }

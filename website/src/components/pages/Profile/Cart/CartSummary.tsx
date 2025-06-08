@@ -4,13 +4,15 @@ import CheckoutButton from "./CheckoutButton";
 const CartSummary = ({ cart }: { cart: CartProduct[] }) => {
   let count = 0;
   let totalPrice = 0;
+
+  /* _____ Calculate total amount payable and quantity ... */
   cart.forEach((item: CartProduct) => {
     count += item.quantity
     for (let i = 1; i <= item.quantity; i++) {
       totalPrice += item.item.price
     }
   });
-  
+
   return (
     <>
       <br /><br /><br />
@@ -30,7 +32,7 @@ const CartSummary = ({ cart }: { cart: CartProduct[] }) => {
         </div>
 
         <div className="flex flex-col gap-1">
-          <CheckoutButton/>
+          <CheckoutButton />
           {/* <span className="text-center text-black font-bold">Or</span> */}
           {/* <EasyPaisaButton /> */}
           {/* <PayWithHBL /> */}

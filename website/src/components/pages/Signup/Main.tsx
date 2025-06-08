@@ -1,41 +1,44 @@
 "use client";
-
-import React, { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
-import { ZodError } from 'zod';
-import SignupSchema from '@/validations/SignupSchema';
-import axios from 'axios';
+/*____ Hooks ... */
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
+/*____ Libraries ... */
+import axios from 'axios';
+
+/*____ Types nad schema ... */
+import { ZodError } from 'zod';
+import SignupSchema from '@/validations/SignupSchema';
+
+/*____ Functions ... */
+import toast from 'react-hot-toast';
+
+interface ISignupData {
+    name: string;
+    email: string;
+    password: string;
+}
 const Section_signup = () => {
     /* ___ Router instance... */
     const router = useRouter();
 
     /* ___ State for handling form data ... */
-    const [userData, setuserData] = useState({
+    const [userData, setuserData] = useState<ISignupData>({
         name: "",
         email: "",
         password: "",
     });
 
-    /* ___ State for activate error... */
-    const [error, seterror] = useState({
-        active: false,
-        message: ""
-    });
-
-    /* ___ UseEffect handling error ... */
-    useEffect(() => {
-        if (error.active) {
-            toast.error(error.message);
-        }
-    }, [error]);
-
     /* ___ Submit event for form ... */
     const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const SignupUser = async (signupData: {
+        /**
+         * @param {ISignupData} 
+         * @return {void}
+         */
+
+        const Signup = async (signupData: {
             username: string;
             email: string;
             password: string;
@@ -44,7 +47,7 @@ const Section_signup = () => {
             const data = response.data;
 
             if (!data.success) {
-                seterror({ active: true, message: data.message });
+                toast.error(data.message);
             } else {
                 toast.success("Signup successful!");
                 router.push(data.redirect);
@@ -52,14 +55,18 @@ const Section_signup = () => {
         };
 
         try {
+            /* ____ Sanitize the data ... */
             const sanitizedData = SignupSchema.parse(userData);
+            /* _____ Prepare payload ... */
             const signupPayload = {
                 username: sanitizedData.name,
                 email: sanitizedData.email,
                 password: sanitizedData.password,
             };
-            SignupUser(signupPayload);
+            /* _____ Call signup function ... */
+            Signup(signupPayload);
         } catch (err) {
+            /* _____ Handle validation errors  ... */
             if (err instanceof ZodError) {
                 toast.error(err.errors[0].message);
             }

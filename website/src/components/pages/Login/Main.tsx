@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 /* ___ Valiation schema and error types ...*/
@@ -21,17 +21,11 @@ const Section_login = () => {
         password: "",
     });
 
-    /* ___ State for error ...*/
-    const [error, seterror] = useState({
-        active: false,
-        message: "",
-    });
-
     /* ___ Event on form ...*/
     const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const clientLogin = async () => {
+        const Login = async () => {
             const response = await axios.post("/api/login", {
                 email: userData.email,
                 password: userData.password
@@ -39,33 +33,24 @@ const Section_login = () => {
             const { data } = response;
             // console.log("Data : ",data);
 
-
             /* ___ Add error to the state when occured ...*/
             if (!data.success) {
                 toast.error(response.data.message);
-                // return seterror({ active: true, message: response.data.message });
             }
             console.log("Data : ", data);
 
+            /* ____ Show success popup and store userId in localstorage ... */
+            toast.success(response.data.message);
+            window.localStorage.setItem("userID", data.user.user_id)
 
-            /* ___ If user is Admin ...*/
-            if (data.user.isAdmin) {
-                toast.success(response.data.message);
-                window.localStorage.setItem("userID", data.user.user_id)
-                return router.push(`/Admin/`);
-            }
-            /* ___ redirect to profile page ...*/
-            else if (!data.user.isAdmin) {
-                toast.success(response.data.message);
-                window.localStorage.setItem("userID", data.user.user_id)
-                return router.push(`/profile/`);
-            }
+            /* ___ Redirect to dashhboard if user is admin ...*/
+            return data.user.isAdmin ? router.push(`/Admin/`) : router.push(`/profile/`)
         }
 
         try {
-            /* ___ Parse the data and  Toogle the state if no validation errors found ...*/
+            /* _____ Validate and call the login function ... */
             LoginSchema.parse(userData);
-            await clientLogin();
+            await Login();
         } catch (err) {
             /* ___ Show validation error ...*/
             if (err instanceof ZodError) {
@@ -73,17 +58,6 @@ const Section_login = () => {
             }
         }
     };
-
-    /* ____Show error if any ... */
-    useEffect(() => {
-        if (error.active) {
-            toast.error(error.message);
-            seterror({
-                active: false,
-                message: "",
-            });
-        }
-    }, [error]);
 
     return (
         <section className="min-h-screen flex items-center justify-center bg-[var(--faun-dark)] px-4 py-20">

@@ -31,7 +31,9 @@ Timestamps :
 - 5-6-2025.10:05pm    Completed Contact form functionality
 - 5-6-2025.11:25pm    Lint and fix simple bugs
 
-Notes:Implement header functionality.If user is not authorized, the header that's shown can contains options or buttons for login and signup
+Notes:
+The token is not assigning to the client cookies in production enviroments . REsolve this issue . All the systems are working as expected in the local production server preview but authorization is not running in the main producion enviroments
+Implement header functionality.If user is not authorized, the header that's shown can contains options or buttons for login and signup
 Learn chart.js or similar libraries for creating analytics module
 handover the store to ai agent . Agent should run the administration in the store as well as warehouse systems
 Create search product functionality

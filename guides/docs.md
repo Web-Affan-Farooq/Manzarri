@@ -1,0 +1,13 @@
+while creating docs . make sure to add following details .
+- project title 
+- project description
+- live link
+- images
+- Features
+- tech stack 
+- project structure 
+- installation and locally running
+- testing instructions 
+- upcoming possible updates  
+- author
+- view in my portfolio

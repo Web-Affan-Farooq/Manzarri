@@ -1,14 +1,32 @@
 "use client";
-import Image from "next/image";
+/* _____ Hooks ... */
 import { useCart } from "@/stores/cart";
-import { CartProduct } from "@/@types/cart";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 
+/* _____ Types ... */
+import { CartProduct } from "@/@types/cart";
+
+/* _____ Components ... */
+import Link from "next/link";
+import Image from "next/image";
+
+/**
+ * 
+ * @param {cartProduct}
+ */
+
 const Card = ({ cartProduct }: { cartProduct: CartProduct }) => {
+
+  // Extract cart functions from context
   const { updateQuantity, removeFromCart } = useCart();
-  const [isCountUpdated, setisCountUpdated] = useState(false);
-  const [count, setcount] = useState(cartProduct.quantity);
+
+  // State to track if quantity update was triggered
+  const [isCountUpdated, setIsCountUpdated] = useState(false);
+
+  // Local state for item count
+  const [count, setCount] = useState(cartProduct.quantity);
+
+  // Effect: Runs only when 'isCountUpdated' becomes true
   useEffect(() => {
     if (isCountUpdated) {
       updateQuantity({
@@ -17,9 +35,19 @@ const Card = ({ cartProduct }: { cartProduct: CartProduct }) => {
         quantity: count,
         size: cartProduct.size,
       });
-      setisCountUpdated(false);
+
+      // Reset the flag after updating
+      setIsCountUpdated(false);
     }
-  }, [isCountUpdated,cartProduct.id, cartProduct.item, cartProduct.size, count,updateQuantity]);
+  }, [
+    isCountUpdated,
+    cartProduct.id,
+    cartProduct.item,
+    cartProduct.size,
+    count,
+    updateQuantity,
+  ]);
+
 
   return (
     <div className="flex flex-col sm:flex-row w-full gap-4 border border-gray-300 p-4 rounded-md shadow-sm">
@@ -61,13 +89,13 @@ const Card = ({ cartProduct }: { cartProduct: CartProduct }) => {
             <span> Quantity: {cartProduct.quantity}</span>
             <div>
               <button type="button" className="bg-black text-white w-[20px] h-[20px] rounded-full font-bold" onClick={() => {
-                setcount(count + 1);
-                setisCountUpdated(true);
+                setCount(count + 1);
+                setIsCountUpdated(true);
               }}>+</button>
               <button type="button" className="bg-black text-white w-[20px] h-[20px] rounded-full font-bold ml-[5px]" onClick={() => {
                 if (count > 1) {
-                  setcount(count - 1);
-                  setisCountUpdated(true);
+                  setCount(count - 1);
+                  setIsCountUpdated(true);
                 }
               }}>-</button>
             </div>

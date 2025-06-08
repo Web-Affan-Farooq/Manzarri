@@ -21,15 +21,27 @@ import sanityClient from '@/lib/sanity';
 import { v4 } from "uuid";
 
 const ProductDetails = ({ id }: { id: string }) => {
-    /* _____ Hooks ... */
+    /* _____  Hooks related to Navigation ... */
     const router = useRouter();
     const pathname = usePathname();
+
+    /* _____  State for controlling quantity count ... */
     const [count, setCount] = useState(1);
+
+    /* _____  State for controlling size ... */
     const [size, setsize] = useState<string>("");
+
+    /* _____  State for storing product ... */
     const [product, setProduct] = useState<Product | null>(null);
+    
+    /*Optional : get products if fetched earlier for caching like experience ... */
     const { products } = useCatalog();
+
+    /* _____  Functions for adding products to wishlist / cart  ... */
     const { addToWishlist } = useWishlist();
     const { addToCart } = useCart();
+
+    /* _____  State for controlling current image shown in canvas (main product image) ... */
     const [canvasImage, setcanvasImage] = useState<string>("");
 
     /* _____ useEffect for dynamically setup product for details ... */
@@ -72,6 +84,7 @@ const ProductDetails = ({ id }: { id: string }) => {
         }
 
         const found = products.find((p) => p._id === id);
+
         if (found) {
             setProduct(found);
             setcanvasImage(found.images[0].asset.url);

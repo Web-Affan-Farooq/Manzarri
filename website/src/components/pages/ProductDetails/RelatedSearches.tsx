@@ -8,6 +8,7 @@ import Link from 'next/link';
 const RelatedSearches = ({sku_id , id}:{sku_id:string; id:string}) => {
     const {products} = useCatalog();
     const sameCategory = products.filter((item:Product) => {
+        // Filter products that belongs to same sku but different id with respect to product's id shown in products details page
       return item.stockKeepingUnit === sku_id && item._id !== id ; 
     });    
   return (
