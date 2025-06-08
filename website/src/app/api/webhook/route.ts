@@ -12,9 +12,9 @@ export async function POST(req: NextRequest) {
   const buf = await req.arrayBuffer();
   const body = Buffer.from(buf);
       /* ____ Error tracking ... */
-      console.log("signature : ", sig);
-      console.log("Buffer from req : ",buf);
-      console.log("Buffer body : ",body);
+      // console.log("signature : ", sig);
+      // console.log("Buffer from req : ",buf);
+      // console.log("Buffer body : ",body);
       
       
       
@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
       sig,
       process.env.STRIPE_WEBHOOK_SECRET!
     );
-    console.log("Created event in stripe : ",event);
+    // console.log("Created event in stripe : ",event);
     
   } catch (err) {
     console.error('❌ Webhook signature verification failed.', err);
@@ -38,9 +38,9 @@ export async function POST(req: NextRequest) {
     const session = event.data.object as Stripe.Checkout.Session;
     const order_id = session.metadata?.orderId;
     if(order_id) {
-      const editedOrder = await sanityClient.patch(order_id).set({status:"Paid"}).commit();
+      await sanityClient.patch(order_id).set({status:"Paid"}).commit();
           /* ____ Error tracking ... */
-          console.log("Order successfull : ",editedOrder);
+          // console.log("Order successfull : ",editedOrder);
         }
   }
 

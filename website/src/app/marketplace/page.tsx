@@ -5,7 +5,7 @@ import { Searchbar, Bannerscroll, Tags, ProductCatalog } from "@/components/page
 
 const MarketplaceSection = () => {
                     /* ____ Error tracking ... */
-                    console.log("/marketplace");
+                    // console.log("/marketplace");
                     
   return (
     <section className="min-h-screen bg-gray-100 p-8">

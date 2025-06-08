@@ -32,7 +32,7 @@ const Section_login = () => {
             });
             const { data } = response;
             /* ____ Error tracking ... */
-            console.log("login api response : ", data);
+            // console.log("login api response : ", data);
 
             /* ___ Add error to the state when occured ...*/
             if (!data.success) {
@@ -46,13 +46,13 @@ const Section_login = () => {
             if (data.user.isAdmin) {
                 router.push(`/Admin/`);
                 /* ____ Error tracking ... */
-                console.log("Redirected to admin dashboard ...");
+                // console.log("Redirected to admin dashboard ...");
 
             }
             else {
                 router.push(`/profile/`);
                 /* ____ Error tracking ... */
-                console.log("Redirected to profile ...");
+                // console.log("Redirected to profile ...");
             }
         }
 

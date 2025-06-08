@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import ContactFormSchema from '@/validations/ContactSchema';
 import toast from 'react-hot-toast';
 import { ZodError } from 'zod';
@@ -14,9 +14,6 @@ interface ContactFormData {
 }
 
 const Main = () => {
-    useEffect(() => {
-        console.log("/contact");
-    },[]);
 
     const [data, setdata] = useState<ContactFormData>({
         /* _____ State for two way form input data binding... */
@@ -44,7 +41,7 @@ const Main = () => {
             const sanitizedData = ContactFormSchema.parse(data);
             await SubmitForm(sanitizedData);
             /* ____ Error tracking ... */
-            console.log("Contact form submitted successfully ...");
+            // console.log("Contact form submitted successfully ...");
         } catch (err) {
             if (err instanceof ZodError) {
                 toast.error(err.errors[0].message);

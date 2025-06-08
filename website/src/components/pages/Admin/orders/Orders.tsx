@@ -8,6 +8,7 @@ interface FetchedOrder extends Order {
   _updatedAt: string;
 }
 
+
 const Orders = async () => {
   const query = `*[_type == "Orders"]{
     _id,
@@ -22,13 +23,14 @@ const Orders = async () => {
   const orders: FetchedOrder[] = await sanityClient.fetch(query);
 
   /* ____ Error tracking ... */
-  console.log("/Admin/orders");
-  console.log("Fetched Orders : ", orders);
+  // console.log("/Admin/orders");
+  // console.log("Fetched Orders : ", orders);
+
+
   return (
     <section className="p-6">
       <h1 className="text-2xl font-bold text-white mb-4">Orders</h1>
 
-      {/* Responsive table container */}
       <div className="scroll-container overflow-x-auto py-3">
         <table className="min-w-[700px] w-full bg-gray-800 shadow rounded-lg">
           <thead className="bg-gray-800 text-left text-sm text-gray-400">
@@ -52,8 +54,8 @@ const Orders = async () => {
                 <td className="p-3">
                   <span
                     className={`px-[10px] py-[3px] rounded-full text-[11px] tracking-[0.5px] font-semibold ${order.status === 'Paid'
-                        ? 'text-green-500 bg-gray-600'
-                        : 'text-red-500 bg-gray-600'
+                      ? 'text-green-500 bg-gray-600'
+                      : 'text-red-500 bg-gray-600'
                       }`}
                   >
                     {order.status}

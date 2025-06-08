@@ -94,13 +94,6 @@ const ProductDetails = ({ id }: { id: string }) => {
         }
     }, [id, products, router, pathname]);
 
-    useEffect(() => {
-        /* ____ Error tracking ... */
-        console.log("/product details");
-        console.log("Current catalog state : ", products);
-        console.log("Product : ", product);
-    }, [product, products]);
-
     if (!product) {
         return <div className="text-center mt-20 text-lg text-gray-500">Loading product details...</div>;
     }

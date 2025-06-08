@@ -3,7 +3,7 @@ import Card from './Card'
 
 const Main = () => {
         /* ____ Error tracking ... */
-    console.log("/Admin/accounts");
+    // console.log("/Admin/accounts");
     
     return (
         <section className='w-full p-1'>

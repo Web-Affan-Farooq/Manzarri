@@ -10,7 +10,7 @@ export const GET = async () => {
     const response = await Logout();
 
     /* ____ Error tracking ... */
-    console.log("Logout() =>  ", response);
+    // console.log("Logout() =>  ", response);
 
     if (!response.success) {
         return NextResponse.json({
