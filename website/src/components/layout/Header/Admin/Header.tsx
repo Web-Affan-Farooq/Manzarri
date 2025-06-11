@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
-import { DashboardOption, InventoryOption, OrdersOption, SettingsOption, AccountsOption } from './Options';
+import { DashboardOption, InventoryOption, OrdersOption, SettingsOption, AccountsOption , MessagesOption } from './Options';
 
 const AdminHeader = () => {
   /* _____ router instance ... */
@@ -41,6 +41,7 @@ const AdminHeader = () => {
               <OrdersOption />
               <AccountsOption />
               <SettingsOption />
+              <MessagesOption/>
             </div>
           </div>
           <button

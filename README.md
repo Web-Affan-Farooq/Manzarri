@@ -32,6 +32,14 @@ Timestamps :
 - 5-6-2025.11:25pm    Lint and fix simple bugs
 
 Notes:
+edit the signup route and setup for pushing notifications
+create and customize notifications for success and failures .
+fix block account api route . 
+fix notification push route .
+complete all the admin preveledges in accounts 
+create a zustand state for storing email ,name , isadmin , is blocked ,
+check in the header is user is admin , or not and render link for admin dashboard
+
 The token is not assigning to the client cookies in production enviroments . REsolve this issue . All the systems are working as expected in the local production server preview but authorization is not running in the main producion enviroments
 Implement header functionality.If user is not authorized, the header that's shown can contains options or buttons for login and signup
 Learn chart.js or similar libraries for creating analytics module

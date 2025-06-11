@@ -19,10 +19,43 @@ export default {
             title: "User email"
         },
         {
+            name: "isBlocked",
+            type: "boolean",
+            title: "Is blocked",
+            initialValue: false,
+        },
+        {
             name: "isAdmin",
             type: "boolean",
             title: "Admin",
-            initialValue: false // ✅ Correct key for default values in Sanity
+            initialValue: false
+        },
+        {
+            name: "notifications",
+            title: "Notifications",
+            type: "array",
+            initialValue: [],
+            of: [
+                {
+                    type: "object",
+                    fields: [
+                        {
+                            name: "notificationType",
+                            title: "Notification type",
+                            type: "string",
+                            options: {
+                                list: ['Success', 'Failure'],
+                                layout: 'radio',
+                            },
+                        },
+                        {
+                            name: "notificationText",
+                            title: "Notification text",
+                            type: "string",
+                        }
+                    ]
+                }
+            ]
         }
     ]
 }

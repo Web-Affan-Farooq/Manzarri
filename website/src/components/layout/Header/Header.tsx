@@ -15,7 +15,7 @@ const Header = () => {
 
     const pathname = usePathname();
 
-    const dashboardPages = ["/Admin","/Admin/orders", "/Admin/inventory","/Admin/accounts","/Admin/settings","/Admin/workers","/profile", "/profile/cart", "/profile/wishlist","/profile/settings"];
+    const dashboardPages = ["/Admin","/Admin/orders", "/Admin/inventory","/Admin/accounts","/Admin/settings","/Admin/workers","/profile", "/profile/cart", "/profile/wishlist","/profile/settings","/Admin/messages"];
     
     if (dashboardPages.includes(pathname)) {
         return <></>

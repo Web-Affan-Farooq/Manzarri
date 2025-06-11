@@ -138,13 +138,19 @@ class AUTH implements Authentication {
                 userPassword: password,
                 userEmail: email,
                 isAdmin: false,
+                isBlocked: false,
+                notifications: [
+                    {
+                        _key: GenerateString(30),
+                        notificationText: `Welcome ${name} , browse products and explore our marketplace`,
+                        notificationType: "Success"
+                    }
+                ],
             }
             // console.log("Final user : ", user);
 
             try {
                 const data = await sanityClient.create(user);
-                // console.log("User after signup : ",data);
-
                 return {
                     success: true,
                     redirect: "/profile",
@@ -153,7 +159,6 @@ class AUTH implements Authentication {
                         name: data.userName,
                         email: data.userEmail,
                         isAdmin: data.isAdmin,
-                        password: data.userPassword,
                     }
                 }
             }
