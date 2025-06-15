@@ -15,6 +15,7 @@ interface Packages {
     productId: string;
     productName: string;
     productSKU: string;
+    quantity:number;
     size: string;
     _key: string;
 }
@@ -48,6 +49,7 @@ const CheckoutButton = () => {
                 productId: cartItem.item._id,
                 productName: cartItem.item.productName,
                 productSKU: cartItem.item.stockKeepingUnit,
+                quantity:cartItem.quantity,
                 size: cartItem.size,
                 _key: GenerateString(60)
             })

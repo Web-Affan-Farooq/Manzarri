@@ -9,3 +9,8 @@ export {default as Orders} from "./Orders";
 export {default as Accounts} from "./Accounts";
 export {default as Settings} from "./Settings";
 export {default as Messages} from "./Messages";
+export {default as CheckIcon} from "./Checkicon";
+export {default as NotificationBell} from "./NotificationBell";
+export {default as CrossIcon} from "./CrossIcon";
+export {default as WarningIcon} from "./WarningIcon";
+export {default as DecreaseArrow} from "./DecreaseArrow";

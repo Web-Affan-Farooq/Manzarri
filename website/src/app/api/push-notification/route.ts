@@ -16,7 +16,7 @@ export const POST = async (req: NextRequest) => {
         notificationText: text,
     });
 
-    /* Send new notification list to server ... */
+    /* Send new notifications list to server ... */
     await sanityClient.patch(id).set({ notifications: updatedNotifications }).commit();
 
     return NextResponse.json({ message: "Notification added" });
