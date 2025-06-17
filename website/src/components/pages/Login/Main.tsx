@@ -32,7 +32,7 @@ const Section_login = () => {
             });
             const { data } = response;
             /* ____ Error tracking ... */
-            // console.log("login api response : ", data);
+            console.log("login api response : ", data);
 
             /* ___ Add error to the state when occured ...*/
             if (!data.success) {
@@ -40,7 +40,8 @@ const Section_login = () => {
             }
             /* ____ Show success popup and store userId in localstorage ... */
             toast.success(response.data.message);
-            window.localStorage.setItem("userID", data.user.user_id)
+            window.localStorage.setItem("userID", data.user.user_id);
+            window.localStorage.setItem("isBlocked", data.user.isBlocked);
 
             /* ___ Redirect to dashhboard if user is admin ...*/
             if (data.user.isAdmin) {

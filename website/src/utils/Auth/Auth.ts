@@ -29,8 +29,6 @@ class AUTH implements Authentication {
         this.password = password;
     }
 
-
-
     VerifyUser = async () => {
         /* ____ For verifying user in databse ... */
         if (!this.email) {
@@ -41,7 +39,8 @@ class AUTH implements Authentication {
         userEmail,
         userPassword,
         userName,
-        isAdmin
+        isAdmin,
+        isBlocked,
         }`;
         const response = await sanityClient.fetch(q);
 
@@ -159,6 +158,7 @@ class AUTH implements Authentication {
                         name: data.userName,
                         email: data.userEmail,
                         isAdmin: data.isAdmin,
+                        isBlocked:data.isBlocked
                     }
                 }
             }
@@ -239,7 +239,9 @@ class AUTH implements Authentication {
                 success: false,
             }
         }
-
+        /* ____ Error tracking ... */
+        // console.log("User in datasets : ",user);
+        
         if (user.user.isAdmin) {
             return {
                 message: "Welcome Admin",
@@ -248,7 +250,8 @@ class AUTH implements Authentication {
                     user_id: user.user._id,
                     email: user.user.userEmail,
                     name: user.user.userName,
-                    isAdmin: true
+                    isAdmin: true,
+                    isBlocked: user.user.isBlocked,
                     // Dont return the passwords to client
                 },
             }
@@ -262,6 +265,7 @@ class AUTH implements Authentication {
                 email: user.user.userEmail,
                 name: user.user.userName,
                 isAdmin: false,
+                isBlocked: user.user.isBlocked,
                 // Dont return the passwords to client
             },
         }

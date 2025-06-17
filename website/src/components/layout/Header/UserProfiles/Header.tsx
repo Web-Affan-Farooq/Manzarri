@@ -30,6 +30,7 @@ const UserProfileHeader = () => {
     }
     /* Remove id from localstorage */
     localStorage.removeItem("userID");
+    localStorage.removeItem("isBlocked");
     /* _____ Show success fallback ... */
     toast.success(data.message);
     /* _____ redirect user... */

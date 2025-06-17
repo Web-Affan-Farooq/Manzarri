@@ -19,13 +19,12 @@ import {
 
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import handleNotificationPush from '@/utils/push-notification';
 import { useAccounts } from '@/stores/accounts';
 
 const Card = ({ userId, name, email, isBlocked }: { userId: string; name: string; email: string; isBlocked: boolean }) => {
 
     const [deleteText, setdeleteText] = useState("");
-    const { deleteAccount } = useAccounts();
+    const { deleteAccount, blockAccount } = useAccounts();
     /* _____ handle account deletion ...*/
     const handleDelete = async () => {
         const authUserId = window.localStorage.getItem("userID");
@@ -39,21 +38,24 @@ const Card = ({ userId, name, email, isBlocked }: { userId: string; name: string
             }
             toast.success("Account deleted successfully");
             deleteAccount(userId);
-            handleNotificationPush(authUserId, "Warning", "Please make sure to email the user of the deleted account");            
         }
     }
 
     /* _____ handle block account logic ... */
-    const handleAccountBlockandUnblock = async (id: string, isblocked: boolean) => {
-        const response = await axios.post("/api/Admin/block-account", {
-            id: userId,
-            isBlocked: isblocked,
-        });
-        if (response.status !== 200) {
-            toast.error(response.statusText);
-        }
-        toast.success(response.data.message);
+const handleAccountBlockandUnblock = async () => {
+    const response = await axios.post("/api/Admin/block-account", {
+        id: userId,
+        block: !isBlocked,
+    });
+    if (response.status !== 200) {
+        toast.error(response.statusText);
+        return;
     }
+    toast.success(response.data.message);
+    blockAccount(userId, !isBlocked);
+}
+
+
 
     return (
         <Dialog>
@@ -71,7 +73,7 @@ const Card = ({ userId, name, email, isBlocked }: { userId: string; name: string
                 <ContextMenuContent>
                     <ContextMenuItem className='hover:bg-gray-400 cursor-pointer'>Email</ContextMenuItem>
                     <ContextMenuItem className='hover:bg-gray-400 cursor-pointer text-orange-500 hover:text-white' onClick={() => {
-                        handleAccountBlockandUnblock(userId, isBlocked);
+                        handleAccountBlockandUnblock();
                     }}>
                         {isBlocked ? <p>Unblock account</p> : <p>Block account</p>}
                     </ContextMenuItem>

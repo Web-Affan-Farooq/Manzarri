@@ -16,6 +16,7 @@ Milestones :
 | Payment Integration | Completed     |
 | Order table         | 🔲     |
 | Account functions   | 🔲     |
+| Email server int.   | 🔲     |
 | g.analytics setup   | 🔲     |
 | Dashboard           | 🔲     |
 | Notifications       | 🔲     |
@@ -39,6 +40,7 @@ Timestamps :
 - 5-6-2025.10:05pm    Completed Contact form functionality
 - 5-6-2025.11:25pm    Lint and fix simple bug
 - 14-6-2025.3:10pm   fix fug in the delete account button in admin/accounts
+- 17-6-2025.12:36am   fix block account feature
 
 Notes:
 implement push notifications on admin dashboard
@@ -46,7 +48,6 @@ create notification card for notification display and user vercel notification b
 get accounts from state instead of getting it from datasets for maintaining cache
 edit the signup route and setup for pushing notifications
 create and customize notifications for success and failures .
-fix block account api route . 
 fix notification push route .
 complete all the admin preveledges in accounts 
 create a zustand state for storing email ,name , isadmin , is blocked ,
@@ -60,10 +61,8 @@ Create edit profile functionality in profiles
 Create ratings system
 Implement Dynamic animations and smooth scrolling animations along with 3d models in landing page
 Integrate Order tracking systems
-whenever any new route is created on admin , make sure to add this route path to the adminPages array in ViewsContext.tsx
 
 use this https://www.pinterest.com/pin/689473024237631462/ for creating orders management section in admin dashboard
-
 
 Create a basic inventory managemment system that have the following abilities :
 a single column grid that shows the product ,
