@@ -71,7 +71,7 @@ const AdminHeader = () => {
             })}
           </SheetHeader>
         </SheetContent>
-        <SheetTrigger className='notifications-button cursor-pointer absolute z-30 text-white right-8 top-20 bg-black p-2 rounded-full'>
+        <SheetTrigger className='notifications-button cursor-pointer fixed z-30 text-white right-8 top-20 bg-black p-2 rounded-full'>
           <span></span><span></span><span></span>
           <NotificationBell size={{
             width: 20,

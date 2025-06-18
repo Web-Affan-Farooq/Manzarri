@@ -67,7 +67,7 @@ packages: Packages[]
     });
         /* ____ Error tracking ... */
         // console.log("Created payment : ",session);
-        
+    
     return NextResponse.json({ url: session.url });
   } catch (err) {
     console.log("Error : ", err);

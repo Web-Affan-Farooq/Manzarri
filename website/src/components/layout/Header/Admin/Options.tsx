@@ -11,7 +11,7 @@ const DashboardOption = () => {
         <Link
             href={"/Admin"}>
             <div className="group hover:text-blue-500 text-white w-full transition-all duration-150 ease-in-out cursor-pointer py-2 px-3 rounded-md flex flex-row flex-nowrap items-center gap-[10px]">
-                <Dashboard className={`group-hover:text-blue-600 transition w-[20px] h-[20px] ${pathname === "/Admin" ? "text-blue-500" : ""}`}/> Dashboard
+                <Dashboard className={`text-gray-custom transition w-[20px] h-[20px] ${pathname === "/Admin" ? "text-blue-500" : ""}`}/> Dashboard
             </div>
         </Link>)
 }
@@ -21,7 +21,7 @@ const InventoryOption = () => {
         <Link
             href={"/Admin/inventory"}>
             <div className="group hover:text-blue-500 w-full transition-all duration-150 ease-in-out cursor-pointer py-2 px-3 rounded-md flex flex-row flex-nowrap items-center gap-[10px]">
-                <ShoppingCart className={`group-hover:text-blue-600 transition w-[20px] h-[20px] ${pathname === "/Admin/inventory" ? "text-blue-500" : ""}`} stroke='#536b8a'/> Inventory
+                <ShoppingCart className={`text-gray-custom transition w-[20px] h-[20px] ${pathname === "/Admin/inventory" ? "text-blue-500" : ""}`} stroke='#536b8a'/> Inventory
             </div>
         </Link>
     )
@@ -32,7 +32,7 @@ const OrdersOption = () => {
         <Link
             href={"/Admin/orders"}>
             <div className="group hover:text-blue-500 w-full transition-all duration-150 ease-in-out cursor-pointer py-2 px-3 rounded-md flex flex-row flex-nowrap items-center gap-[10px]">
-                <Orders className={`group-hover:text-blue-600 transition w-[20px] h-[20px] ${pathname === "/Admin/orders" ? "text-blue-500" : ""}`} /> Orders
+                <Orders className={`transition text-gray-custom w-[20px] h-[20px] ${pathname === "/Admin/orders" ? "text-blue-500" : ""}`} /> Orders
             </div>
         </Link>
     )

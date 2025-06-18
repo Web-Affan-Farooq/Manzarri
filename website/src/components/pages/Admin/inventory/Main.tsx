@@ -38,6 +38,8 @@ const Main = async () => {
   }
 }`;
     const response = await sanityClient.fetch(q);
+    // console.log("Response : ",response);
+    
 //     const orders = await sanityClient.fetch(`*[_type == "Orders"].packages[]{
 // productId,
 //   quantity
@@ -85,7 +87,7 @@ const Main = async () => {
                                 width:17,
                                 height:17
                             }} className={`${product.stockQuantity <=5 ? "" :"hidden"} text-red-500 z-10`} />
-                            <span className='bg-gray-400 w-5 h-5 text-center rounded-full text-[13px] text-white'>{product.stockQuantity}</span>
+                            <span className='bg-gray-400 w-5 h-5 text-center rounded-full text-[13px] text-black'>{product.stockQuantity}</span>
                             {/* <button
                                 type="button"
                                 className="text-white text-sm"

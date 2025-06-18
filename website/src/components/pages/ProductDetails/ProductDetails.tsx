@@ -145,17 +145,21 @@ const ProductDetails = ({ id }: { id: string }) => {
 
                                 <div className='border-2 w-[80px] border-gray-400 border-solid flex flex-row justify-between items-center rounded-md font-bold px-[5px]'>
                                     <span className='text-[25px] cursor-pointer' onClick={() => {
-                                        setCount(count + 1);
+                                        if(count < product.stockQuantity) {
+                                            setCount(count + 1);
+                                        }
+                                        else {
+                                            toast.error("More quantity not available")
+                                        }
                                     }}>+</span>
                                     <span className='text-[20px]'>{count}</span>
                                     <span className='text-[25px] cursor-pointer' onClick={() => {
-
+                                        if(count > 0 ) {
+                                            setCount(count -1)
+                                        }
                                     }}>-</span>
                                 </div>
-
-
                             </div>
-
                         </div>
 
                         <div className='flex flex-col gap-[7px]'>

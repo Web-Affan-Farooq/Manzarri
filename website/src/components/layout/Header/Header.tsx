@@ -6,7 +6,7 @@ import { useCart } from '@/stores/cart';
 import { useWishlist } from '@/stores/wishlist';
 import { usePathname } from 'next/navigation';
 
-import {Heart, ShoppingBag ,Profile} from "@/components/icons";
+import { Heart, ShoppingBag, Profile } from "@/components/icons";
 
 const Header = () => {
     const [navStatus, setnavStatus] = useState(false);
@@ -15,9 +15,7 @@ const Header = () => {
 
     const pathname = usePathname();
 
-    const dashboardPages = ["/Admin","/Admin/orders", "/Admin/inventory","/Admin/accounts","/Admin/settings","/Admin/workers","/profile", "/profile/cart", "/profile/wishlist","/profile/settings","/Admin/messages"];
-    
-    if (dashboardPages.includes(pathname)) {
+    if (pathname.startsWith("/Admin") || pathname.startsWith("/profile")) {
         return <></>
     } else {
         return (
@@ -88,7 +86,7 @@ const Header = () => {
                 </div>
 
                 <div className='flex flex-row flex-nowrap justify-center items-center gap-4'>
-                    <Link href={"/profile/wishlist"}className='relative w-5 h-5 sm:w-5 sm:h-5 md:w-5 md:h-5'>
+                    <Link href={"/profile/wishlist"} className='relative w-5 h-5 sm:w-5 sm:h-5 md:w-5 md:h-5'>
                         <Heart className="object-contain" />
                         <span className='absolute bg-red-600 text-xs right-[-8px] bottom-[10px] rounded-full w-[18px] h-[18px] flex justify-center items-center text-white'>
                             {wishlist.length}

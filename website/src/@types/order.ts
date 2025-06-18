@@ -7,9 +7,16 @@ packages: Package[]
 }
 
 export interface Package {
-productId:string;
-productName:string;
-productSKU:string;
-size:string;
-_key:string;
+  productId: string;
+  quantity: number;
+  productName: string;
+  productSKU: string;
+  size: string;
+  _key: string;
+}
+
+
+export interface OrderDetails extends Order{
+    _id:string;
+    _updatedAt:string;
 }

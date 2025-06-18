@@ -5,10 +5,7 @@ import { usePathname } from 'next/navigation';
 
 const Footer = () => {
     const pathname = usePathname();
-
-    const dashboardPages = ["/profile", "/profile/cart", "/profile/wishlist", "/profile/settings", "/Admin", "/Admin/inventory", "/Admin/orders", "/Admin/accounts", "/Admin/settings","/Admin/messages"];
-
-    if (dashboardPages.includes(pathname)) {
+    if (pathname.startsWith("/Admin") || pathname.startsWith("/profile")) {
         return <></>
     }
     return (
