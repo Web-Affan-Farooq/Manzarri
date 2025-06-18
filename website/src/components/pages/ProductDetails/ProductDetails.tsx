@@ -149,9 +149,7 @@ const ProductDetails = ({ id }: { id: string }) => {
                                     }}>+</span>
                                     <span className='text-[20px]'>{count}</span>
                                     <span className='text-[25px] cursor-pointer' onClick={() => {
-                                        if (count > 1) {
-                                            setCount(count - 1);
-                                        }
+
                                     }}>-</span>
                                 </div>
 

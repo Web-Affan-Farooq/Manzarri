@@ -14,7 +14,7 @@ const Accounts = ({ arrayData }: { arrayData: Account[] }) => {
     return (
         <div className='mt-[20px] flex flex-col flex-nowrap w-full'>
             {accounts.map((account: Account, idx: number) => {
-                return <Card userId={account._id} name={account.userName} email={account.userEmail} isBlocked={account.isBlocked} key={idx} />
+                return <Card isAdmin={account.isAdmin} userId={account._id} name={account.userName} email={account.userEmail} isBlocked={account.isBlocked} key={idx} />
             })}
         </div>)
 }

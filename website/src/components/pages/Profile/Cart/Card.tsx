@@ -1,53 +1,14 @@
 "use client";
-/* _____ Hooks ... */
-import { useCart } from "@/stores/cart";
-import { useEffect, useState } from "react";
-
 /* _____ Types ... */
 import { CartProduct } from "@/@types/cart";
 
 /* _____ Components ... */
 import Link from "next/link";
 import Image from "next/image";
-
-/**
- * 
- * @param {cartProduct}
- */
+import useCartCard from "@/components/hooks/useCartCard";
 
 const Card = ({ cartProduct }: { cartProduct: CartProduct }) => {
-
-  // Extract cart functions from context
-  const { updateQuantity, removeFromCart } = useCart();
-
-  // State to track if quantity update was triggered
-  const [isCountUpdated, setIsCountUpdated] = useState(false);
-
-  // Local state for item count
-  const [count, setCount] = useState(cartProduct.quantity);
-
-  // Effect: Runs only when 'isCountUpdated' becomes true
-  useEffect(() => {
-    if (isCountUpdated) {
-      updateQuantity({
-        id: cartProduct.id,
-        item: cartProduct.item,
-        quantity: count,
-        size: cartProduct.size,
-      });
-
-      // Reset the flag after updating
-      setIsCountUpdated(false);
-    }
-  }, [
-    isCountUpdated,
-    cartProduct.id,
-    cartProduct.item,
-    cartProduct.size,
-    count,
-    updateQuantity,
-  ]);
-
+  const { removeFromCart, handlecounter } = useCartCard(cartProduct);
 
   return (
     <div className="flex flex-col sm:flex-row w-full gap-4 border border-gray-300 p-4 rounded-md shadow-sm">
@@ -88,16 +49,8 @@ const Card = ({ cartProduct }: { cartProduct: CartProduct }) => {
           <div className="flex flex-row flex-nowrap gap-[10px] items-center text-sm text-gray-500 mt-1">
             <span> Quantity: {cartProduct.quantity}</span>
             <div>
-              <button type="button" className="bg-black text-white w-[20px] h-[20px] rounded-full font-bold" onClick={() => {
-                setCount(count + 1);
-                setIsCountUpdated(true);
-              }}>+</button>
-              <button type="button" className="bg-black text-white w-[20px] h-[20px] rounded-full font-bold ml-[5px]" onClick={() => {
-                if (count > 1) {
-                  setCount(count - 1);
-                  setIsCountUpdated(true);
-                }
-              }}>-</button>
+              <button type="button" className="bg-black text-white w-[20px] h-[20px] rounded-full font-bold" onClick={() => handlecounter(true)}>+</button>
+              <button type="button" className="bg-black text-white w-[20px] h-[20px] rounded-full font-bold ml-[5px]" onClick={() => handlecounter(false)}>-</button>
             </div>
           </div>
           <span className={`bg-black text-white rounded-full py-1 px-3 `}>{cartProduct.size}</span>

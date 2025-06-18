@@ -1,78 +1,9 @@
 "use client";
-/*____ Hooks ... */
-import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
 
-/*____ Libraries ... */
-import axios from 'axios';
+import { useSignup } from "@/components/hooks";
 
-/*____ Types nad schema ... */
-import { ZodError } from 'zod';
-import SignupSchema from '@/validations/SignupSchema';
-
-/*____ Functions ... */
-import toast from 'react-hot-toast';
-
-interface ISignupData {
-    name: string;
-    email: string;
-    password: string;
-}
 const Section_signup = () => {
-    /* ___ Router instance... */
-    const router = useRouter();
-
-    /* ___ State for handling form data ... */
-    const [userData, setuserData] = useState<ISignupData>({
-        name: "",
-        email: "",
-        password: "",
-    });
-
-    /* ___ Submit event for form ... */
-    const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-
-        /**
-         * @param {ISignupData} 
-         * @return {void}
-         */
-
-        const Signup = async (signupData: {
-            username: string;
-            email: string;
-            password: string;
-        }) => {
-            const response = await axios.post("/api/signup", signupData);
-            const data = response.data;
-
-            if (!data.success) {
-                toast.error(data.message);
-            } else {
-                toast.success("Signup successful!");
-                router.push(data.redirect);
-            }
-        };
-
-        try {
-            /* ____ Sanitize the data ... */
-            const sanitizedData = SignupSchema.parse(userData);
-            /* _____ Prepare payload ... */
-            const signupPayload = {
-                username: sanitizedData.name,
-                email: sanitizedData.email,
-                password: sanitizedData.password,
-            };
-            /* _____ Call signup function ... */
-            Signup(signupPayload);
-        } catch (err) {
-            /* _____ Handle validation errors  ... */
-            if (err instanceof ZodError) {
-                toast.error(err.errors[0].message);
-            }
-        }
-    };
-
+    const { handleEmailInput, handleNameInput, handlePasswordInput, handleSignupForm } = useSignup();
     return (
         <section className="min-h-screen flex items-center justify-center bg-[var(--faun-dark)] px-4 py-20">
             {/* ____ Box containing form ... */}
@@ -81,7 +12,7 @@ const Section_signup = () => {
                 {/* ____ Heading ... */}
                 <h1 className="text-3xl font-semibold text-white text-center">Sign Up</h1>
 
-                <form className="space-y-5" onSubmit={handleSignup}>
+                <form className="space-y-5" onSubmit={handleSignupForm}>
                     {/* ____ input for name ... */}
                     <div>
                         <label htmlFor="username" className="block text-sm font-medium text-white mb-1">
@@ -91,7 +22,7 @@ const Section_signup = () => {
                             type="text"
                             id="username"
                             placeholder="Your username"
-                            onChange={(e) => setuserData({ ...userData, name: e.target.value })}
+                            onChange={handleNameInput}
                             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-white focus:outline-none"
                         />
                     </div>
@@ -104,7 +35,7 @@ const Section_signup = () => {
                             type="email"
                             id="email"
                             placeholder="you@example.com"
-                            onChange={(e) => setuserData({ ...userData, email: e.target.value })}
+                            onChange={handleEmailInput}
                             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-white focus:outline-none"
                         />
                     </div>
@@ -117,7 +48,7 @@ const Section_signup = () => {
                             type="password"
                             id="password"
                             placeholder="********"
-                            onChange={(e) => setuserData({ ...userData, password: e.target.value })}
+                            onChange={handlePasswordInput}
                             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-white focus:outline-none"
                         />
                     </div>

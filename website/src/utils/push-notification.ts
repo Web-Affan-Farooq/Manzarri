@@ -11,5 +11,7 @@ const handleNotificationPush = async (userId:string, type: "Success" | "Failure"
     if (response.status !== 200) {
         toast.error(response.statusText);
     }
+    console.log("response from push notification : ",response);
 }
+
 export default handleNotificationPush;

@@ -8,7 +8,7 @@ Milestones :
 | Cart System         | Completed     |
 | Checkout & Order    | Completed     |
 | Authentication      | Completed    |
-| Profile             | 🔲      |
+| Profile             | 🔲     |
 | Admin Panel         | 🔲     |
 | Search & Filter     | 🔲     |
 | Wishlist            | Completed     |
@@ -43,8 +43,9 @@ Timestamps :
 - 17-6-2025.12:36am   fix block account feature
 
 Notes:
+Complete order tabel and functionalities
 implement push notifications on admin dashboard
-create notification card for notification display and user vercel notification bar as inspiration
+create notification card for notification display and use vercel notification bar as inspiration
 get accounts from state instead of getting it from datasets for maintaining cache
 edit the signup route and setup for pushing notifications
 create and customize notifications for success and failures .

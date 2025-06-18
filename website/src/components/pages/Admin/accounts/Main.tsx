@@ -9,6 +9,7 @@ const Main = async () => {
   userEmail,
   userName,
   isBlocked,
+  isAdmin,
 }
     `;
     const response:Account[] = await sanityClient.fetch(q);

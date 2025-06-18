@@ -76,7 +76,7 @@ const AdminHeader = () => {
           <NotificationBell size={{
             width: 20,
             height: 20
-          }} className='hover:stroke-blue-500 transition-all duration-200 ease-in-out' />
+          }} className='stroke-blue-500 transition-all duration-200 ease-in-out' />
         </SheetTrigger>
         <div className="relative flex">
           {/* Sidebar */}
