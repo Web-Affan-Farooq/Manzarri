@@ -14,7 +14,8 @@ Milestones :
 | Wishlist            | Completed     |
 | Reviews / Ratings   | 🔲     |
 | Payment Integration | Completed     |
-| Order table         | 🔲     |
+| Order table         | Completed     |
+| Order details       | Completed     |
 | Account functions   | 🔲     |
 | Email server int.   | 🔲     |
 | g.analytics setup   | 🔲     |
@@ -41,16 +42,14 @@ Timestamps :
 - 5-6-2025.11:25pm    Lint and fix simple bug
 - 14-6-2025.3:10pm   fix fug in the delete account button in admin/accounts
 - 17-6-2025.12:36am   fix block account feature
+- 19-6-2025.1:28am   Completed Order details , fixed stock update after order placement
 
 Notes:
-Complete order tabel and functionalities
 implement push notifications on admin dashboard
+Maintain order history in accounts
 create notification card for notification display and use vercel notification bar as inspiration
-get accounts from state instead of getting it from datasets for maintaining cache
 edit the signup route and setup for pushing notifications
 create and customize notifications for success and failures .
-fix notification push route .
-complete all the admin preveledges in accounts 
 create a zustand state for storing email ,name , isadmin , is blocked ,
 check in the header is user is admin , or not and render link for admin dashboard
 Implement header functionality. If user is not authorized, the header that's shown can contains options or buttons for login and signup
@@ -67,4 +66,4 @@ use this https://www.pinterest.com/pin/689473024237631462/ for creating orders m
 
 Create a basic inventory managemment system that have the following abilities :
 a single column grid that shows the product ,
-a details page which shows the analytics of how many products havebeen sold out this month , how it can be 
+a details page which shows the analytics of how many products havebeen sold out this month , how it can be

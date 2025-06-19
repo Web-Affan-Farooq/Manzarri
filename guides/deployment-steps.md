@@ -1,4 +1,10 @@
-## Deployement steps for project Manzarri :
+### Deployement steps for project Manzarri :
+
+#### Repository overview:
+This codebase hasbeen hosted on github and contains two branches .
+- **Staging** codebase that is for testing purposes
+- **main**  main codebase which is connected to production enviroments .
+
 ### check all the routes.
 - /signup (completed)
 - /login (completed)

@@ -19,7 +19,7 @@ interface OrderedProducts {
 }
 const Card = ({product}:{product:OrderedProducts}) => {
     if(product.size === "md"){
-        return  <div className='relative flex flex-row flex-wrap items-center gap-[10px] p-3 rounded-md'>
+        return  <div className='relative flex flex-row max-[500px]:flex-col flex-wrap items-center gap-[10px] p-3 rounded-md'>
             <div className='w-[50px] h-[50px] rounded-md'>
                 <Image src={product.images.asset.url} alt={product.productName} width={50} height={50} className='object-cover w-full h-full rounded-md' />
             </div>
@@ -32,7 +32,7 @@ const Card = ({product}:{product:OrderedProducts}) => {
         </div>
     }
     else if (product.size === "lg") {
-        return         <div className='relative flex flex-row flex-wrap items-center gap-[10px] p-3 rounded-md'>
+        return         <div className='relative flex flex-row max-[500px]:flex-col flex-wrap items-center gap-[10px] p-3 rounded-md'>
             <div className='w-[50px] h-[50px] rounded-md'>
                 <Image src={product.images.asset.url} alt={product.productName} width={50} height={50} className='object-cover w-full h-full rounded-md' />
             </div>
@@ -45,7 +45,7 @@ const Card = ({product}:{product:OrderedProducts}) => {
         </div>
     }
     else if (product.size === "sm") {
-                return         <div className='relative flex flex-row flex-wrap items-center gap-[10px] p-3 rounded-md'>
+                return         <div className='relative flex flex-row max-[500px]:flex-col flex-wrap items-center gap-[10px] p-3 rounded-md'>
             <div className='w-[50px] h-[50px] rounded-md'>
                 <Image src={product.images.asset.url} alt={product.productName} width={50} height={50} className='object-cover w-full h-full rounded-md' />
             </div>

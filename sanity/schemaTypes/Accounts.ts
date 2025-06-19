@@ -31,6 +31,12 @@ export default {
             initialValue: false
         },
         {
+            name:"invited",
+            type:"boolean",
+            title:"Invited on dashboard",
+            initialValue:false,
+        },
+        {
             name: "notifications",
             title: "Notifications",
             type: "array",
