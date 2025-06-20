@@ -1,6 +1,6 @@
 "use client"
 
-import * as React from "react"
+import React, { useEffect, useState } from "react"
 import { Minus, Plus } from "lucide-react"
 import { Bar, BarChart, ResponsiveContainer } from "recharts"
 
@@ -16,6 +16,9 @@ import {
 } from "@/components/ui/drawer";
 import Card from "./card";
 import { Product } from "@/@types/product";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { useInventory } from "@/stores/inventory";
 
 const data = [
   {
@@ -59,17 +62,40 @@ const data = [
   },
 ]
 
-export default function DrawerDemo({product}:{product:Product}) {
-//   const [goal, setGoal] = React.useState(350)
+export default function DrawerDemo({ product }: { product: Product }) {
+  // _____  Count for handling quantity update ...
+  const [count, setcount] = useState(product.stockQuantity);
+  const [updateCount, setupdateCount] = useState(false);
+  const { all, feedInventory } = useInventory();
+  // _____  Count for Submiting updated count ...
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.post("/api/Admin/update-quantity", {
+        id: product._id,
+        quantity: count,
+      });
+      toast.success(response.data.message);
+    } catch (err) {
+      console.log(err);
+      toast.error("An error occured while updating quantity")
+    }
+  }
 
-//   function onClick(adjustment: number) {
-//     setGoal(Math.max(200, Math.min(400, goal + adjustment)))
-//   }
+  useEffect(() => {
+    if (updateCount) {
+      const updatedStock = all.map((inventoryProduct: Product) => {
+        if (inventoryProduct._id === product._id) return { ...inventoryProduct, stockQuantity: count }
+        else return inventoryProduct;
+      });
+      feedInventory(updatedStock, "All");
+      setupdateCount(false);
+    }
+  }, [updateCount,all,count, feedInventory,product._id])
 
   return (
     <Drawer>
       <DrawerTrigger>
-              <Card product={product}/>
+        <Card product={product} />
       </DrawerTrigger>
       <DrawerContent className="bg-gray-900 border-none">
         <div className="mx-auto w-full max-w-sm">
@@ -80,19 +106,24 @@ export default function DrawerDemo({product}:{product:Product}) {
           <div className="p-4 pb-0">
             <div className="flex items-center justify-center space-x-2">
 
-                <Minus className="text-white"/>
-                <span className="sr-only">Decrease</span>
+              <Minus className="text-white" onClick={() => {
+                if (count > 0) {
+                  setcount(count - 1);
+                }
+              }} />
+              <span className="sr-only">Decrease</span>
               <div className="flex-1 text-center">
                 <div className="text-7xl font-bold tracking-tighter text-blue-700">
-                  {product.stockQuantity}
+                  {count}
                 </div>
                 <div className="text-gray-600 text-[0.70rem] uppercase">
                   pieces
                 </div>
               </div>
 
-                <Plus className="text-white"/>
-                <span className="sr-only">Increase</span>
+              <Plus className="text-white" onClick={() => {
+                setcount(count + 1);
+              }} />
             </div>
             <div className="mt-3 h-[120px]">
               <ResponsiveContainer width="100%" height="100%">
@@ -111,8 +142,8 @@ export default function DrawerDemo({product}:{product:Product}) {
             </div>
           </div>
           <DrawerFooter>
-            Submit
-            <DrawerClose >
+            <button type="button" className="bg-white w-full rounded-md px-[15px] py-[5px] font-semibold" onClick={handleSubmit}>Submit</button>
+            <DrawerClose className="bg-white w-full rounded-md px-[15px] py-[5px] font-semibold">
               Cancel
             </DrawerClose>
           </DrawerFooter>

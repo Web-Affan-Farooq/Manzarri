@@ -24,6 +24,9 @@ Milestones :
 | agent               | 🔲     |
 | Inventory management| 🔲     |
 | Landing ui update   | 🔲     |
+| Error Fallback ui   | 🔲     |
+| Code testing        | 🔲     |
+| Security testing    | 🔲     |
 
 Timestamps :
 - 2-6-2025.1:30 pm    fixed login token issue
@@ -45,6 +48,7 @@ Timestamps :
 - 19-6-2025.1:28am   Completed Order details , fixed stock update after order placement
 
 Notes:
+Create events section from which admin create orders
 implement push notifications on admin dashboard
 Maintain order history in accounts
 create notification card for notification display and use vercel notification bar as inspiration

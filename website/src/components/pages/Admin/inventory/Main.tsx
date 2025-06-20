@@ -1,9 +1,11 @@
 import sanityClient from '@/lib/sanity';
 import React from 'react';
-import { Product } from '@/@types/product';
-import DrawerDemo from './ExampleDrawer';
+import Link from 'next/link';
+import Stock from './Stock';
+import Fallback from "../Fallback";
 
-const Main = async () => {
+const getInventoryData = async () => {
+  try {
     const q = `
     *[_type == "Product"] {
   _id,
@@ -36,32 +38,39 @@ const Main = async () => {
   }
 }`;
     const response = await sanityClient.fetch(q);
-    // console.log("Response : ",response);
+    return {
+      data: response,
+      success: true
+    }
+  } catch (err) {
+    console.log(err);
+    return {
+      data: [],
+      success: false,
+      message: "An error occured"
+    }
+  }
+}
 
-//     const orders = await sanityClient.fetch(`*[_type == "Orders"].packages[]{
-// productId,
-//   quantity
-// }
-// `)
-    // console.log(orders);
+const Main = async () => {
+  const { data, success, message } = await getInventoryData();
 
-    // console.log(response);
-    return (
-        <section className='relative w-full h-[100vh] overflow-y-auto'>
-            <h1 className="text-[25px] font-bold p-5">Inventory</h1>
-            <div className='p-5'>
-                <p><span className='text-blue-600'>{response.length}</span> products in stock</p>
-                <p><span className='text-blue-600'>{response.length}</span> sold out</p>
-            </div>
-            <h2 className="text-[20px] font-bold p-5">Stock</h2>
-            {/* <Stock /> */}
-            <div className='flex flex-col'>
-            {response.map((product: Product, idx: number) => {
-                return <DrawerDemo product={product} key={idx}/>
-            })}
-            </div>
-        </section>
-    )
+  return (
+    <>
+      <Fallback success={success} message={message} />
+      <section className='relative w-full h-[100vh] overflow-y-auto'>
+        <h1 className="text-[25px] font-bold p-5">Inventory</h1>
+        <div className='p-5'>
+          <p><span className='text-blue-600'>{data.length}</span> products in stock</p>
+          <p><span className='text-blue-600'>{data.length}</span> sold out</p>
+          <p>Edit full product on <Link href={"https://manzarri-sanity.vercel.app/"} target={"_blank"} className="text-blue-500">Sanity studio</Link></p>
+        </div>
+        <h2 className="text-[20px] font-bold p-5">Stock</h2>
+        {data.length <= 0 ? <p className='p-10'>No products found ...</p> : <Stock arrayData={data} />
+        }
+      </section>
+    </>
+  )
 }
 
 export default Main

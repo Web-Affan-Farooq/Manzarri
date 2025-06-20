@@ -1,6 +1,6 @@
 import React from 'react';
 import { Product } from '@/@types/product';
-import Link from 'next/link';
+// import Link from 'next/link';
 import Image from 'next/image';
 import { DecreaseArrow } from '@/components/icons';
 
@@ -12,7 +12,7 @@ const Card = ({ product }: { product: Product }) => {
                         <DecreaseArrow className='text-red-500 z-10' />
                     </div> */}
             <div className="w-[50px] h-[50px] flex-shrink-0">
-                <Link href={`/marketplace/${product._id}`}>
+                {/* <Link href={`/marketplace/${product._id}`}> */}
                     <Image
                         src={product.images[0].asset.url}
                         alt={product.productName}
@@ -20,7 +20,7 @@ const Card = ({ product }: { product: Product }) => {
                         height={120}
                         className="w-full h-full object-cover rounded-md"
                     />
-                </Link>
+                {/* </Link> */}
             </div>
 
             {/* Product Info */}
