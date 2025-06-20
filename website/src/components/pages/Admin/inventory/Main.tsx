@@ -63,7 +63,7 @@ const Main = async () => {
         <div className='p-5'>
           <p><span className='text-blue-600'>{data.length}</span> products in stock</p>
           <p><span className='text-blue-600'>{data.length}</span> sold out</p>
-          <p>Edit full product on <Link href={"https://manzarri-sanity.vercel.app/"} target={"_blank"} className="text-blue-500">Sanity studio</Link></p>
+          <p>Manage full inventory on <Link href={"https://manzarri-sanity.vercel.app/"} target={"_blank"} className="text-blue-500">Sanity studio</Link></p>
         </div>
         <h2 className="text-[20px] font-bold p-5">Stock</h2>
         {data.length <= 0 ? <p className='p-10'>No products found ...</p> : <Stock arrayData={data} />

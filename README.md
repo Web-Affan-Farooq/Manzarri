@@ -9,7 +9,6 @@ Milestones :
 | Checkout & Order    | Completed     |
 | Authentication      | Completed    |
 | Profile             | 🔲     |
-| Admin Panel         | 🔲     |
 | Search & Filter     | 🔲     |
 | Wishlist            | Completed     |
 | Reviews / Ratings   | 🔲     |
@@ -46,9 +45,10 @@ Timestamps :
 - 14-6-2025.3:10pm   fix fug in the delete account button in admin/accounts
 - 17-6-2025.12:36am   fix block account feature
 - 19-6-2025.1:28am   Completed Order details , fixed stock update after order placement
+- 20-6-2025.12:00am   Completed search bar in inventory
 
 Notes:
-Create events section from which admin create orders
+Create events section from which admin create events
 implement push notifications on admin dashboard
 Maintain order history in accounts
 create notification card for notification display and use vercel notification bar as inspiration

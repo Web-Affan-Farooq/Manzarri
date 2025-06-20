@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useState } from "react"
+import React, { useCallback, useState } from "react"
 import { Minus, Plus } from "lucide-react"
 import { Bar, BarChart, ResponsiveContainer } from "recharts"
 
@@ -63,39 +63,83 @@ const data = [
 ]
 
 export default function DrawerDemo({ product }: { product: Product }) {
-  // _____  Count for handling quantity update ...
+  // State to manage quantity input
   const [count, setcount] = useState(product.stockQuantity);
-  const [updateCount, setupdateCount] = useState(false);
+
+  // Zustand store hooks
   const { all, feedInventory } = useInventory();
-  // _____  Count for Submiting updated count ...
-  const handleSubmit = async () => {
+
+  // Flag for UI feedback (e.g. button state, highlighting changes)
+  const [isQuantityUpdated, setisQuantityUpdated] = useState(false);
+
+  // Submit handler to update product quantity
+  const handleSubmit = useCallback(async () => {
     try {
+      // Only submit if quantity was changed
+      if (count === product.stockQuantity) {
+        return
+      }
       const response = await axios.post("/api/Admin/update-quantity", {
         id: product._id,
         quantity: count,
       });
+
+      // Update local inventory state
+      const updatedStock = all.map((inventoryProduct: Product) => {
+        if (inventoryProduct._id === product._id) {
+          return { ...inventoryProduct, stockQuantity: count };
+        }
+        return inventoryProduct;
+      });
+
+      // Feed updated inventory back to Zustand
+      feedInventory(updatedStock, "All");
+
+      // Optional: reset flag or close drawer/modal
+      setisQuantityUpdated(false);
+
+      // Success feedback
       toast.success(response.data.message);
     } catch (err) {
-      console.log(err);
-      toast.error("An error occured while updating quantity")
+      console.error("Update Error:", err);
+      toast.error("An error occurred while updating quantity");
     }
-  }
+  }, [count, product._id, product.stockQuantity, all, feedInventory])
 
-  useEffect(() => {
-    if (updateCount) {
-      const updatedStock = all.map((inventoryProduct: Product) => {
-        if (inventoryProduct._id === product._id) return { ...inventoryProduct, stockQuantity: count }
-        else return inventoryProduct;
-      });
-      feedInventory(updatedStock, "All");
-      setupdateCount(false);
-    }
-  }, [updateCount,all,count, feedInventory,product._id])
+  // // _____  Count for handling quantity update ...
+  // const [count, setcount] = useState(product.stockQuantity);
+  // const { all, feedInventory } = useInventory();
+  // const [isQuantityUpdated, setisQuantityUpdated] = useState(false);
+  // // _____  Count for Submiting updated count ...
+  // const handleSubmit = async () => {
+  //   try {
+  //     if (count !== product.stockQuantity) {
+  //       const response = await axios.post("/api/Admin/update-quantity", {
+  //         id: product._id,
+  //         quantity: count,
+  //       });
+
+  //       const updatedStock = all.map((inventoryProduct: Product) => {
+  //         if (inventoryProduct._id === product._id) {
+  //           return { ...inventoryProduct, stockQuantity: count }
+  //         }
+  //         return inventoryProduct;
+  //       });
+
+  //       feedInventory(updatedStock, "All");
+  //       setisQuantityUpdated(false);
+  //       toast.success(response.data.message);
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //     toast.error("An error occured while updating quantity")
+  //   }
+  // }
 
   return (
     <Drawer>
       <DrawerTrigger>
-        <Card product={product} />
+        <Card product={{ ...product, stockQuantity: count }} /> {/* Importnat for syncronize UI with updated quantity */}
       </DrawerTrigger>
       <DrawerContent className="bg-gray-900 border-none">
         <div className="mx-auto w-full max-w-sm">
@@ -109,6 +153,7 @@ export default function DrawerDemo({ product }: { product: Product }) {
               <Minus className="text-white" onClick={() => {
                 if (count > 0) {
                   setcount(count - 1);
+                  setisQuantityUpdated(true);
                 }
               }} />
               <span className="sr-only">Decrease</span>
@@ -123,6 +168,7 @@ export default function DrawerDemo({ product }: { product: Product }) {
 
               <Plus className="text-white" onClick={() => {
                 setcount(count + 1);
+                setisQuantityUpdated(true)
               }} />
             </div>
             <div className="mt-3 h-[120px]">
@@ -142,7 +188,9 @@ export default function DrawerDemo({ product }: { product: Product }) {
             </div>
           </div>
           <DrawerFooter>
-            <button type="button" className="bg-white w-full rounded-md px-[15px] py-[5px] font-semibold" onClick={handleSubmit}>Submit</button>
+            <button type="button" className="bg-white w-full rounded-md px-[15px] py-[5px] font-semibold" onClick={() => {
+              if (isQuantityUpdated) handleSubmit();
+            }}>Submit</button>
             <DrawerClose className="bg-white w-full rounded-md px-[15px] py-[5px] font-semibold">
               Cancel
             </DrawerClose>

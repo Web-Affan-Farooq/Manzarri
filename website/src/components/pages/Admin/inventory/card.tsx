@@ -44,12 +44,6 @@ const Card = ({ product }: { product: Product }) => {
                         height: 17
                     }} className={`${product.stockQuantity <= 5 ? "" : "hidden"} text-red-500 z-10`} />
                     <span className='bg-gray-400 w-5 h-5 text-center rounded-full text-[13px] text-black'>{product.stockQuantity}</span>
-                    {/* <button
-                                type="button"
-                                className="text-white text-sm"
-                            >
-                                <i className="fa-solid fa-trash"></i>
-                            </button> */}
                 </div>
             </div>
         </div>
