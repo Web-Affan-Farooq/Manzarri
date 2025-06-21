@@ -26,8 +26,8 @@ export default class OrderPlacement implements IOrderPlacement {
                 order: requiredOrder[0]
             }
         } catch (err) {
-            console.log("Error : ",err);
-            
+            console.log("Error : ", err);
+
             return {
                 success: false,
                 order: []
@@ -56,9 +56,9 @@ export default class OrderPlacement implements IOrderPlacement {
         console.log("utils/OrderPlacement  line:54  Get all ids of packages : ", productIds);
 
         const productsFetched = await sanityClient.fetch(
-            `*[_type == "Product" && _id in $ids]{ _id, stockQuantity }`,{
-                ids:productIds
-            }
+            `*[_type == "Product" && _id in $ids]{ _id, stockQuantity }`, {
+            ids: productIds
+        }
         );
 
         console.log("utils/OrderPlacement  line:60  Fetch details of all packages from catalog : ", productsFetched);
@@ -106,8 +106,6 @@ export default class OrderPlacement implements IOrderPlacement {
             .commit({ autoGenerateArrayKeys: true })
 
         console.log("utils/OrderPlacement  line:106  Updated account activity : ", updatedAccountActivity);
-
-
     }
 
 }
