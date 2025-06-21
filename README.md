@@ -49,6 +49,7 @@ Timestamps :
 - 21-6-2025.5:25pm   Completed architecture for maintaining account activities
 
 Notes:
+Complete frontend ui for account activity monitoring in accounts
 Create events section from which admin create events
 implement push notifications on admin dashboard
 create notification card for notification display and use vercel notification bar as inspiration
