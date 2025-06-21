@@ -7,3 +7,4 @@ export {default as CartSection} from "./Cart/Main";
 /* _____ Cart section ...*/
 export {default as WishlistSection} from "./Wishlist/Main";
 export {default as SettingsSection} from "./Settings/Main";
+export {default as AccountActivitySection} from "./activity/Main";

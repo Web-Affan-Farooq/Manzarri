@@ -11,7 +11,7 @@
 
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import AUTH from "@/utils/Auth/Auth";
+import AUTH from "@/utils/Auth";
 
 export const POST = async (req: NextRequest) => {
     const { username, email, password }: {

@@ -4,7 +4,7 @@
 */
 
 import { NextResponse } from "next/server";
-import { Logout } from "@/utils/Auth/Auth";
+import { Logout } from "@/utils/Auth";
 
 export const GET = async () => {
     const response = await Logout();

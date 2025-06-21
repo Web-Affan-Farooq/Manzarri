@@ -14,6 +14,11 @@ export default {
             title: "User password"
         },
         {
+            name: "lastLogin",
+            type: "datetime",
+            title: "Last login"
+        },
+        {
             name: "userEmail",
             type: "string",
             title: "User email"
@@ -62,6 +67,6 @@ export default {
                     ]
                 }
             ]
-        }
+        },
     ]
 }

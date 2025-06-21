@@ -1,6 +1,6 @@
 /* _____ Utilities ... */
 import { cookies } from "next/headers";
-import GenerateString from "../randomstring/GenerateString";
+import GenerateString from "@/utils/GenerateString";
 /* _____ library functions */
 import bcrypt from "bcryptjs";
 
@@ -146,10 +146,24 @@ class AUTH implements Authentication {
                     }
                 ],
             }
+
             // console.log("Final user : ", user);
 
             try {
+                // Create account
                 const data = await sanityClient.create(user);
+                const userAccountActivity = {
+                    _type: "AccountActivity",
+                    userId: data._id,
+                    // lastLogin: date.toISOString(),
+                    orders: []
+                }
+
+                // Create corresponding account activity
+                const accountActivity = await sanityClient.create(userAccountActivity);
+                                                console.log("utils/Auth  line:166 Created document AccountActivity on signup : ", accountActivity);
+
+
                 return {
                     success: true,
                     redirect: "/profile",
@@ -158,7 +172,7 @@ class AUTH implements Authentication {
                         name: data.userName,
                         email: data.userEmail,
                         isAdmin: data.isAdmin,
-                        isBlocked:data.isBlocked
+                        isBlocked: data.isBlocked
                     }
                 }
             }
@@ -241,7 +255,19 @@ class AUTH implements Authentication {
         }
         /* ____ Error tracking ... */
         // console.log("User in datasets : ",user);
-        
+
+        /* ____ Update user's account activity ... */
+        // const getAccountActivity = await sanityClient.fetch(`*[_type == "AccountActivity" && userId == "${user.user._id}"] {_id}`);
+        const date = new Date();
+
+        const updatedAccountActivity = await sanityClient.patch(user.user._id).set(
+            {
+                lastLogin: date.toISOString(),
+            }
+        ).commit();
+
+        console.log("utils/Auth  line:269  updated lastLogin : ", updatedAccountActivity);
+
         if (user.user.isAdmin) {
             return {
                 message: "Welcome Admin",

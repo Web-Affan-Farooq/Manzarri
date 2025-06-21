@@ -9,7 +9,7 @@
 */
 import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server';
-import AUTH from "@/utils/Auth/Auth";
+import AUTH from "@/utils/Auth";
 
 export async function POST(req: NextRequest) {
   const { email, password } = await req.json();

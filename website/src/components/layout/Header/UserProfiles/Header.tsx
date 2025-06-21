@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 const menuItems = [
   { href: "/profile/cart", label: "🛒 Cart" },
   { href: "/profile/wishlist", label: "❤️ Wishlist" },
-  { href: "/profile", label: "📈 Your Activity" },
+  { href: "/profile/activity", label: "📈 Your Activity" },
   { href: "/profile/settings", label: "⚙️ Settings" },
   { href: "/marketplace", label: "⚙️ Marketplace" },
 ];

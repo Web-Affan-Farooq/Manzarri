@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useAccounts } from "@/stores/accounts";
 import axios from "axios";
 import toast from "react-hot-toast";
-import handleNotificationPush from "@/utils/push-notification";
+import handleNotificationPush from "@/utils/PushNotifications";
 
  const useAccountCard = ({ userId,isBlocked }: { userId: string; isBlocked: boolean }) => {
 

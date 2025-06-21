@@ -46,13 +46,12 @@ Timestamps :
 - 17-6-2025.12:36am   fix block account feature
 - 19-6-2025.1:28am   Completed Order details , fixed stock update after order placement
 - 20-6-2025.12:00am   Completed search bar in inventory
+- 21-6-2025.5:25pm   Completed architecture for maintaining account activities
 
 Notes:
 Create events section from which admin create events
 implement push notifications on admin dashboard
-Maintain order history in accounts
 create notification card for notification display and use vercel notification bar as inspiration
-edit the signup route and setup for pushing notifications
 create and customize notifications for success and failures .
 create a zustand state for storing email ,name , isadmin , is blocked ,
 check in the header is user is admin , or not and render link for admin dashboard

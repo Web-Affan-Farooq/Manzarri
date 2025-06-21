@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
       // Trigger stock update
       try {
         await axios.post(new URL("/api/order", req.url).toString(), {
-          id: order_id,
+          order_id: order_id,
         });
       } catch (error) {
         console.error("❌ Failed to update product stock:", error);
