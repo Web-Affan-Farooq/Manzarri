@@ -16,7 +16,11 @@ const useFormSubmission = () => {
     _updatedAt,
   } | order(_updatedAt desc)`
 
-  const data: FormSubmission[] = await sanityClient.fetch(q);
+  const data: FormSubmission[] = await sanityClient.fetch(q,{},{
+    next:{
+      revalidate:30
+    }
+  });
   setdata(data);
     }
     getData();

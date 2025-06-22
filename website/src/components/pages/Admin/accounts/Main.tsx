@@ -12,7 +12,11 @@ const Main = async () => {
   isAdmin,
 }
     `;
-    const response:Account[] = await sanityClient.fetch(q);
+    const response:Account[] = await sanityClient.fetch(q,{},{
+        next: {
+            revalidate:30
+        }
+    });
     return (
         <section className='w-full p-1'>
             <h1 className='font-semibold text-gray-400 text-[24px]'>Accounts</h1>

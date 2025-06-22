@@ -161,7 +161,7 @@ class AUTH implements Authentication {
 
                 // Create corresponding account activity
                 const accountActivity = await sanityClient.create(userAccountActivity);
-                                                console.log("utils/Auth  line:166 Created document AccountActivity on signup : ", accountActivity);
+                                                // console.log("utils/Auth  line:166 Created document AccountActivity on signup : ", accountActivity);
 
 
                 return {
@@ -266,7 +266,7 @@ class AUTH implements Authentication {
             }
         ).commit();
 
-        console.log("utils/Auth  line:269  updated lastLogin : ", updatedAccountActivity);
+        // console.log("utils/Auth  line:269  updated lastLogin : ", updatedAccountActivity);
 
         if (user.user.isAdmin) {
             return {

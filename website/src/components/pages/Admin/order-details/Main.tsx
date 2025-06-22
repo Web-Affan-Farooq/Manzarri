@@ -1,76 +1,11 @@
 "use client";
-import { useOrders } from '@/stores/orders';
-import React, { useEffect, useState } from 'react';
-import { OrderDetails } from '@/@types/order';
-import sanityClient from '@/lib/sanity';
-import { Product } from '@/@types/product';
+import React from 'react';
 import Card from './card';
 import Orders from "@/components/icons/Orders";
-
-interface OrderedProducts {
-    _key:string;
-    size:string;
-    quantity:number;
-    productSKU:string;
-    productId:string;
-    
-  productName: string;
-  images: {
-    asset: {
-      url: string;
-      _id: string;
-    };
-  };
-  price: number;
-}
+import { useOrderDetails } from '@/components/hooks';
 
 const Main = ({ id }: { id: string }) => {
-  const { orders } = useOrders();
-  const [order, setOrder] = useState<OrderDetails>();
-  const [packages, setPackages] = useState<OrderedProducts[]>([]);
-
-  useEffect(() => {
-    const foundOrder = orders.find((order) => order._id === id);
-    if (foundOrder) {
-      setOrder(foundOrder);
-
-      // fetch all products in this order
-      const fetchProductData = async () => {
-        const productIds = foundOrder.packages.map((p) => p.productId);
-        const productData = await sanityClient.fetch(
-          `*[_type == "Product" && _id in $ids]{
-            _id,
-            productName,
-            price,
-            images[0]{
-              asset->{
-                _id,
-                url
-              }
-            }
-          }`,
-          { ids: productIds }
-        );
-
-        // Merge quantity and other local data from order.packages
-        const enrichedPackages = foundOrder.packages.map((pkg) => {
-          const matchedProduct = productData.find((p:Pick<Product, "_id" >) => p._id === pkg.productId);
-          return {
-            ...pkg,
-            productName: matchedProduct?.productName || pkg.productName,
-            price: matchedProduct?.price,
-            images: matchedProduct?.images,
-          };
-        });
-        // console.log("Products  : ",enrichedPackages);
-        
-        setPackages(enrichedPackages);
-        
-      };
-
-      fetchProductData();
-    }
-  }, [orders, id]);
+  const {order, packages} = useOrderDetails(id);
 
   return (
     <div className='p-5'>

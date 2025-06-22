@@ -37,7 +37,11 @@ const getInventoryData = async () => {
     }
   }
 }`;
-    const response = await sanityClient.fetch(q);
+    const response = await sanityClient.fetch(q,{},{
+      next: {
+        revalidate:30
+      }
+    });
     return {
       data: response,
       success: true
