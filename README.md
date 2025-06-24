@@ -67,7 +67,3 @@ Implement Dynamic animations and smooth scrolling animations along with 3d model
 Integrate Order tracking systems
 
 use this https://www.pinterest.com/pin/689473024237631462/ for creating orders management section in admin dashboard
-
-Create a basic inventory managemment system that have the following abilities :
-a single column grid that shows the product ,
-a details page which shows the analytics of how many products havebeen sold out this month , how it can be
