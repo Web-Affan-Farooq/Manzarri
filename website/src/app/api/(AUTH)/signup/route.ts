@@ -29,6 +29,7 @@ export const POST = async (req: NextRequest) => {
 
     // ____ Calling signup method from auth class
     const SignupUser = await Authmodel.Signup();
+
     /* ____ Error tracking ... */
     // console.log("Auth.Signup() => ", SignupUser);
 
@@ -36,9 +37,20 @@ export const POST = async (req: NextRequest) => {
         return NextResponse.json({ message: SignupUser.message, success: SignupUser.success });
     }
 
-    await Authmodel.SendAuthToken(false); // because user is not admin at the time of signup 
+    await Authmodel.SendAuthToken(false); // because user is not admin at that time  
 
     /* ____ Error tracking ... */
     // console.log("Auth.SendAuthToken() => ", generateTokenReturnValue)
-    return NextResponse.json({ success: SignupUser.success, message: SignupUser.message, redirect: SignupUser.redirect })
+
+    // ✅ Now safely narrow the type
+    if ("redirect" in SignupUser && "user" in SignupUser) {
+        await Authmodel.SendAuthToken(false);
+        return NextResponse.json({
+            success: true,
+            message: SignupUser.message,
+            redirect: SignupUser.redirect,
+            user: SignupUser.user,
+        });
+    }
+    
 } 

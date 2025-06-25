@@ -10,10 +10,15 @@ export default {
             initialValue: ""
         },
         {
+            name: "lastLogin",
+            type: "datetime",
+            title: "Last login"
+        },
+        {
             name: "orders",
             type: "array",
             title: "Orders",
-            initialValue:[],
+            initialValue: [],
             of: [
                 {
                     type: "reference",

@@ -14,11 +14,6 @@ export default {
             title: "User password"
         },
         {
-            name: "lastLogin",
-            type: "datetime",
-            title: "Last login"
-        },
-        {
             name: "userEmail",
             type: "string",
             title: "User email"
@@ -36,37 +31,10 @@ export default {
             initialValue: false
         },
         {
-            name:"invited",
-            type:"boolean",
-            title:"Invited on dashboard",
-            initialValue:false,
-        },
-        {
-            name: "notifications",
-            title: "Notifications",
-            type: "array",
-            initialValue: [],
-            of: [
-                {
-                    type: "object",
-                    fields: [
-                        {
-                            name: "notificationType",
-                            title: "Notification type",
-                            type: "string",
-                            options: {
-                                list: ['Success', 'Failure'],
-                                layout: 'radio',
-                            },
-                        },
-                        {
-                            name: "notificationText",
-                            title: "Notification text",
-                            type: "string",
-                        }
-                    ]
-                }
-            ]
+            name: "invited",
+            type: "boolean",
+            title: "Invited on dashboard",
+            initialValue: false,
         },
     ]
 }

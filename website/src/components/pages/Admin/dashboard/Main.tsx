@@ -2,16 +2,20 @@ import React from 'react';
 import Flashcards from './Flashcards';
 import SalesChart from './SalesChart';
 // import SampleChart from './SampleChart';
+import FetchDashboardData from '../FetchDashboardData';
 
 const Dashboard = () => {
-          /* ____ Error tracking ... */
-    // console.log("/Admin/");
+  /* ____ Error tracking ... */
+  // console.log("/Admin/");
   return (
-    <section className="p-1">
-        <Flashcards/>
+    <>
+      <FetchDashboardData />
+      <section className="p-1">
+        <Flashcards />
         {/* <SampleChart/> */}
-        <SalesChart/>
-    </section>
+        <SalesChart />
+      </section>
+    </>
   );
 };
 

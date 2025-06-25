@@ -1,6 +1,7 @@
 /* _____ Utilities ... */
 import { cookies } from "next/headers";
 import GenerateString from "@/utils/GenerateString";
+
 /* _____ library functions */
 import bcrypt from "bcryptjs";
 
@@ -82,9 +83,37 @@ class AUTH implements Authentication {
         }
 
     }
+    SanitizeData = (data: { name?: string; email: string; password: string }): { success: false, message: string } | { success: true } => {
+        /* ______ parse the data and return false if validation error found ... */
+        if (data.name) {
+            const result = SignupSchema.safeParse(data);
+            if (result.success) {
+                return { success: true, };
+            } else {
+                // console.log("All errors : ", result.error.errors);      
+                return {
+                    message: result.error.errors[0]?.message || "Validation error",
+                    success: false,
+                };
+            }
+        }
+        else {
+            const result = LoginSchema.safeParse(data);
+            if (result.success) {
+                return { success: true };
+            } else {
+                // console.log("All errors : ", result.error.errors);     
+                const ErrorMessage = result.error.errors[0].message;
+                return {
+                    message: ErrorMessage || "Validation error",
+                    success: false,
+                };
+            }
+        }
+    }
 
     Signup = async () => {
-        /* ____ Run verification method ... */
+        /* ____ Check if account already exists ... */
         const userAlreadyExists = await this.VerifyUser();
         if (userAlreadyExists.success) {
             return {
@@ -93,39 +122,25 @@ class AUTH implements Authentication {
             }
         }
 
-        /* _____ Implemennt password hashing ... */
-        const HashPassword = async () => {
-            const hashPassword = bcrypt.hash(this.password, 10);
-            return hashPassword;
-        }
-
-        /* ______ Implement sanitization and validation ... */
-        const sanitize = async (data: { name: string; email: string; password: string }) => {
-            const result = SignupSchema.safeParse(data);
-            if (result.success) {
-                return { success: true };
-            } else {
-                // console.log("All errors : ", result.error.errors);      
-                return {
-                    message: result.error.errors[0]?.message || "Validation error",
-                    success: false,
-                };
-            }
-        };
-
         /* _____ Create account function ... */
         const createAccount = async ({ name, email, password }: { name: string; email: string; password: string }) => {
-            const data = await sanitize({ name: name, email: email, password: password });
+
+            const data = this.SanitizeData({
+                name: name,
+                email: email,
+                password: password,
+            })
+
             // console.log("Data after sanitization : ", data);
-            if (!data?.success) {
+            if (!data.success) {
                 return {
                     success: false,
-                    message: data?.message,
+                    message: data.message,
                 }
             }
 
             /* _____ Run password hashing ... */
-            const hashed = await HashPassword();
+            const hashed = await bcrypt.hash(this.password, 10);
 
             /* replacing password with hash */
             [name, email, password] = [name, email, hashed]
@@ -138,37 +153,51 @@ class AUTH implements Authentication {
                 userEmail: email,
                 isAdmin: false,
                 isBlocked: false,
-                notifications: [
-                    {
-                        _key: GenerateString(30),
-                        notificationText: `Welcome ${name} , browse products and explore our marketplace`,
-                        notificationType: "Success"
-                    }
-                ],
+                invited: false,
             }
 
             // console.log("Final user : ", user);
 
             try {
                 // Create account
+                const date = new Date();
                 const data = await sanityClient.create(user);
+
                 const userAccountActivity = {
                     _type: "AccountActivity",
                     userId: data._id,
-                    // lastLogin: date.toISOString(),
+                    lastLogin: date.toISOString(),
                     orders: []
                 }
+                const successNotification = {
+                    _type: "Notifications",
+                    userId: data._id,
+                    notificationTitle: "Welcome onboard",
+                    notificationText: `Welcome ${name} , browse products and explore our marketplace`,
+                    notificationType: "Success",
+                    isSeen: false,
+                }
+
+                // console.log("utils/Auth  line:166   Created Account : ",
+                // data
+                // );
 
                 // Create corresponding account activity
-                const accountActivity = await sanityClient.create(userAccountActivity);
-                                                console.log("utils/Auth  line:166 Created document AccountActivity on signup : ", accountActivity);
+                // console.log("utils/Auth  line:171 Created document AccountActivity on signup : ",
+                await sanityClient.create(userAccountActivity)
+                // );
 
+                // Push success notification
+                // console.log(`utils/Auth  line:176  Pushed notification on account with id : ${data._id}`,
+                await sanityClient.create(successNotification);
+                // );
 
                 return {
                     success: true,
                     redirect: "/profile",
                     message: "Account created successfully",
                     user: {
+                        user_id: data._id,
                         name: data.userName,
                         email: data.userEmail,
                         isAdmin: data.isAdmin,
@@ -209,24 +238,8 @@ class AUTH implements Authentication {
     /* _____ Login method ... */
     Login = async () => {
 
-        /* Function for sanitization of data ... */
-        const sanitize = async (data: { email: string; password: string }) => {
-            const result = LoginSchema.safeParse(data);
-            if (result.success) {
-                return { success: true };
-            } else {
-                // console.log("All errors : ", result.error.errors);     
-                const ErrorMessage = result.error.errors[0].message;
-                return {
-                    message: ErrorMessage || "Validation error",
-                    success: false,
-                };
-                /* no return on else case */
-            }
-        };
-
         /* sanitize data and check for errors */
-        const data = await sanitize({ email: this.email, password: this.password });
+        const data = this.SanitizeData({ email: this.email, password: this.password });
 
         if (!data.success && data.message) {
             return {
@@ -260,13 +273,13 @@ class AUTH implements Authentication {
         // const getAccountActivity = await sanityClient.fetch(`*[_type == "AccountActivity" && userId == "${user.user._id}"] {_id}`);
         const date = new Date();
 
-        const updatedAccountActivity = await sanityClient.patch(user.user._id).set(
+        // console.log("utils/Auth  line:269  updated lastLogin : ", 
+        await sanityClient.patch(user.user._id).set(
             {
                 lastLogin: date.toISOString(),
             }
         ).commit();
-
-        console.log("utils/Auth  line:269  updated lastLogin : ", updatedAccountActivity);
+        // );
 
         if (user.user.isAdmin) {
             return {

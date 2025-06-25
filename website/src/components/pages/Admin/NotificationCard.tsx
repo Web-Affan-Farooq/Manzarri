@@ -1,5 +1,5 @@
 import React from 'react'
-import { Notification } from '@/@types/accounts';
+import { Notification } from '@/@types/notifications';
 // import { CheckIcon, X, } from 'lucide-react';
 import { WarningIcon } from '@/components/icons';
 

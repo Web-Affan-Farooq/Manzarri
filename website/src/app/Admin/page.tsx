@@ -1,6 +1,6 @@
 import React from 'react';
 import { AdminPanelSidebar } from "@/components/layout";
-import Dashboard from '@/components/pages/Admin/dashboard/Dashboard';
+import { DashboardSection } from '@/components/pages/Admin';
 
 const Admin = () => {
   return (
@@ -10,7 +10,7 @@ const Admin = () => {
       <>
         <div className='p-[20px]'>
           <h1 className='text-[30px] font-semibold pb-[15px]'>Dashboard</h1>
-          <Dashboard />
+          <DashboardSection />
         </div>
       </>
 

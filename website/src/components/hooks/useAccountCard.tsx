@@ -1,18 +1,18 @@
 import { useState } from "react";
-import { useAccounts } from "@/stores/accounts";
 import axios from "axios";
 import toast from "react-hot-toast";
-import handleNotificationPush from "@/utils/PushNotifications";
+import { handleNotificationPush } from "@/utils/PushNotifications";
+import useDashboardCache from "@/stores/admin";
 
- const useAccountCard = ({ userId,isBlocked }: { userId: string; isBlocked: boolean }) => {
+const useAccountCard = ({ userId, isBlocked }: { userId: string; isBlocked: boolean }) => {
 
     const [deleteText, setdeleteText] = useState("");
-    const { deleteAccount, blockAccount } = useAccounts();
+    const { deleteAccount, blockAccount } = useDashboardCache();
 
     /* _____ handle account deletion ...*/
     const handleDelete = async () => {
-        const authUserId = window.localStorage.getItem("userID");
-        if (deleteText.trim() !== "" && authUserId) {
+        // const authUserId = window.localStorage.getItem("userID");
+        if (deleteText.trim() !== "") {
             const response = await axios.post("/api/Admin/delete-account", {
                 id: userId,
                 text: deleteText,
@@ -22,7 +22,12 @@ import handleNotificationPush from "@/utils/PushNotifications";
             }
             toast.success("Account deleted successfully");
             deleteAccount(userId);
-            handleNotificationPush(authUserId,"Warning",`Please make sure to email ${response.data.user.name} at ${response.data.user.email} . `)
+            handleNotificationPush({
+                userId: userId,
+                text: `Please make sure to email ${response.data.user.name} at ${response.data.user.email} . `,
+                type: "Success",
+                title: "User account deleted"
+            })
         }
     }
 

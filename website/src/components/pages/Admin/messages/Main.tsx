@@ -8,21 +8,21 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { useFormSubmission } from '@/components/hooks';
+import useDashboardCache from '@/stores/admin';
 
 const Main = () => {
-  const { data } = useFormSubmission();
+  const { formSubmissions } = useDashboardCache();
 
   return (
     <section className="w-full p-4">
       <h1 className="text-2xl font-semibold text-gray-500 mb-6">Customer Messages</h1>
 
       <div className='flex flex-col'>
-        {data.length === 0 ? (
+        {formSubmissions.length === 0 ? (
           <p className="text-gray-400">No messages found.</p>
         ) : (
           <Accordion type="single" collapsible className="space-y-2">
-            {data.map((message, idx) => (
+            {formSubmissions.map((message, idx) => (
               <AccordionItem
                 key={message._id}
                 value={`item-${idx}`}
