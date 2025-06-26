@@ -52,6 +52,7 @@ Timestamps :
 - 25-6-2025.8:00pm   Complete frontend ui for account activity monitoring in accounts
 - 25-6-2025.8:15pm   Completed api for handling notification push
 - 25-6-2025.8:15pm   Completed utility functions for notification push
+- 26-6-2025.3:45pm   Created Admin apis in fastapi 
 
 Notes:
 Create events section from which admin create events

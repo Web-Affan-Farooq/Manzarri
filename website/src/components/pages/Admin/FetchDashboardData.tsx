@@ -1,6 +1,6 @@
 import React from 'react'
 import FeedDashboardCache from './FeedDashboardCache';
-import { getAccounts, getFormSubmissions, getInventory, getOrders,  } from '@/utils/FetchDashboardData';
+import { getAccounts, getFormSubmissions, getInventory, getOrders } from '@/utils/FetchDashboardData';
 
 const FetchDashboardData = async () => {
     const accounts = await getAccounts();
