@@ -1,26 +1,19 @@
+"use client";
 import React from 'react'
-import sanityClient from "@/lib/sanity";
 import { Account } from '@/@types/accounts';
-import Accounts from './Accounts';
-const Main = async () => {
-    const q = `
-    *[_type == "Accounts"] {
-  _id,
-  userEmail,
-  userName,
-  isBlocked,
-  isAdmin,
-}
-    `;
-    const response:Account[] = await sanityClient.fetch(q,{},{
-        next: {
-            revalidate:30
-        }
-    });
+import Card from './Card';
+import useDashboardCache from '@/stores/admin';
+
+const Main = () => {
+    const {accounts} = useDashboardCache();
     return (
         <section className='w-full p-1'>
             <h1 className='font-semibold text-gray-400 text-[24px]'>Accounts</h1>
-            <Accounts arrayData={response}/>
+            <div className='mt-[20px] flex flex-col flex-nowrap w-full'>
+                {accounts.map((account: Account, idx: number) => {
+                    return <Card isAdmin={account.isAdmin} userId={account._id} name={account.userName} email={account.userEmail} isBlocked={account.isBlocked} key={idx} />
+                })}
+            </div>            
             <br />
         </section>
     )

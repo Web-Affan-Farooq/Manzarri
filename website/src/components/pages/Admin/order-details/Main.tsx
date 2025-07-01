@@ -2,11 +2,11 @@
 import React from 'react';
 import Card from './card';
 import Orders from "@/components/icons/Orders";
-import { useOrderDetails } from '@/components/hooks';
+import useOrderDetails from '@/components/hooks/useOrderDetails';
 
 const Main = ({ id }: { id: string }) => {
   const {order, packages} = useOrderDetails(id);
-
+  
   return (
     <div className='p-5'>
       <h1 className='text-[20px] font-bold'>Order Details</h1>
@@ -19,8 +19,8 @@ const Main = ({ id }: { id: string }) => {
             {order?._id}
           </div>
           <button type="button" className='bg-gray-400 px-[10px] py-[1px] rounded-md' onClick={() => {
-            if(order) {
-                 window.navigator.clipboard.writeText(order?._id)
+            if(order && order._id) {
+                 window.navigator.clipboard.writeText(order._id)
             }
           }}>copy</button>
         </div>

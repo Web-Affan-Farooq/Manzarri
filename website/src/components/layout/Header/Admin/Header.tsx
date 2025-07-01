@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
-import { DashboardOption, InventoryOption, OrdersOption, SettingsOption, AccountsOption, MessagesOption ,EventsOption} from './Options';
+import { DashboardOption, InventoryOption, OrdersOption, SettingsOption, AccountsOption, MessagesOption, EventsOption } from './Options';
 import {
   Sheet,
   SheetContent,
@@ -16,7 +16,7 @@ import {
 import { NotificationBell } from '@/components/icons';
 import NotificationCard from '@/components/pages/Admin/NotificationCard';
 import sanityClient from '@/lib/sanity';
-import { Notification } from '@/@types/accounts';
+import { Notification } from '@/@types/notifications';
 
 const AdminHeader = () => {
   /* _____ router instance ... */
@@ -47,13 +47,17 @@ const AdminHeader = () => {
     const getData = async () => {
       const userID = window.localStorage.getItem("userID");
       if (userID) {
-        const q = `*[_type == "Accounts" && _id == "${userID}"]{
-        notifications,
+        const q = `*[_type == "Notifications" && userId == "${userID}"]{
+    notificationTitle,
+    notificationText,
+    notificationType,
+    isSeen,
+    userId,
         }`;
         const response = await sanityClient.fetch(q);
         // console.log(response[0].notifications);
 
-        setnotifications(response[0].notifications);
+        setnotifications(response);
       }
     }
     getData();

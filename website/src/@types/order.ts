@@ -1,12 +1,14 @@
-export interface Order {
-userId:string;
-weightageInGrams:number;
-amountPayable:number;
-status:string;
-packages: Package[]
+interface Order {
+  _id?: string;
+  _updatedAt?: string;
+  userId: string;
+  weightageInGrams: number;
+  amountPayable: number;
+  status: string;
+  packages: Package[]
 }
 
-export interface Package {
+interface Package {
   productId: string;
   quantity: number;
   productName: string;
@@ -15,8 +17,19 @@ export interface Package {
   _key: string;
 }
 
+interface OrderedProducts {
+    _key: string;
+    size: string;
+    quantity: number;
+    productSKU: string;
+    productId: string;
+    productName: string;
+    image: string;
+    price: number;
+}
 
-export interface OrderDetails extends Order{
-    _id:string;
-    _updatedAt:string;
+export type {
+  Order,
+  Package,
+  OrderedProducts,
 }

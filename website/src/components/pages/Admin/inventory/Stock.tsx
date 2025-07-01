@@ -2,10 +2,10 @@
 import { Product } from '@/@types/product';
 import React, { useEffect, useState } from 'react';
 import DrawerDemo from './ExampleDrawer';
-import { useInventory } from '@/stores/inventory';
+import useDashboardCache from '@/stores/admin';
 
 const Stock = ({ arrayData }: { arrayData: Product[] }) => {
-    const { all, feedInventory } = useInventory();
+    const { inventory, feedInventory } = useDashboardCache();
     const [StockProducts, setStockProducts] = useState<Product[]>([]);
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -16,7 +16,7 @@ const Stock = ({ arrayData }: { arrayData: Product[] }) => {
         }
         // console.log("Search query:", query);
 
-        const filteredProducts = all.filter((product: Product) =>
+        const filteredProducts = inventory.filter((product: Product) =>
             // `${product.productName} (${product.material})`.toLowerCase() === query
             `${product.productName} (${product.material})`.toLowerCase().startsWith(query)
         );
@@ -26,7 +26,7 @@ const Stock = ({ arrayData }: { arrayData: Product[] }) => {
     };
 
     useEffect(() => {
-        feedInventory(arrayData, "All");
+        feedInventory(arrayData);
         setStockProducts(arrayData); // initially show all
     }, [feedInventory, arrayData]);
 
@@ -42,7 +42,7 @@ const Stock = ({ arrayData }: { arrayData: Product[] }) => {
                     placeholder='Search products'
                 />
                 <datalist id="products">
-                    {all.map((inventoryProduct: Product, idx: number) => (
+                    {inventory.map((inventoryProduct: Product, idx: number) => (
                         <option
                             key={idx}
                             value={`${inventoryProduct.productName} (${inventoryProduct.material})`}

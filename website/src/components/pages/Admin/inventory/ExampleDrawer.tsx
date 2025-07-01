@@ -18,7 +18,7 @@ import Card from "./card";
 import { Product } from "@/@types/product";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { useInventory } from "@/stores/inventory";
+import useDashboardCache from "@/stores/admin";
 
 const data = [
   {
@@ -67,7 +67,7 @@ export default function DrawerDemo({ product }: { product: Product }) {
   const [count, setcount] = useState(product.stockQuantity);
 
   // Zustand store hooks
-  const { all, feedInventory } = useInventory();
+  const { inventory, feedInventory } = useDashboardCache();
 
   // Flag for UI feedback (e.g. button state, highlighting changes)
   const [isQuantityUpdated, setisQuantityUpdated] = useState(false);
@@ -85,7 +85,7 @@ export default function DrawerDemo({ product }: { product: Product }) {
       });
 
       // Update local inventory state
-      const updatedStock = all.map((inventoryProduct: Product) => {
+      const updatedStock = inventory.map((inventoryProduct: Product) => {
         if (inventoryProduct._id === product._id) {
           return { ...inventoryProduct, stockQuantity: count };
         }
@@ -93,7 +93,7 @@ export default function DrawerDemo({ product }: { product: Product }) {
       });
 
       // Feed updated inventory back to Zustand
-      feedInventory(updatedStock, "All");
+      feedInventory(updatedStock);
 
       // Optional: reset flag or close drawer/modal
       setisQuantityUpdated(false);
@@ -104,7 +104,7 @@ export default function DrawerDemo({ product }: { product: Product }) {
       console.error("Update Error:", err);
       toast.error("An error occurred while updating quantity");
     }
-  }, [count, product._id, product.stockQuantity, all, feedInventory])
+  }, [count, product._id, product.stockQuantity, inventory, feedInventory])
 
   return (
     <Drawer>

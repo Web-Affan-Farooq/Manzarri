@@ -57,7 +57,10 @@ const useSignup = () => {
         }) => {
             const response = await axios.post("/api/signup", signupData);
             const data = response.data;
+            window.localStorage.setItem("userID", data.user.user_id);
+            window.localStorage.setItem("isBlocked", data.user.isBlocked);
 
+            
             if (!data.success) {
                 toast.error(data.message);
             } else {

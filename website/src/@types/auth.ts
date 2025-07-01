@@ -12,20 +12,24 @@ export interface Authentication {
         }
     }>;
 
-    SendAuthToken(forAdmin:boolean):Promise<{
+    SendAuthToken(forAdmin: boolean): Promise<{
         success: boolean;
     }>
 
-    Signup(): Promise<{ message?: string; success: boolean } | {
-        message?: string;
-        success: string;
+    Signup(): Promise<{ message: string; success: boolean } | {
+        message: string;
+        success: boolean;
         redirect: "/profile";
         user: {
+            user_id:string;
             name: string;
             email: string;
             isAdmin: boolean;
+            isBlocked: boolean;
         }
     }>;
+
+    SanitizeData(data: { name?: string; email: string; password: string; }): { success: false, message: string } | { success: true };
 
     Login(): Promise<
         { message?: string; success: boolean } |

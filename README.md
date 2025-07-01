@@ -12,7 +12,7 @@ Milestones :
 | Search & Filter     | 🔲     |
 | Wishlist            | Completed     |
 | Reviews / Ratings   | 🔲     |
-| Payment Integration | Completed     |
+| Payment Integration | 🔲     |
 | Order table         | Completed     |
 | Order details       | Completed     |
 | Account functions   | 🔲     |
@@ -47,10 +47,17 @@ Timestamps :
 - 19-6-2025.1:28am   Completed Order details , fixed stock update after order placement
 - 20-6-2025.12:00am   Completed search bar in inventory
 - 21-6-2025.5:25pm   Completed architecture for maintaining account activities
+- 25-6-2025.5:25pm   Fixed signup localstorage id assign issue
+- 25-6-2025.7:00pm   Fixed Responsiveness issue in orders table
+- 25-6-2025.8:00pm   Complete frontend ui for account activity monitoring in accounts
+- 25-6-2025.8:15pm   Completed api for handling notification push
+- 25-6-2025.8:15pm   Completed utility functions for notification push
+- 26-6-2025.3:45pm   Created Admin apis in fastapi 
+- 1-7-2025.2:30pm   Completed fetching orders corresponding to month logic
 
 Notes:
-Complete frontend ui for account activity monitoring in accounts
 Create events section from which admin create events
+Maintain the code for better readability 
 implement push notifications on admin dashboard
 create notification card for notification display and use vercel notification bar as inspiration
 create and customize notifications for success and failures .
@@ -67,7 +74,3 @@ Implement Dynamic animations and smooth scrolling animations along with 3d model
 Integrate Order tracking systems
 
 use this https://www.pinterest.com/pin/689473024237631462/ for creating orders management section in admin dashboard
-
-Create a basic inventory managemment system that have the following abilities :
-a single column grid that shows the product ,
-a details page which shows the analytics of how many products havebeen sold out this month , how it can be

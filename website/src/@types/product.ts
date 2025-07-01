@@ -1,4 +1,4 @@
-export interface Product {
+interface Product {
   _id: string;
   productName: string;
   productDescription: PortableTextBlock[]; // See below for PortableTextBlock type
@@ -18,7 +18,7 @@ export interface Product {
   images: ProductImage[];
 }
 
-export interface ProductImage {
+interface ProductImage {
   asset: {
     _id: string;
     url: string;
@@ -26,13 +26,20 @@ export interface ProductImage {
 }
 
 // Basic Portable Text structure (customizable based on your needs)
-export interface PortableTextBlock {
+interface PortableTextBlock {
   children: {
     _key: string;
     _type: string; // usually "span"
     text: string;
   }[];
 }
+
+export type {
+  Product,
+  ProductImage,
+  PortableTextBlock,
+}
+
 /*
 Package {
 productId:string;

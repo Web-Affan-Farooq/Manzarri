@@ -1,84 +1,48 @@
-import { useEffect, useState } from "react";
-import { OrderDetails } from '@/@types/order';
-import sanityClient from '@/lib/sanity';
-import { Product } from '@/@types/product';
-import { useOrders } from "@/stores/orders";
-
-interface OrderedProducts {
-    _key: string;
-    size: string;
-    quantity: number;
-    productSKU: string;
-    productId: string;
-    productName: string;
-    images: {
-        asset: {
-            url: string;
-            _id: string;
-        };
-    };
-    price: number;
-}
+"use client";
+import useDashboardCache from '@/stores/admin';
+import { useEffect, useState } from 'react';
+import { Order, OrderedProducts } from '@/@types/order';
 
 const useOrderDetails = (id: string) => {
-    // 1. Get already fetched and cached order from zustand state
-    const { orders } = useOrders();
+    // ____ Global state ... 
+    const { orders, inventory } = useDashboardCache();
 
-    const [order, setOrder] = useState<OrderDetails>();
+    // _____ Order required for details and products ordered in it ...
+    const [requiredOrder, setrequiredOrder] = useState<Order>();
     const [packages, setPackages] = useState<OrderedProducts[]>([]);
 
     useEffect(() => {
-        // Use cached orders to find the one with matching ID
-        const foundOrder = orders.find((order) => order._id === id);
+        // ____ Find order from array to show details ...
+        const order = orders.find((order) => order._id === id);
 
-        if (!foundOrder) return;
+        if (order) {
+            setrequiredOrder(order);
 
-        // Set the found order in local state
-        setOrder(foundOrder);
-
-        // Fetch corresponding product details from Sanity
-        const fetchProductData = async () => {
-            const productIds = foundOrder.packages.map((p) => p.productId);
-
-            const productData = await sanityClient.fetch(
-                `*[_type == "Product" && _id in $ids]{
-          _id,
-          productName,
-          price,
-          images[0]{
-            asset->{
-              _id,
-              url
-            }
-          }
-        }`,
-                { ids: productIds }
-            );
-
-            // Attach more product details to the packages so that it will be easy and readable to display
-            const enrichedPackages = foundOrder.packages.map((pkg) => {
-                const matchedProduct = productData.find(
-                    (p: Pick<Product, "_id">) => p._id === pkg.productId
-                );
-
-                return {
-                    ...pkg,
-                    productName: matchedProduct?.productName || pkg.productName,
-                    price: matchedProduct?.price,
-                    images: matchedProduct?.images,
-                };
+            // ____ Manipulate it's packages with complete product details ...
+            order.packages.forEach((pack) => {
+                const product = inventory.find((p) => p._id === pack.productId);
+                if (product) {
+                    const packageDetails: OrderedProducts = {
+                        _key: pack._key,
+                        size: pack.size,
+                        quantity: pack.quantity,
+                        productSKU: product.stockKeepingUnit,
+                        productId: product._id,
+                        productName: product.productName,
+                        image: product.images[0]?.asset?.url || "",
+                        price: product.price
+                    };
+                    setPackages((prev) => [...prev, packageDetails]);
+                }
             });
+        }
 
-            setPackages(enrichedPackages);
-        };
-
-        fetchProductData()
-    }, [orders, id]);
+    }, [orders, id, inventory]);
 
     return {
-        order: order,
+        order: requiredOrder,
         packages: packages,
     }
-};
+}
 
-export default useOrderDetails;
+export default useOrderDetails

@@ -1,27 +1,12 @@
-"use client";
 import React from 'react'
-import Image from 'next/image'
-interface OrderedProducts {
-    _key: string;
-    size: string;
-    quantity: number;
-    productSKU: string;
-    productId: string;
+import Image from 'next/image';
+import { OrderedProducts } from '@/@types/order';
 
-    productName: string;
-    images: {
-        asset: {
-            url: string;
-            _id: string;
-        };
-    };
-    price: number;
-}
 const Card = ({ product }: { product: OrderedProducts }) => {
     if (product.size === "md") {
         return <div className='relative flex flex-row max-[500px]:flex-col flex-wrap items-center max-[500px]:items-start gap-[10px] p-3 rounded-md'>
             <div className='w-[50px] h-[50px] rounded-md'>
-                <Image src={product.images.asset.url} alt={product.productName} width={50} height={50} className='object-cover w-full h-full rounded-md' />
+                <Image src={product.image} alt={product.productName} width={50} height={50} className='object-cover w-full h-full rounded-md' />
             </div>
             <div>
                 <p className='truncate'><strong>{product.productName}</strong></p>
@@ -34,7 +19,7 @@ const Card = ({ product }: { product: OrderedProducts }) => {
     else if (product.size === "lg") {
         return <div className='relative flex flex-row max-[500px]:flex-col flex-wrap items-center max-[500px]:items-start gap-[10px] p-3 rounded-md'>
             <div className='w-[50px] h-[50px] rounded-md'>
-                <Image src={product.images.asset.url} alt={product.productName} width={50} height={50} className='object-cover w-full h-full rounded-md' />
+                <Image src={product.image} alt={product.productName} width={50} height={50} className='object-cover w-full h-full rounded-md' />
             </div>
             <div>
                 <p className='truncate'><strong>{product.productName}</strong></p>
@@ -47,7 +32,7 @@ const Card = ({ product }: { product: OrderedProducts }) => {
     else if (product.size === "sm") {
         return <div className='relative flex flex-row max-[500px]:flex-col flex-wrap items-center max-[500px]:items-start gap-[10px] p-3 rounded-md'>
             <div className='w-[50px] h-[50px] rounded-md'>
-                <Image src={product.images.asset.url} alt={product.productName} width={50} height={50} className='object-cover w-full h-full rounded-md' />
+                <Image src={product.image} alt={product.productName} width={50} height={50} className='object-cover w-full h-full rounded-md' />
             </div>
             <div>
                 <p className='truncate'><strong>{product.productName}</strong></p>
