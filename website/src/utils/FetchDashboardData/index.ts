@@ -70,16 +70,48 @@ const getInventory = async () => {
     const response:Product[] = await sanityClient.fetch(q);
     return response;
 }
-const getOrders =async () => {
-        const query = `*[_type == "Orders"]{
-    _id,
-    _updatedAt,
-    userId,
-    amountPayable,
-    status,
-    weightageInGrams,
-    packages
-  }`;
+
+/* ____ Fetch orders placed in current month ... */
+const getCurrentMonthOrders =async () => {
+const date = new Date();
+const startOfMonth = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-01T00:00:00Z`;
+
+const query = `*[_type == "Orders" && _updatedAt >= dateTime("${startOfMonth}")]{
+  _id,
+  _updatedAt,
+  userId,
+  amountPayable,
+  status,
+  weightageInGrams,
+  packages
+}`;
+
+    const response: Order[] = await sanityClient.fetch(query);
+    return response;
+}
+
+/* ____ Fetch orders placed previously ... */
+const getPreviousOrders = async () => {
+  const date = new Date();
+  const query = `*[_type == "Orders" && _updatedAt >= dateTime("${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-01T00:00:00Z")]{
+  _id,
+  _updatedAt,
+  userId,
+  amountPayable,
+  status,
+  weightageInGrams,
+  packages
+}`;
+
+  //       const query = `*[_type == "Orders" && _updatedAt >"${date.getFullYear()}-${date.getMonth()}-${date.getDate()}"]{
+  //   _id,
+  //   _updatedAt,
+  //   userId,
+  //   amountPayable,
+  //   status,
+  //   weightageInGrams,
+  //   packages
+  // }`;
 
     const response: Order[] = await sanityClient.fetch(query);
 
@@ -90,5 +122,6 @@ export {
     getAccounts,
     getFormSubmissions,
     getInventory,
-    getOrders,
+    getCurrentMonthOrders,
+    getPreviousOrders,
 }

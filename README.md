@@ -12,7 +12,7 @@ Milestones :
 | Search & Filter     | 🔲     |
 | Wishlist            | Completed     |
 | Reviews / Ratings   | 🔲     |
-| Payment Integration | Completed     |
+| Payment Integration | 🔲     |
 | Order table         | Completed     |
 | Order details       | Completed     |
 | Account functions   | 🔲     |
@@ -53,6 +53,7 @@ Timestamps :
 - 25-6-2025.8:15pm   Completed api for handling notification push
 - 25-6-2025.8:15pm   Completed utility functions for notification push
 - 26-6-2025.3:45pm   Created Admin apis in fastapi 
+- 1-7-2025.2:30pm   Completed fetching orders corresponding to month logic
 
 Notes:
 Create events section from which admin create events

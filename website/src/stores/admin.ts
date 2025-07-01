@@ -4,20 +4,26 @@ import { Product } from "@/@types/product";
 import { Order } from "@/@types/order";
 import FormSubmission from "@/@types/FormSubmissions";
 
-interface DashboardCache {
-    accounts: Account[];
-    inventory: Product[];
+interface OrdersState {
     orders: Order[];
+    deleteOrder: (order_id: string) => void;
+    feedOrders: (array: Order[]) => void;
+}
+interface InventoryState {
+    inventory: Product[];
+    feedInventory: (list: Product[]) => void;
+}
+interface FormsubmissionState {
     formSubmissions: FormSubmission[];
+    feedFormSubmissions: (list: FormSubmission[]) => void;
+}
+interface AccountsState {
+    accounts: Account[];
     feedAccounts: (accounts: Account[]) => void;
     deleteAccount: (id: string) => void;
     blockAccount: (id: string, newBlockStatus: boolean) => void;
-    feedInventory: (list: Product[]) => void;
-    feedOrders: (array: Order[]) => void;
-    deleteOrder: (order_id: string) => void;
-    feedFormSubmissions: (list: FormSubmission[]) => void;
 }
-
+interface DashboardCache extends OrdersState, InventoryState, FormsubmissionState, AccountsState { }
 
 const useDashboardCache = create<DashboardCache>((set) => (
     {
@@ -49,6 +55,14 @@ const useDashboardCache = create<DashboardCache>((set) => (
             });
         },
 
+        /* _____ Form submissions ... */
+        formSubmissions: [],
+        feedFormSubmissions: (list) => set(() => (
+            {
+                formSubmissions: list,
+            }
+        )),
+
         /* _____ Orders ... */
 
         orders: [],
@@ -62,15 +76,6 @@ const useDashboardCache = create<DashboardCache>((set) => (
                 orders: state.orders.filter((order: Order) => order._id !== order_id)
             }
         )),
-
-        /** _____ Form submissions ... */
-        formSubmissions: [],
-        feedFormSubmissions: (list) => set(() => (
-            {
-                formSubmissions: list,
-            }
-        ))
-
     }
 ));
 
