@@ -106,36 +106,6 @@ export default function DrawerDemo({ product }: { product: Product }) {
     }
   }, [count, product._id, product.stockQuantity, inventory, feedInventory])
 
-  // // _____  Count for handling quantity update ...
-  // const [count, setcount] = useState(product.stockQuantity);
-  // const { all, feedInventory } = useInventory();
-  // const [isQuantityUpdated, setisQuantityUpdated] = useState(false);
-  // // _____  Count for Submiting updated count ...
-  // const handleSubmit = async () => {
-  //   try {
-  //     if (count !== product.stockQuantity) {
-  //       const response = await axios.post("/api/Admin/update-quantity", {
-  //         id: product._id,
-  //         quantity: count,
-  //       });
-
-  //       const updatedStock = all.map((inventoryProduct: Product) => {
-  //         if (inventoryProduct._id === product._id) {
-  //           return { ...inventoryProduct, stockQuantity: count }
-  //         }
-  //         return inventoryProduct;
-  //       });
-
-  //       feedInventory(updatedStock, "All");
-  //       setisQuantityUpdated(false);
-  //       toast.success(response.data.message);
-  //     }
-  //   } catch (err) {
-  //     console.log(err);
-  //     toast.error("An error occured while updating quantity")
-  //   }
-  // }
-
   return (
     <Drawer>
       <DrawerTrigger>

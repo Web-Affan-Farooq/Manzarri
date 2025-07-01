@@ -1,7 +1,7 @@
 "use client";
 import { Order } from '@/@types/order';
 import sanityClient from '@/lib/sanity';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 interface OrderRef {
   _key: string;
@@ -33,22 +33,19 @@ packages
 
       setorders(response);
     }
-  }, []);
-
-  useEffect(() => {
     getAccountOrders();
-  }, [getAccountOrders]);
+  }, []);
 
   return (
     <section className='p-5 w-full'>
       <h1 className='font-bold text-[26px]'>Account Activity</h1>
-            <br />
-            <h2 className='font-bold text-[20px]'>Activity</h2>
-            <br />
-            <p><strong>Last login : </strong>{new Date(lastLogin).toUTCString()}</p>
+      <br />
+      <h2 className='font-bold text-[20px]'>Activity</h2>
+      <br />
+      <p><strong>Last login : </strong>{new Date(lastLogin).toUTCString()}</p>
       <br />
       <h2 className='font-bold text-[20px]'>Orders</h2>
-      {orders.length <=0 ? <p className='p-4 text-center text-gray-600'>No orders found ...</p> : orders.map((order, idx) => {
+      {orders.length <= 0 ? <p className='p-4 text-center text-gray-600'>No orders found ...</p> : orders.map((order, idx) => {
         return <div key={idx}>{order.userId}</div>
       })}
     </section>
