@@ -1,20 +1,22 @@
 import React from 'react';
 import { AdminPanelSidebar } from "@/components/layout";
-import { DashboardSection } from '@/components/pages/Admin';
+import { Flashcards, SalesChart, FetchDashboardData } from '@/components/pages/Admin';
 
 const Admin = () => {
   return (
-    <main className="flex min-h-screen bg-black text-white">
-      <AdminPanelSidebar />
-
-      <>
-        <div className='p-[20px]'>
-          <h1 className='text-[30px] font-semibold pb-[15px]'>Dashboard</h1>
-          <DashboardSection />
+    <>
+      <FetchDashboardData />
+      <main className="flex min-h-screen bg-black text-white">
+        <AdminPanelSidebar />
+        <div className='w-full p-5 h-[100vh] overflow-y-auto'>
+          <h1 className='text-2xl font-bold my-[20px]'>Dashboard</h1>
+          <Flashcards />
+          <br />
+          <h2 className='text-2xl font-bold my-[20px]'>Sales</h2>
+          <SalesChart />
         </div>
-      </>
-
-    </main>
+      </main>
+    </>
   );
 };
 

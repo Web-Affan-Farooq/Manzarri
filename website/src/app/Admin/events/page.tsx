@@ -1,6 +1,6 @@
 import React from 'react';
 import {AdminPanelSidebar} from "@/components/layout";
-import { EventSection } from '@/components/pages/Admin';
+import { EventsSection } from '@/components/pages/Admin'; 
 
 const EventsPage = () => {
   return (
@@ -8,7 +8,7 @@ const EventsPage = () => {
       <AdminPanelSidebar/>
       
       <div className='w-full'>
-        <EventSection/>
+        <EventsSection/>
       </div>
       
     </main>

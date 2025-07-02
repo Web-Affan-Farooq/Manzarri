@@ -4,5 +4,9 @@ export {default as SettingsSection} from "./settings/Main";
 export {default as MessagesSection} from "./messages/Main";
 export {default as InventorySection} from "./inventory/Main";
 export {default as OrderDetailsPage} from "./order-details/Main";
-export {default as EventSection} from "./events/Main";
 export {default as DashboardSection} from "./dashboard/Main";
+export {default as EventsSection} from "./events/Main";
+
+export {default as Flashcards} from "./dashboard/Flashcards";
+export {default as FetchDashboardData} from "./FetchDashboardData";
+export {default as SalesChart} from "./dashboard/SampleChart";

@@ -1,44 +1,23 @@
-import { Bar } from 'react-chartjs-2';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-} from 'chart.js';
+"use client";
+import { useOrdersCount } from '@/components/hooks';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Tooltip } from 'recharts';
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
+const SampleChart = () => {
+  const { data } = useOrdersCount();
 
-const data = {
-  labels: ['Red', 'Blue', 'Yellow', 'Green'],
-  datasets: [
-    {
-      label: 'Votes',
-      data: [12, 19, 3, 5],
-      backgroundColor: ['red', 'blue', 'yellow', 'green'],
-    },
-  ],
+  return (
+    <div style={{ width: '100%', height: 300 }} >
+      <ResponsiveContainer>
+        <BarChart data={data} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
+          <CartesianGrid stroke='none'/>
+          <XAxis dataKey="month" className='hidden'/>
+          <YAxis className='hidden'/>
+          <Tooltip contentStyle={{backgroundColor:"transparent", border:"none", }} offset={40} />
+          <Bar dataKey="orders" fill="#29bae6"/>
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
+  );
 };
 
-const options = {
-  responsive: true,
-  plugins: {
-    title: {
-      display: true,
-      text: 'Example Chart',
-    },
-  },
-};
-
-export default function BarChart() {
-  return <Bar data={data} options={options} />;
-}
+export default SampleChart;

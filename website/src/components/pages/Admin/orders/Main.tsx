@@ -2,52 +2,49 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import "./style.css";
 import Link from 'next/link';
-import sanityClient from '@/lib/sanity';
 import { Order } from '@/@types/order';
 import useDashboardCache from '@/stores/admin';
 
 const Main = () => {
   // ____ State for storing orders array ...
-  const { orders, feedOrders } = useDashboardCache();
+  const { orders } = useDashboardCache();
+  const [ordersTable, setordersTable] = useState<Order[]>([])
 
   // _____ Store current month in the state for initializing select ...
   const date = new Date();
   const [currentMonth, setcurrentMonth] = useState(date.getMonth() + 1);
 
-  // _____ Async function for fetching orders corresponding to the month ...
-  const getData = useCallback(async (monthCount: string) => {
-    // _____ Calculate start and end of month ...
+  const getData = useCallback((monthCount: string) => {
     const startOfMonth = `2025-${monthCount.padStart(2, '0')}-01T00:00:00Z`;
     const endOfMonthDate = new Date(2025, Number(monthCount), 0, 23, 59, 59);
     const endOfMonth = endOfMonthDate.toISOString();
 
-    // _____ Generate query ...
-    const query = `*[_type == "Orders" && dateTime(_updatedAt) >= dateTime('${startOfMonth}') && dateTime(_updatedAt) <= dateTime('${endOfMonth}')]{
-  _id,
-  _updatedAt,
-  userId,
-  amountPayable,
-  status,
-  weightageInGrams,
-  packages
-}`;
-    // _____ Fetch data and store in orders array ...
-    const response: Order[] = await sanityClient.fetch(query);
-    feedOrders(response);
-  }, [feedOrders]);
+    const filteredOrders = orders.filter((order: Order) => {
+      const orderPlacementDate = order._updatedAt;
+      return (
+        orderPlacementDate &&
+        new Date(orderPlacementDate) >= new Date(startOfMonth) &&
+        new Date(orderPlacementDate) <= new Date(endOfMonth)
+      );
+    });
+
+    return filteredOrders;
+  }, [orders]);
+
 
   // _____ Function for handling select input ...
-  const handleMonthFilter = async (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleMonthFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
     // ______ Important Note : Update the state only for syncronizing ui . Not to be used in date time calculation ...
     setcurrentMonth(Number(e.target.value));
-
-    await getData(e.target.value)
+    setordersTable(getData(e.target.value));
   }
 
-  // ____ Fetch current month orders on first render ...
+  // // ____ Fetch current month orders on first render ...
   useEffect(() => {
-    getData(String(currentMonth));
+    const filtered = getData(String(currentMonth));
+    setordersTable(filtered); // ✅ update state from inside effect
   }, [currentMonth, getData]);
+
 
   return (
     <>
@@ -71,7 +68,7 @@ const Main = () => {
           <option value="12" className='bg-black text-white text-sm'>December</option>
         </select>
         {
-          orders.length <= 0 ?
+          ordersTable.length <= 0 ?
             <p className='p-4 text-center'>No orders found ...</p>
             :
             <div className="scroll-container overflow-x-auto py-3">
@@ -87,7 +84,7 @@ const Main = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {orders.map((order, idx) => (
+                  {ordersTable.map((order, idx) => (
                     <tr className="text-sm border-b border-gray-700" key={idx}>
                       <td className="p-3">{idx + 1}</td>
                       <td className="p-3">{order.packages.length}</td>
@@ -121,3 +118,36 @@ const Main = () => {
 };
 
 export default Main;
+
+/*
+
+  // _____ Async function for fetching orders corresponding to the month ...
+  const getData = useCallback((monthCount: string) => {
+    // _____ Calculate start and end of month ...
+    const startOfMonth = `2025-${monthCount.padStart(2, '0')}-01T00:00:00Z`;
+    const endOfMonthDate = new Date(2025, Number(monthCount), 0, 23, 59, 59);
+    const endOfMonth = endOfMonthDate.toISOString();
+
+    orders.forEach((order: Order) => {
+      const orderPlacementDate = order._updatedAt;
+      if (orderPlacementDate && new Date(orderPlacementDate) >= new Date(startOfMonth) && new Date(orderPlacementDate) <= new Date(endOfMonth)) {
+        setordersTable([...ordersTable, order])
+      }
+    });
+
+
+//     // _____ Generate query ...
+//     const query = `*[_type == "Orders" && dateTime(_updatedAt) >= dateTime('${startOfMonth}') && dateTime(_updatedAt) <= dateTime('${endOfMonth}')]{
+//   _id,
+//   _updatedAt,
+//   userId,
+//   amountPayable,
+//   status,
+//   weightageInGrams,
+//   packages
+// }`;
+//     // _____ Fetch data and store in orders array ...
+//     const response: Order[] = await sanityClient.fetch(query);
+//     feedOrders(response);
+  }, [feedOrders]);
+*/
