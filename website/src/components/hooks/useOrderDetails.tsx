@@ -1,19 +1,24 @@
 "use client";
 import useDashboardCache from '@/stores/admin';
 import { useEffect, useState } from 'react';
-import { Order ,OrderedProducts} from '@/@types/order';
+import { Order, OrderedProducts } from '@/@types/order';
 
-const useOrderDetails = (id:string) => {
+const useOrderDetails = (id: string) => {
+    // ____ Global state ... 
     const { orders, inventory } = useDashboardCache();
+
+    // _____ Order required for details and products ordered in it ...
     const [requiredOrder, setrequiredOrder] = useState<Order>();
     const [packages, setPackages] = useState<OrderedProducts[]>([]);
 
     useEffect(() => {
+        // ____ Find order from array to show details ...
         const order = orders.find((order) => order._id === id);
 
         if (order) {
             setrequiredOrder(order);
 
+            // ____ Manipulate it's packages with complete product details ...
             order.packages.forEach((pack) => {
                 const product = inventory.find((p) => p._id === pack.productId);
                 if (product) {
@@ -31,7 +36,8 @@ const useOrderDetails = (id:string) => {
                 }
             });
         }
-    }, [orders, id,inventory]);
+
+    }, [orders, id, inventory]);
 
     return {
         order: requiredOrder,

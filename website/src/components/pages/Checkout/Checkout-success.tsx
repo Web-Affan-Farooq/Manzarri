@@ -1,8 +1,14 @@
 "use client";
-import React from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
+import { useCart } from '@/stores/cart';
 
 const Checkout_success = () => {
+  const {clearCart} = useCart();
+  useEffect(() =>{
+    clearCart();
+  },[clearCart]);
+  
   return (
     <section className='px-[30px] py-[150px] h-[70vh] text-center'>
       {/* ______ Heading for checkout ... */}
