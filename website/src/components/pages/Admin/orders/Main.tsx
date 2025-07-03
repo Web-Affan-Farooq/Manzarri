@@ -51,7 +51,8 @@ const Main = () => {
       {/* <Fallback success={success} message={message} /> */}
       {/* <FeedOrders arrayData={data} /> */}
       <section className="p-6 w-full h-screen overflow-y-auto">
-        <h1 className="text-2xl font-bold text-white mb-4 p-2">Orders placed </h1>
+                  <h1 className='text-2xl font-bold my-[20px]'>Orders placed</h1>
+        {/* <h1 className="text-2xl font-bold text-white mb-4 p-2">Orders placed </h1> */}
         <br />
         <select name="selectMonth" id="select-month" className='w-[150px] px-3 py-1 rounded-md' onChange={handleMonthFilter} value={currentMonth}>
           <option value="1" className='bg-black text-white text-sm'>January</option>

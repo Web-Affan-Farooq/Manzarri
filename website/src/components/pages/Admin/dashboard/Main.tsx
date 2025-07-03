@@ -1,6 +1,6 @@
 import React from 'react';
-import SampleChart from './SampleChart';
 import FetchDashboardData from '../FetchDashboardData';
+import ChartBarLabelCustom from './SampleChart';
 
 const Dashboard = () => {
   /* ____ Error tracking ... */
@@ -8,7 +8,7 @@ const Dashboard = () => {
   return (
     <div className='w-full'>
       <FetchDashboardData />
-        <SampleChart/>
+        <ChartBarLabelCustom/>
     </div>
   );
 };

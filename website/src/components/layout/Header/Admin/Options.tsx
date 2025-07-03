@@ -3,7 +3,7 @@ import React from 'react';
 import { Accounts, Dashboard, Messages, Orders, Settings, ShoppingCart } from '@/components/icons';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Calendar } from 'lucide-react';
+import { Calendar,BadgeDollarSign} from 'lucide-react';
 
 const DashboardOption = () => {
     const pathname = usePathname();
@@ -82,6 +82,18 @@ const EventsOption = () => {
         </Link>
     )
 }
+const FinancesOption = () => {
+    const pathname = usePathname();
+    return (
+        <Link
+            href={"/Admin/finances"}>
+            <div className="group hover:text-blue-500 w-full transition-all duration-150 ease-in-out cursor-pointer py-2 px-3 rounded-md flex flex-row flex-nowrap items-center gap-[10px]">
+                <BadgeDollarSign className={`text-gray-custom transition w-[20px] h-[20px] ${pathname === "/Admin/inventory" ? "text-blue-500" : ""}`} stroke='#536b8a'/> Finances
+            </div>
+        </Link>
+        
+    )
+}
 
 export {
     DashboardOption,
@@ -91,4 +103,5 @@ export {
     AccountsOption,
     MessagesOption,
     EventsOption,
+    FinancesOption
 }

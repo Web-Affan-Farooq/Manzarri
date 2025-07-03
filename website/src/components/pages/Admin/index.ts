@@ -10,3 +10,4 @@ export {default as EventsSection} from "./events/Main";
 export {default as Flashcards} from "./dashboard/Flashcards";
 export {default as FetchDashboardData} from "./FetchDashboardData";
 export {default as SalesChart} from "./dashboard/SampleChart";
+export {default as PieChart} from "./dashboard/PieChart";

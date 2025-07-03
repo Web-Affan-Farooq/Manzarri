@@ -14,7 +14,7 @@ const FeedDashboardCache = ({ inventory, accounts, formSubmissions, orders }: { 
     feedFormSubmissions(formSubmissions);
     feedInventory(inventory);
     feedOrders(orders);
-    console.log("Seed dashboard Completed : ", orders);
+    // console.log("Seed dashboard Completed : ", orders);
     
   }, [feedOrders, orders, accounts, formSubmissions, inventory, feedFormSubmissions, feedInventory, feedAccounts]);
   return (

@@ -57,6 +57,7 @@ Timestamps :
 
 Notes:
 Create events section from which admin create events
+Create a finances section for managing finances 
 Maintain the code for better readability 
 implement push notifications on admin dashboard
 create notification card for notification display and use vercel notification bar as inspiration

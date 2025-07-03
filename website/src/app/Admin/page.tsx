@@ -1,6 +1,6 @@
 import React from 'react';
 import { AdminPanelSidebar } from "@/components/layout";
-import { Flashcards, SalesChart, FetchDashboardData } from '@/components/pages/Admin';
+import { Flashcards, SalesChart, FetchDashboardData, PieChart } from '@/components/pages/Admin';
 
 const Admin = () => {
   return (
@@ -12,8 +12,9 @@ const Admin = () => {
           <h1 className='text-2xl font-bold my-[20px]'>Dashboard</h1>
           <Flashcards />
           <br />
-          <h2 className='text-2xl font-bold my-[20px]'>Sales</h2>
           <SalesChart />
+          <br />
+          <PieChart/>
         </div>
       </main>
     </>

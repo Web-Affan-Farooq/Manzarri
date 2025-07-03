@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
-import { DashboardOption, InventoryOption, OrdersOption, SettingsOption, AccountsOption, MessagesOption, EventsOption } from './Options';
+import { DashboardOption, FinancesOption,InventoryOption, OrdersOption, SettingsOption, AccountsOption, MessagesOption, EventsOption } from './Options';
 import {
   Sheet,
   SheetContent,
@@ -96,6 +96,7 @@ const AdminHeader = () => {
                   <SettingsOption />
                   <MessagesOption />
                   <EventsOption />
+                  <FinancesOption />
                 </div>
               </div>
               <button

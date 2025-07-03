@@ -3,7 +3,7 @@ import "./globals.css";
 import { Header, Footer } from "@/components/layout";
 import { Toaster } from "react-hot-toast";
 import AuthProvider from "@/context/AuthProviders";
-
+import { GoogleAnalytics } from '@next/third-parties/google'
 // import {
 //   QueryClient,
 //   QueryClientProvider
@@ -28,14 +28,15 @@ export default function RootLayout({
       </head>
       <body>
         {/* <QueryClientProvider client={client}> */}
-          <AuthProvider>
-            <Toaster reverseOrder={false} position="top-left" />
-            <Header />
-            {children}
-            <Footer />
-          </AuthProvider>
+        <AuthProvider>
+          <Toaster reverseOrder={false} position="top-left" />
+          <Header />
+          {children}
+          <Footer />
+        </AuthProvider>
         {/* </QueryClientProvider> */}
       </body>
+      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_G_TAG_ID!}/>
     </html>
   );
 }
