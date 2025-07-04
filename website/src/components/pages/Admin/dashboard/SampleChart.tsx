@@ -1,7 +1,7 @@
 "use client"
 
 // import { TrendingUp } from "lucide-react"
-import { Bar, BarChart, CartesianGrid, LabelList, XAxis, YAxis } from "recharts";
+import { Bar, BarChart, LabelList, XAxis, YAxis } from "recharts";
 
 import {
   Card,
@@ -43,10 +43,9 @@ const chartConfig = {
 export default function ChartBarLabelCustom() {
   const {data} = useOrdersCount();
   return (
-    <Card className="w-[400px] h-[350px] text-white border-none bg-gray-900 max-[500px]:w-full max-[500px]:h-[300px]">
+    <Card className="w-[400px] h-[350px] text-white border-none bg-gray-900 max-sm:w-[92vw] max-[500px]:h-[300px] max-md:w-[85vw] max-md:h-auto">
       <CardHeader>
-        <CardTitle className='text-2xl font-bold'>Sales
-        </CardTitle>
+        <CardTitle>Sales</CardTitle>
         <CardDescription className="text-sm text-gray-500">January - December 2025</CardDescription>
       </CardHeader>
       <CardContent>
@@ -59,7 +58,7 @@ export default function ChartBarLabelCustom() {
               right: 16,
             }}
           >
-            <CartesianGrid horizontal={false} />
+            {/* <CartesianGrid horizontal={false} /> */}
             <YAxis
               dataKey="month"
               type="category"

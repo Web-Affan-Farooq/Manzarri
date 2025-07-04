@@ -15,8 +15,6 @@ const Main = () => {
 
   return (
     <section className="w-full p-4">
-      <h1 className="text-2xl font-semibold text-gray-500 mb-6">Customer Messages</h1>
-
       <div className='flex flex-col'>
         {formSubmissions.length === 0 ? (
           <p className="text-gray-400">No messages found.</p>

@@ -1,16 +1,19 @@
 import React from 'react';
 import { AdminPanelSidebar } from "@/components/layout";
-import { MessagesSection } from '@/components/pages/Admin';
+import {MessagesSection} from '@/components/pages/Admin';
 
-const MessagesPage = () => {
+const Admin = () => {
   return (
-    <main className="flex min-h-screen bg-black text-white">
-      <AdminPanelSidebar />
-      <div className='w-full'>
-        <MessagesSection />
-      </div>
-    </main>
+    <>
+      <main className="flex min-h-screen bg-black text-white">
+        <AdminPanelSidebar />
+        <div className='w-full p-5 h-[100vh] overflow-y-auto gray-scroller'>
+          <h1 className='text-2xl font-bold my-[20px]'>Messages</h1>
+          <MessagesSection/>
+        </div>
+      </main>
+    </>
   );
 };
 
-export default MessagesPage;
+export default Admin;

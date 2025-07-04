@@ -17,6 +17,7 @@
   --faun-light:#A29875;
   --faun-dark:#504933;
   --gray-custom:#536b8a;
+  
   --radius:0.625rem;
   --background:oklch(1 0 0);
   --foreground:oklch(0.145 0 0);
@@ -139,4 +140,19 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+
+.gray-scroller::-webkit-scrollbar {
+  background: transparent;
+  width: 10px;
+}
+.gray-scroller::-webkit-scrollbar-track {
+  background: transparent;
+}
+.gray-scroller::-webkit-scrollbar-thumb {
+  background: #243347;
+  border-radius: 20px;
+  width: 2px;
+  height: 2px;
 }

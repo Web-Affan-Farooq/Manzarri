@@ -8,7 +8,7 @@ const Finances= () => {
       {/* <FetchDashboardData /> */}
       <main className="flex min-h-screen bg-black text-white">
         <AdminPanelSidebar />
-        <div className='w-full p-5 h-[100vh] overflow-y-auto'>
+        <div className='w-full p-5 h-[100vh] overflow-y-auto gray-scroller'>
           <h1 className='text-2xl font-bold my-[20px]'>Finances management</h1>
           {/* <Flashcards />
           <br />

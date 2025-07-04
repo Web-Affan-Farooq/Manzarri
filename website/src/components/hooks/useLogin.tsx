@@ -1,3 +1,4 @@
+"use client"
 import LoginSchema from "@/validations/LoginSchema";
 import axios from "axios";
 import { useRouter } from "next/navigation";

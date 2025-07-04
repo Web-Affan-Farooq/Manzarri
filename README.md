@@ -7,17 +7,18 @@ Milestones :
 | Product Detail Page | Completed     |
 | Cart System         | Completed     |
 | Checkout & Order    | Completed     |
-| Authentication      | Completed    |
-| Profile             | 🔲     |
-| Search & Filter     | 🔲     |
+| Authentication      | Completed     |
 | Wishlist            | Completed     |
-| Reviews / Ratings   | 🔲     |
-| Payment Integration | 🔲     |
 | Order table         | Completed     |
 | Order details       | Completed     |
+| g.analytics setup   | Completed     |
+| Payment Integration | Completed     |
+| Orderplacementcycle | Completed     |
+| Profile             | 🔲     |
+| Search & Filter     | 🔲     |
+| Reviews / Ratings   | 🔲     |
 | Account functions   | 🔲     |
 | Email server int.   | 🔲     |
-| g.analytics setup   | 🔲     |
 | Dashboard           | 🔲     |
 | Notifications       | 🔲     |
 | agent               | 🔲     |
@@ -54,8 +55,11 @@ Timestamps :
 - 25-6-2025.8:15pm   Completed utility functions for notification push
 - 26-6-2025.3:45pm   Created Admin apis in fastapi 
 - 1-7-2025.2:30pm   Completed fetching orders corresponding to month logic
+- 3-7-2025.10:45pm   Added Sales related chart in dashboard
+- 3-7-2025.9:40pm   Completed Google analytics setup , integration and data fetching 
 
 Notes:
+implement search accounts functionality in accounts section
 Create events section from which admin create events
 Create a finances section for managing finances 
 Maintain the code for better readability 
@@ -65,13 +69,9 @@ create and customize notifications for success and failures .
 create a zustand state for storing email ,name , isadmin , is blocked ,
 check in the header is user is admin , or not and render link for admin dashboard
 Implement header functionality. If user is not authorized, the header that's shown can contains options or buttons for login and signup
-Learn chart.js or similar libraries for creating analytics module
 handover the store to ai agent . Agent should run the administration in the store as well as warehouse systems
 Create search product functionality
 Create Accounts settings page ui 
 Create edit profile functionality in profiles
 Create ratings system
-Implement Dynamic animations and smooth scrolling animations along with 3d models in landing page
-Integrate Order tracking systems
-
-use this https://www.pinterest.com/pin/689473024237631462/ for creating orders management section in admin dashboard
+[Landing page ui design idea](https://www.pinterest.com/pin/595038169537303209/)

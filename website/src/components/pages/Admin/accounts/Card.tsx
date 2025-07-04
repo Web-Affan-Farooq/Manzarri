@@ -25,7 +25,7 @@ const Card = ({ userId, name, email, isBlocked, isAdmin }: { userId: string; nam
   const { handleDelete, handleAccountBlockandUnblock, handleDeleteInput } = useAccountCard({
     userId: userId,
     isBlocked: isBlocked,
-  });
+  });  
   /*
       <span
         className={`absolute max-sm:right-14 sm:right-16 top-4 px-[9px] py-[2px] rounded-full text-[9px] tracking-[0.5px] font-semibold text-pink-300 bg-gray-500/40`}>

@@ -2,8 +2,6 @@ import React from 'react';
 import AgentSwitch from './AgentSwitch';
 
 const Main = () => {
-    /* ____ Error tracking ... */
-    // console.log("/Admin/settings");
     return (
         <section>
             <h1 className='font-semibold text-gray-400 text-[24px]'>Settings</h1>

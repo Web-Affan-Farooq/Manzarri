@@ -1,22 +1,27 @@
 "use client";
 import React from 'react'
-import { Account } from '@/@types/accounts';
 import Card from './Card';
 import useDashboardCache from '@/stores/admin';
+import { Account } from '@/@types/accounts';
 
-const Main = () => {
-    const {accounts} = useDashboardCache();
-    return (
-        <section className='w-full p-1'>
-            <h1 className='font-semibold text-gray-400 text-[24px]'>Accounts</h1>
+const AccountsList = () => {
+    const { accounts } = useDashboardCache();
+    if (accounts.length <= 0) {
+        return (
+            <div className='mt-[20px] flex flex-col flex-nowrap w-full'>
+                <p className='text-md text-center'>No accounts found ...</p>
+            </div>
+        )
+    }
+    else {
+        return (
             <div className='mt-[20px] flex flex-col flex-nowrap w-full'>
                 {accounts.map((account: Account, idx: number) => {
                     return <Card isAdmin={account.isAdmin} userId={account._id} name={account.userName} email={account.userEmail} isBlocked={account.isBlocked} key={idx} />
                 })}
-            </div>            
-            <br />
-        </section>
-    )
+            </div>
+        )
+    }
 }
 
-export default Main
+export default AccountsList

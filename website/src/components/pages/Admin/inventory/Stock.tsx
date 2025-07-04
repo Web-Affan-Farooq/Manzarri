@@ -4,14 +4,14 @@ import React, { useEffect, useState } from 'react';
 import DrawerDemo from './ExampleDrawer';
 import useDashboardCache from '@/stores/admin';
 
-const Stock = ({ arrayData }: { arrayData: Product[] }) => {
+const Stock = () => {
     const { inventory, feedInventory } = useDashboardCache();
     const [StockProducts, setStockProducts] = useState<Product[]>([]);
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         const query = e.target.value.trim().toLowerCase();
         if (query.trim() === "") {
-            setStockProducts(arrayData);
+            setStockProducts(inventory);
             return;
         }
         // console.log("Search query:", query);
@@ -26,39 +26,44 @@ const Stock = ({ arrayData }: { arrayData: Product[] }) => {
     };
 
     useEffect(() => {
-        feedInventory(arrayData);
-        setStockProducts(arrayData); // initially show all
-    }, [feedInventory, arrayData]);
+        feedInventory(inventory);
+        setStockProducts(inventory); // initially show all
+    }, [feedInventory, inventory]);
 
-    return (
-        <div>
-            <div className='px-[20px] py-[10px]'>
-                <input
-                    list="products"
-                    name="products"
-                    id="products-input"
-                    className='border border-blue-600 px-[15px] py-[5px] rounded-md w-[300px] focus:border-2 focus:border-blue-600'
-                    onChange={handleSearch}
-                    placeholder='Search products'
-                />
-                <datalist id="products">
-                    {inventory.map((inventoryProduct: Product, idx: number) => (
-                        <option
-                            key={idx}
-                            value={`${inventoryProduct.productName} (${inventoryProduct.material})`}
-                        >
-                            {inventoryProduct.productName}({inventoryProduct.material})
-                        </option>
+    if (inventory.length <= 0) {
+        return <p className='p-10'>No products found ...</p>
+    }
+    else {
+        return (
+            <div>
+                <div className='px-[20px] py-[10px]'>
+                    <input
+                        list="products"
+                        name="products"
+                        id="products-input"
+                        className='border border-blue-600 px-[15px] py-[5px] rounded-md w-[300px] focus:border-2 focus:border-blue-600'
+                        onChange={handleSearch}
+                        placeholder='Search products'
+                    />
+                    <datalist id="products">
+                        {inventory.map((inventoryProduct: Product, idx: number) => (
+                            <option
+                                key={idx}
+                                value={`${inventoryProduct.productName} (${inventoryProduct.material})`}
+                            >
+                                {inventoryProduct.productName}({inventoryProduct.material})
+                            </option>
+                        ))}
+                    </datalist>
+                </div>
+                <div className='flex flex-col'>
+                    {StockProducts.length <= 0 ? <p className='text-blue-500 text-center py-10'>No products found ...</p> : StockProducts.map((product: Product, idx: number) => (
+                        <DrawerDemo product={product} key={idx} />
                     ))}
-                </datalist>
+                </div>
             </div>
-            <div className='flex flex-col'>
-                {StockProducts.length <= 0 ? <p className='text-blue-500 text-center py-10'>No products found ...</p> : StockProducts.map((product: Product, idx: number) => (
-                    <DrawerDemo product={product} key={idx} />
-                ))}
-            </div>
-        </div>
-    );
+        )
+    }
 };
 
 export default Stock;

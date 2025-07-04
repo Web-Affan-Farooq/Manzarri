@@ -50,8 +50,8 @@ const Main = () => {
     <>
       {/* <Fallback success={success} message={message} /> */}
       {/* <FeedOrders arrayData={data} /> */}
-      <section className="p-6 w-full h-screen overflow-y-auto">
-                  <h1 className='text-2xl font-bold my-[20px]'>Orders placed</h1>
+      <section className="p-6 w-full h-screen overflow-y-auto gray-scroller">
+        <h1 className='text-2xl font-bold my-[20px]'>Orders placed</h1>
         {/* <h1 className="text-2xl font-bold text-white mb-4 p-2">Orders placed </h1> */}
         <br />
         <select name="selectMonth" id="select-month" className='w-[150px] px-3 py-1 rounded-md' onChange={handleMonthFilter} value={currentMonth}>
@@ -86,28 +86,28 @@ const Main = () => {
                 </thead>
                 <tbody>
                   {ordersTable.map((order, idx) => (
-                    <tr className="text-sm border-b border-gray-700" key={idx}>
-                      <td className="p-3">{idx + 1}</td>
-                      <td className="p-3">{order.packages.length}</td>
-                      <td className="p-3">$ {order.amountPayable}</td>
-                      <td className="p-3">
-                        <span
-                          className={`px-[10px] py-[3px] rounded-full text-[11px] tracking-[0.5px] font-semibold ${order.status === 'Paid'
-                            ? 'text-green-500 bg-gray-600'
-                            : 'text-red-500 bg-gray-600'
-                            }`}
-                        >
-                          {order.status}
-                        </span>
-                      </td>
-                      <td className="p-3 whitespace-nowrap">
-                        {order._updatedAt ? new Date(order._updatedAt).toLocaleDateString() : ""}
-                      </td>
-                      <td className="p-3">
-                        <Link href={`/Admin/orders/${order._id}`} className="text-blue-500 hover:underline text-sm">View
-                        </Link>
-                      </td>
-                    </tr>
+                      <tr className="text-sm border-b border-gray-700" key={idx}>
+                        <td className="p-3">{idx + 1}</td>
+                        <td className="p-3">{order.packages.length}</td>
+                        <td className="p-3">$ {order.amountPayable}</td>
+                        <td className="p-3">
+                          <span
+                            className={`px-[10px] py-[3px] rounded-full text-[11px] tracking-[0.5px] font-semibold ${order.status === 'Paid'
+                              ? 'text-green-500 bg-gray-600'
+                              : 'text-red-500 bg-gray-600'
+                              }`}
+                          >
+                            {order.status}
+                          </span>
+                        </td>
+                        <td className="p-3 whitespace-nowrap">
+                          {order._updatedAt ? new Date(order._updatedAt).toLocaleDateString() : ""}
+                        </td>
+                        <td className="p-3">
+                          <Link href={`/Admin/orders/${order._id}`} className="text-blue-500 hover:underline text-sm">View
+                          </Link>
+                        </td>
+                      </tr>
                   ))}
                 </tbody>
               </table>
