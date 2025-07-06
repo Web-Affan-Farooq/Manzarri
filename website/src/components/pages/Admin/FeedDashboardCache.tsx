@@ -6,7 +6,7 @@ import useDashboardCache from '@/stores/admin';
 import FormSubmission from '@/@types/FormSubmissions';
 import { Order } from '@/@types/order';
 
-const FeedDashboardCache = ({ inventory, accounts, formSubmissions, orders }: { inventory: Product[]; accounts: Account[]; formSubmissions: FormSubmission[]; orders: Order[] }) => {
+const FeedDashboardCache = ({ inventory, accounts, formSubmissions, orders }: { inventory: Product[]; accounts: Account[]; formSubmissions: FormSubmission[]; orders: Order[] }) => { 
   const { feedAccounts, feedInventory, feedFormSubmissions, feedOrders } = useDashboardCache();
 
   useEffect(() => {

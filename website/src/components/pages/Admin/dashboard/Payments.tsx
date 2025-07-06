@@ -17,25 +17,28 @@ import {
     ChartTooltipContent,
 } from "@/components/ui/chart"
 
+import { usePaymentsCount } from "@/components/hooks";
 export const description = "An area chart with gradient fill"
 
-const chartData = [
-    { month: "January", desktop: 186},
-    { month: "February", desktop: 305},
-    { month: "March", desktop: 237},
-    { month: "April", desktop: 73},
-    { month: "May", desktop: 209},
-    { month: "June", desktop: 214},
-]
+// const chartData = [
+//     { month: "January", payments: 186},
+//     { month: "February", payments: 305},
+//     { month: "March", payments: 237},
+//     { month: "April", payments: 73},
+//     { month: "May", payments: 209},
+//     { month: "June", payments: 214},
+// ]
 
 const chartConfig = {
     desktop: {
-        label: "Desktop",
+        label: "Payments",
         color: "#1d3dcf",
     },
 } satisfies ChartConfig
 
 export default function ChartAreaGradient() {
+    const {data} = usePaymentsCount();
+
     return (
         <Card className="w-[400px] h-[350px] text-white border-none bg-gray-900 max-sm:w-[92vw] max-[500px]:h-[300px] max-md:w-[85vw] max-md:h-auto">
             <CardHeader>
@@ -43,12 +46,13 @@ export default function ChartAreaGradient() {
                 <CardDescription>
                     Showing payments in last 6 months
                 </CardDescription>
+
             </CardHeader>
             <CardContent>
                 <ChartContainer config={chartConfig}>
                     <AreaChart
                         accessibilityLayer
-                        data={chartData}
+                        data={data}
                         margin={{
                             left: 12,
                             right: 12,
@@ -78,7 +82,7 @@ export default function ChartAreaGradient() {
 
                         </defs>
                         <Area
-                            dataKey="desktop"
+                            dataKey="payments"
                             type="natural"
                             fill="url(#fillDesktop)"
                             fillOpacity={0.4}

@@ -1,15 +1,11 @@
 "use client"
 import LoginSchema from "@/validations/LoginSchema";
 import axios from "axios";
-import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { ZodError } from "zod";
 
 const useLogin = () => {
-    /* ___ Router ...*/
-    const router = useRouter();
-
     /* ___ State for input control ...*/
     const [userData, setuserData] = useState({
         email: "",
@@ -51,10 +47,10 @@ const useLogin = () => {
 
             /* ___ Redirect to dashhboard if user is admin ...*/
             if (data.user.isAdmin) {
-                return router.push(`/Admin/`);
+                window.document.location.href = window.document.location.href.replace("/login","/Admin")
             }
             else {
-                return router.push(`/profile/`);
+                window.document.location.href = window.document.location.href.replace("/login","/profile")
             }
         }
 

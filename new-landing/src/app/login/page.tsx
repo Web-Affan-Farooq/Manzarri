@@ -1,36 +1,17 @@
-import React from 'react';
-import { AtSign } from 'lucide-react';
+import { LoginForm } from "@/components/login-form"
 
-const Login = () => {
+export default function LoginPage() {
     return (
         <main>
             <article>
-                <section className='w-full h-screen bg-background'>
-                    {/*Logo... */}
-                    <span className="font-rye
-    font-normal
-    leading-[100%]
-    tracking-[0%]
-    2xl:text-[50px]
-    xl:text-[40px]
-    lg:text-[38px]
-    md:text-[38px]
-    sm:text-[30px]
-    max-sm:text-[28px]
-    text-skin
-    ">Manzarri</span>
-
-                    <div className='flex flex-col flex-nowrap justify-center items-center'>
-                        <div className='border-b border-skin flex flex-row flex-nowrap justify-center items-center gap-[3px]'>
-                            <AtSign className=''/>
-                            <input type="text" id='email' className='border-l border-skin' />
+                <section>
+                    <div className="bg-background flex min-h-svh flex-col items-center justify-center p-6 md:p-10">
+                        <div className="bg-transparent w-full max-w-sm md:max-w-3xl">
+                            <LoginForm />
                         </div>
                     </div>
-
                 </section>
             </article>
         </main>
     )
 }
-
-export default Login

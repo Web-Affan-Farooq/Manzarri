@@ -64,7 +64,6 @@ const CheckoutButton = () => {
         const { data } = response;
         /* redirect to the stripe checkout page ... */
         window.document.location.href = data.url;
-        // clearCart();
     }
     return (
         <button className="cursor-pointer mt-6 bg-faun-light hover:bg-faun-dark text-white font-bold py-2 px-4 rounded transition-colors duration-300 text-[16px] " onClick={handleClick}>

@@ -1,0 +1,8 @@
+.move-placeholder::before {
+  content: "E-mail";
+  color: white;
+  position: absolute;
+  top:0px;
+  left: 0;
+  z-index: 10;
+}

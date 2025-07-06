@@ -3,7 +3,7 @@ import { BetaAnalyticsDataClient } from "@google-analytics/data";
 
 const enviroments = {
     propertyId: process.env.GOOGLE_ANALYTICS_PROPERTY_ID,
-    privateKey: process.env.GOOGLE_ANALYTICS_PRIVATE_KEY,
+    privateKey: process.env.GOOGLE_ANALYTICS_PRIVATE_KEY!.replace(/\\n/g, '\n'),
     client_email: process.env.GOOGLE_ANALYTICS_CLIENT_EMAIL,
 }
 
@@ -56,7 +56,6 @@ export const GET = async () => {
             //     // { name: "purchaseQuantity" },
             //     { name: "transactions" },
             //   ],
-
         });
 
         return NextResponse.json({ response });

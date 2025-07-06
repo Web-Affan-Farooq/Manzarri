@@ -1,7 +1,6 @@
 "use client"
 /*____ Hooks ... */
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
 
 /*____ Libraries ... */
 import axios from 'axios';
@@ -22,8 +21,6 @@ interface ISignupData {
 }
 
 const useSignup = () => {
-    /* ___ Router instance... */
-    const router = useRouter();
 
     /* ___ State for handling form data ... */
     const [userData, setuserData] = useState<ISignupData>({
@@ -58,15 +55,15 @@ const useSignup = () => {
         }) => {
             const response = await axios.post("/api/signup", signupData);
             const data = response.data;
+
             window.localStorage.setItem("userID", data.user.user_id);
             window.localStorage.setItem("isBlocked", data.user.isBlocked);
 
-            
             if (!data.success) {
                 toast.error(data.message);
             } else {
                 toast.success("Signup successful!");
-                router.push(data.redirect);
+                window.document.location.href = window.document.location.href.replace("/signup", "/profile")
             }
         };
 

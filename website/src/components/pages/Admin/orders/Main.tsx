@@ -8,7 +8,7 @@ import useDashboardCache from '@/stores/admin';
 const Main = () => {
   // ____ State for storing orders array ...
   const { orders } = useDashboardCache();
-  const [ordersTable, setordersTable] = useState<Order[]>([])
+  const [ordersTable, setordersTable] = useState<Order[]>([]);
 
   // _____ Store current month in the state for initializing select ...
   const date = new Date();

@@ -20,7 +20,8 @@ export const middleware = async (req: NextRequest) => {
       return NextResponse.redirect(new URL("/login", req.url));
     }
   }
-
+  // console.log("Line 23 src/middleware.ts :::    middleware running");
+  
   return NextResponse.next();
 };
 

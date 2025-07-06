@@ -24,6 +24,6 @@ export const POST = async (req: NextRequest) => {
         }
         await sanityClient.create(newNotification)
     }
-
+    
     return NextResponse.json({ message: "Notification added" });
 }

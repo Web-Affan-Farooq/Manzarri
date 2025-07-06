@@ -14,6 +14,8 @@ export {default as PaymentsAnalytics} from "./dashboard/Payments";
 /* ____ Inventory ... */
 export {default as InventoryUpdates} from "./inventory/InventoryUpdates";
 export {default as StockListing} from "./inventory/Stock";
+export {default as InventoryProductDetailsSection} from "./inventory/product-details/InventoryProductDetails";
+
 
 /* ____ Order details ... */
 export {default as OrderDetails} from "./order-details/OrderDetails";

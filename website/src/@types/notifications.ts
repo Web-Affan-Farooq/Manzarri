@@ -1,6 +1,7 @@
 interface Notification {
     _id?: string;
     _type?: string;
+    _updatedAt?:string;
     notificationTitle: string;
     notificationText: string;
     notificationType: "Success" | "Failure" | "Warning";

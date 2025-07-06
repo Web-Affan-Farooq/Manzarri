@@ -10,17 +10,19 @@ const ProfileSection = () => {
     if (id) {
       const fetchNotifications = async () => {
         const response = await sanityClient.fetch(`*[_type == "Notifications" && userId == "${id}"]{
-              notificationTitle,
+          _updatedAt,    
+          notificationTitle,
     notificationText,
     notificationType,
     isSeen,
           }`);
-          // console.log(response);
+        // console.log(response);
         setnotifications(response);
       }
       fetchNotifications();
     }
   }, []);
+
   return (
     <section className="flex-1 bg-gray-100 min-h-screen">
       <h1 className="text-3xl font-bold mb-6 text-gray-800 px-8 py-4">Dashboard</h1>
@@ -34,8 +36,12 @@ const ProfileSection = () => {
             >
               <i className="fa-solid fa-check text-green-500 text-lg mt-1"></i>
               <div className="text-sm text-black">
-                <h1 className="font-semibold text-base">{notification.notificationTitle}</h1>
+                <div className='flex flex-row flex-nowrap justify-between items-center '>
+                                  <h1 className="font-semibold text-base">{notification.notificationTitle}</h1>
+                <span className='text-gray-400'>{notification._updatedAt ? new Date(notification._updatedAt).toLocaleString() : ""}</span>
+                </div>
                 <p className="mt-1 text-gray-700">{notification.notificationText}</p>
+                
               </div>
             </div>
           })

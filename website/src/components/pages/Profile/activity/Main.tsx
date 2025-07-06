@@ -1,7 +1,7 @@
 "use client";
 import { Order } from '@/@types/order';
 import sanityClient from '@/lib/sanity';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 interface OrderRef {
   _key: string;
@@ -10,10 +10,16 @@ interface OrderRef {
 }
 
 const Main = () => {
+  // 1. State for orders ...
   const [orders, setorders] = useState<Order[]>([]);
+  
+  // 2. state for showing date ...
   const [lastLogin, setlastLogin] = useState("");
+  
+  // 3. for fetching account's orders 
   const getAccountOrders = useCallback(async () => {
     const userId = window.localStorage.getItem("userID");
+
     if (userId) {
       const q = `*[_type == "AccountActivity" && userId == "${userId}"]{
       lastLogin,
@@ -21,6 +27,7 @@ const Main = () => {
       }`;
       const orderReferences = await sanityClient.fetch(q);
       const orderIds: string[] = [];
+      
       setlastLogin(orderReferences[0].lastLogin)
       orderReferences[0].orders.forEach((order: OrderRef) => orderIds.push(order._ref));
       const response = await sanityClient.fetch(`*[_type == "Orders" && _id in $ids]{
@@ -33,8 +40,12 @@ packages
 
       setorders(response);
     }
-    getAccountOrders();
+
   }, []);
+
+  useEffect(() => {
+    getAccountOrders();
+  },[getAccountOrders]);
 
   return (
     <section className='p-5 w-full'>
@@ -42,11 +53,11 @@ packages
       <br />
       <h2 className='font-bold text-[20px]'>Activity</h2>
       <br />
-      <p><strong>Last login : </strong>{new Date(lastLogin).toUTCString()}</p>
+      <p><strong>Last login : </strong>{new Date(lastLogin).toLocaleString()}</p>
       <br />
       <h2 className='font-bold text-[20px]'>Orders</h2>
       {orders.length <= 0 ? <p className='p-4 text-center text-gray-600'>No orders found ...</p> : orders.map((order, idx) => {
-        return <div key={idx}>{order.userId}</div>
+        return <div key={idx}>{order.status}</div>
       })}
     </section>
   )

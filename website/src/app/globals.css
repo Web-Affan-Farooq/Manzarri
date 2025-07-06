@@ -143,6 +143,11 @@
 }
 
 
+@media (max-width:500px) {
+  .gray-scroller::-webkit-scrollbar {
+    display: none;
+}
+}
 .gray-scroller::-webkit-scrollbar {
   background: transparent;
   width: 10px;

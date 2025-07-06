@@ -58,7 +58,6 @@ const useCartCard = (
         removeFromCart,
         updateQuantity,
         handlecounter,
-
     }
 
 }
