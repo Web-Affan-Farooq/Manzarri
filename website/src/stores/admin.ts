@@ -1,5 +1,4 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
 
 import { Account } from "@/@types/accounts";
 import { Product } from "@/@types/product";
