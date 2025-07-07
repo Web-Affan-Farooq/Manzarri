@@ -42,6 +42,7 @@ const chartConfig = {
 
 export default function ChartBarLabelCustom() {
   const {data} = useOrdersCount();
+  
   return (
     <Card className="w-[400px] h-[350px] text-white border-none bg-gray-900 max-sm:w-[92vw] max-[500px]:h-[300px] max-md:w-[85vw] max-md:h-auto">
       <CardHeader>
