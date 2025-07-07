@@ -1,5 +1,4 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
 
 import { Account } from "@/@types/accounts";
 import { Product } from "@/@types/product";
@@ -29,8 +28,7 @@ interface AccountsState {
 interface DashboardCache extends OrdersState, InventoryState, FormsubmissionState, AccountsState { }
 
 const useDashboardCache = create<DashboardCache>()(
-    persist(
-        (set) => (
+    (set) => (
             {
                 /* _____ Accounts ... */
 
@@ -82,11 +80,7 @@ const useDashboardCache = create<DashboardCache>()(
                     }
                 )),
             }
-        ),
-        {
-            name: "dashboardData",
-        }
-    )
+        )
 )
 
 export default useDashboardCache;
