@@ -29,8 +29,7 @@ interface AccountsState {
 interface DashboardCache extends OrdersState, InventoryState, FormsubmissionState, AccountsState { }
 
 const useDashboardCache = create<DashboardCache>()(
-    persist(
-        (set) => (
+    (set) => (
             {
                 /* _____ Accounts ... */
 
@@ -82,11 +81,7 @@ const useDashboardCache = create<DashboardCache>()(
                     }
                 )),
             }
-        ),
-        {
-            name: "dashboardData",
-        }
-    )
+        )
 )
 
 export default useDashboardCache;
