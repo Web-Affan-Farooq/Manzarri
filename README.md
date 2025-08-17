@@ -62,10 +62,13 @@ Timestamps :
 - 5-7-2025.3:10pm     implement search accounts functionality in accounts section
 - 7-7-2025.3:15pm     Updated notification card in profile
 - 7-7-2025.3:30pm     Fixed accounts activity section
-- 8-7-2025.1:35pm     Created navbar in new landing page
+- 8-7-2025.1:35am     Created navbar in new landing page
+- 8-7-2025.1:00pm     Fixed background chaning animation in new landing page
+- 17-8-2025.9:10pm     Integrated react hook form in contact form
+- 17-8-2025.9:15pm     Integrated react hook form in login and signup forms
 
 Notes:
-welcome background changing animation is not working correctly in the new landing page 
+implement jwt logic
 Create events section from which admin create events
 Create a finances section for managing finances 
 Maintain the code for better readability 

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Link from 'next/link';
 
 // import { useCart } from '@/stores/cart';
@@ -7,24 +7,16 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import { Heart, ShoppingBag, Profile } from "@/components/icons";
-import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
+import { useTimeline } from '../hooks';
 
 const Header = () => {
   const [navStatus, setnavStatus] = useState(false);
+
+
   // const { cart } = useCart();
   // const { wishlist } = useWishlist();
 
   const pathname = usePathname();
-
-  useGSAP(() => {
-    gsap.to(".line", {
-      width: "100%",
-      duration: 1,
-    });
-
-
-  }, []);
 
   if (pathname.startsWith("/Admin") || pathname.startsWith("/profile")) {
     return <></>
@@ -128,7 +120,7 @@ const Header = () => {
 
         </header>
 
-        <div className='line w-0 h-[1px] bg-skin relative top-18'></div>
+        <div className='line w-0 h-[1px] bg-skin relative top-18' ref={lineRef}></div>
       </div>
     )
   }

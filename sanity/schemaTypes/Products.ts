@@ -7,30 +7,35 @@ export default {
             name: "productName",
             type: "string",
             title: "Enter product name ",
-            description: "Name of the product"
+            description: "Name of the product",
+            initialValue:"undefined Product name "
         },
         {
             name: 'productDescription',
             type: "array",
             of: [{ type: "block" }],
             title: "Enter product description",
+            validation: (Rule: any) => Rule.required().min(1),
         },
         {
             name: "discountPercentage",
             type: "number",
             title: "Enter discount percentage",
-            description: "Eg. 15 for 15% off"
+            description: "Eg. 15 for 15% off",
+            initialValue:0
         },
         {
             name: "applicableOffers",
             type: "array",
             of: [{ type: "string" }],
-            title: "Applicable offers"
+            title: "Applicable offers",
+            initialValue:[]
         },
         {
             name: "stockKeepingUnit",
             type: "string",
-            title: "Enter SKU.id"
+            title: "Enter SKU.id",
+            initialValue:"#"
         },
         {
             name: 'jewelleryType',
@@ -39,6 +44,7 @@ export default {
                 list: ['Earrings', 'Necklace', "Bracelet", "Nose jewellery", "Hair jewellery"],
                 layout: 'radio',
             },
+            initialValue:"Necklace"
         },
         {
             name: "ocassions",
@@ -53,43 +59,51 @@ export default {
                 layout: "grid",
             },
             title: "Select for ocassions",
+            initialValue:[]
         },
         {
             name: "tags",
             type: "array",
             of: [{ type: "string" }],
-            title: "Tags"
+            title: "Tags",
+            initialValue:[]
         },
         {
             name: "ratings",
             type: "number",
             title: "Enter ratings",
             description: "Enter ratings between 1 to 5",
+            initialValue:1,
         },
         {
             name: "price",
             type: "number",
             title: "Price in USDT",
+            initialValue:0,
         },
         {
             name: "stockQuantity",
             type: "number",
             title: "Stock quantity",
+            initialValue:10,
         },
         {
             name: "weightInGrams",
             type: "number",
             title: "Weight in grams",
+            initialValue:2
         },
         {
             name: "dimensions",
             type: "string",
-            title: "dimensions"
+            title: "dimensions",
+            initialValue:"Not defined"
         },
         {
             name: "material",
             type: "string",
             title: "material",
+            initialValue:"Not defined"
         },
 
         {
@@ -105,6 +119,7 @@ export default {
                 layout: "grid",
             },
             title: "Available sizes",
+            initialValue:[]
         },
         {
             name: 'images',

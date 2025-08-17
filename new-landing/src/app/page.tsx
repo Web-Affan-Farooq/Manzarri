@@ -1,22 +1,21 @@
 "use client";
-import React from 'react'
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
+import React, { useRef } from 'react'
+import { useTimeline } from '@/components/hooks';
 
 const Home = () => {
-  useGSAP(() => {
-    gsap.from(".background-container", {
-      background: "#000000",
-      duration:3,
-      ease:"back",
-    });
-  }, []);
+  const backgroundContainer = useRef<HTMLElement | null>(null);
+  
+  // ____ Custom hook for attaching animation ...
+  if(backgroundContainer.current) {
+    useTimeline(backgroundContainer);
+  }
 
   return (
     <main>
       <article>
-        <section className='background-container w-full h-screen'>
+        <section className='background-container w-full h-screen' ref={backgroundContainer}>
           home
+          
         </section>
       </article>
     </main>)
