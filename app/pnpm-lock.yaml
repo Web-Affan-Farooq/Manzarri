@@ -56,6 +56,9 @@ importers:
       lucide-react:
         specifier: ^0.511.0
         version: 0.511.0(react@19.1.1)
+      manzarri:
+        specifier: 'link:'
+        version: 'link:'
       next:
         specifier: ^15.3.5
         version: 15.4.6(react-dom@19.1.1(react@19.1.1))(react@19.1.1)

@@ -67,20 +67,34 @@ Timestamps :
 - 17-8-2025.9:10pm     Integrated react hook form in contact form
 - 17-8-2025.9:15pm     Integrated react hook form in login and signup forms
 
-Notes:
-implement jwt logic
-Create events section from which admin create events
-Create a finances section for managing finances 
-Maintain the code for better readability 
-implement push notifications on admin dashboard
-create notification card for notification display and use vercel notification bar as inspiration
-create and customize notifications for success and failures .
-create a zustand state for storing email ,name , isadmin , is blocked ,
-check in the header is user is admin , or not and render link for admin dashboard
-Implement header functionality. If user is not authorized, the header that's shown can contains options or buttons for login and signup
-handover the store to ai agent . Agent should run the administration in the store as well as warehouse systems
-Create search product functionality
-Create Accounts settings page ui 
-Create edit profile functionality in profiles
-Create ratings system
+### Possible bugs : 
+**Product duplication :** On the order details page in `/Admin/orders/___dynamic___` page , possible duplication of products is detected in some orders .
+**Possible pitfalls :**
+- Zustand state failure.
+- products data collection failure in hooks of pages before order is placed.
+- Product filteration error in hooks or dashboard.
+
+---
+
+**Logout failure :** 
+
+### Future implementations:
+- implement jwt logic
+- Create events section from which admin create events
+- Create a finances section for managing finances 
+- Maintain the code for better readability 
+- implement push notifications on admin dashboard
+- create notification card for notification display and use vercel notification bar as inspiration
+- create and customize notifications for success and failures .
+- create a zustand state for storing email ,name , isadmin , is blocked ,
+- check in the header is user is admin , or not and render link for admin dashboard
+- Implement header functionality. If user is not authorized, the header that's shown can contains options or buttons for login and signup
+- handover the store to ai agent . Agent should run the administration in the store as well as warehouse systems
+- Create search product functionality
+- Create Accounts settings page ui 
+- Create edit profile functionality in profiles
+- Create ratings system
+- implement social auth using next auth 
+- Updated the UI of user facing pages
+
 [Landing page ui design idea](https://www.pinterest.com/pin/595038169537303209/)

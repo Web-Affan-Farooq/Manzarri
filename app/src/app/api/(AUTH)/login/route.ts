@@ -1,13 +1,3 @@
-/*____   
-
- route : /api/login
- method : POST
- body : {
- "email":"email",
- "password":"password"
- }
-*/
-
 import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
@@ -18,11 +8,14 @@ import UpdateActivity from '@/utils/Auth/updateActivity';
 import { z } from "zod";
 import { TokenPayload } from '@/@types/jwt';
 import AttachToken from '@/utils/Auth/attachtoken';
+import Logger from '@/utils/Logger';
 
+const logger = new Logger("/api/login/route.ts")
 export async function POST(req: NextRequest) {
   const requestData: z.infer<typeof LoginSchema> = await req.json();
-
+  logger.log(16, "Get body : ",requestData)
   // _____ Sanitize and check for validation errors ...
+  logger.log(18, "------------------- Running SanitizeData -------------------","")
   const sanitize = SanitizeData(requestData, LoginSchema);
   if (!sanitize.success) {
     return NextResponse.json(
@@ -53,6 +46,7 @@ export async function POST(req: NextRequest) {
   // _____ Verify password ...
   const checkPassword = await bcrypt.compare(requestData.password, requiredUser.userPassword);
   if (!checkPassword) {
+      logger.log(49, "------------------- Invalid password  -------------------","")
     return NextResponse.json(
       {
         message: "Invalid password"
@@ -62,12 +56,13 @@ export async function POST(req: NextRequest) {
       }
     )
   }
-
+      logger.log(49, "-------------------  password matched  -------------------",checkPassword)
   // _____ Assign tokens ...
   const payload: TokenPayload = {
     accountId: requiredUser._id,
     email: requiredUser.userEmail
   }
+      logger.log(49, "------------------- Created Token payload  -------------------",payload)
   await AttachToken(requiredUser.isAdmin, payload);
 
   // _____ Update login activity...

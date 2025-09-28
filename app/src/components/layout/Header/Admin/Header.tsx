@@ -19,34 +19,42 @@ const itemLinks = [
   {
     name: "Dashboard",
     icon: <Dashboard className={`text-gray-custom w-[20px] h-[20px]`} />,
+    url: "/Admin",
   },
   {
     name: "Inventory",
     icon: <ShoppingCart className={`text-gray-custom w-[20px] h-[20px]`} />,
+    url: "/Admin/inventory",
   },
   {
     name: "Orders",
     icon: <Orders className={`text-gray-custom w-[20px] h-[20px]`} />,
+    url: "/Admin/orders",
   },
   {
     name: "Accounts",
     icon: <Accounts className={`text-gray-custom w-[20px] h-[20px]`} />,
+    url: "/Admin/accounts",
   },
   {
     name: "Settings",
     icon: <Settings className={`text-gray-custom w-[20px] h-[20px]`} />,
+    url: "/Admin/settings",
   },
   {
     name: "Messages",
     icon: <Messages className={`text-gray-custom w-[20px] h-[20px]`} />,
+    url: "/Admin/messages",
   },
   {
     name: "Events",
     icon: <Calendar className={`text-gray-custom w-[20px] h-[20px]`} />,
+    url: "/Admin/events",
   },
   {
     name: "Finance",
     icon: <BadgeDollarSign className={`text-gray-custom w-[20px] h-[20px]`} />,
+    url: "/Admin/finances",
   },
 ];
 
@@ -139,7 +147,7 @@ const AdminHeader = () => {
                 <h2 className="text-2xl font-bold mb-8">Admin Dashboard</h2>
                 <div className="flex flex-col gap-4">
                   {itemLinks.map((link, idx) => (
-                    <Link href={"/Admin/finances"} key={idx}>
+                    <Link href={link.url} key={idx}>
                       <div className="group hover:text-blue-500 w-full transition-all duration-150 ease-in-out cursor-pointer py-2 px-3 rounded-md flex flex-row flex-nowrap items-center gap-[10px]">
                         {link.icon}{" "}
                         <span className="max-sm:text-sm">{link.name}</span>
