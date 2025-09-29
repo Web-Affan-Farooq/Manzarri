@@ -76,10 +76,22 @@ Timestamps :
 
 ---
 
-**Logout failure :** 
+**Logout failure :**  On logging out from the account in production enviroments , the tokens are removed and all logicis working fine but user have still access to the profiles page . While on the other hand when page is refreshed after logout , all the middleware logic is running fine with no issue .
+**Possible pitfalls :** 
+- middleware failure at specific point on logout
+
+**Order deletion on account remove :** When account is deleted , the user data hasbeen removed from accounts document but all the orders of that account were still in the orders document
+
+**Possible pitfalls :** Implement a functionality that when accounts are deleted , their corresponding orders were also deleted .
+
+**Notification deletion on account remove :** When account is deleted , the user data hasbeen removed from accounts document but all the notifications of that account were still in the orders document
+
+**Possible pitfalls :** Implement a functionality that when accounts are deleted , their corresponding notifications were also deleted .
 
 ### Future implementations:
 - implement jwt logic
+- Implement a functionality that user can order jewelleries of custom design
+- Implement recommendation system
 - Create events section from which admin create events
 - Create a finances section for managing finances 
 - Maintain the code for better readability 
@@ -95,6 +107,83 @@ Timestamps :
 - Create edit profile functionality in profiles
 - Create ratings system
 - implement social auth using next auth 
-- Updated the UI of user facing pages
-
 [Landing page ui design idea](https://www.pinterest.com/pin/595038169537303209/)
+
+
+## Code snippets:
+**Backend api code for deleting all the notifications of past accounts**:
+
+```typescript
+import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
+import sanityClient from "@/lib/sanity";
+
+export const GET = async (req: NextRequest) => {
+  const notifications: { _id: string; userId: string }[] =
+    await sanityClient.fetch(`*[_type == "Notifications"]{
+_id,
+userId
+}`);
+
+  await Promise.all(
+    notifications.map(async (note) => {
+      const account = await sanityClient.fetch(
+        `*[_type == "Accounts" && _id == "${note.userId}"]`
+      );
+      if (account.length === 0) {
+        console.log(`Account not found : ${note.userId}`);
+        await sanityClient.delete(note._id)
+        console.log("Deleted all notifications")
+      } else {
+        console.log(`Account found : ${note.userId}`);
+      }
+    })
+  );
+
+
+  return NextResponse.json(
+    {
+        message:"Check console"
+    }
+  )
+};
+
+```
+
+
+**Backend api code for deleting all the orders of past accounts**:
+```typescript
+import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
+import sanityClient from "@/lib/sanity";
+
+export const GET = async (req: NextRequest) => {
+  const notifications: { _id: string; userId: string }[] =
+    await sanityClient.fetch(`*[_type == "Notifications"]{
+_id,
+userId
+}`);
+
+  await Promise.all(
+    notifications.map(async (note) => {
+      const account = await sanityClient.fetch(
+        `*[_type == "Accounts" && _id == "${note.userId}"]`
+      );
+      if (account.length === 0) {
+        console.log(`Account not found : ${note.userId}`);
+        await sanityClient.delete(note._id)
+        console.log("Deleted all notifications")
+      } else {
+        console.log(`Account found : ${note.userId}`);
+      }
+    })
+  );
+
+
+  return NextResponse.json(
+    {
+        message:"Check console"
+    }
+  )
+};
+```

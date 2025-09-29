@@ -69,13 +69,6 @@ export default {
             initialValue:[]
         },
         {
-            name: "ratings",
-            type: "number",
-            title: "Enter ratings",
-            description: "Enter ratings between 1 to 5",
-            initialValue:1,
-        },
-        {
             name: "price",
             type: "number",
             title: "Price in USDT",
@@ -131,5 +124,12 @@ export default {
             },
             validation: (Rule: any) => Rule.required().min(1),
         },
+        {
+            name:"ratings",
+            type:"array",
+            of:[{type:"number"}],
+            title:"Ratings",
+            initialValue:[]
+        }
     ]
 }
