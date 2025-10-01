@@ -2,7 +2,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import sanityClient from '@/lib/sanity';
-import axios from 'axios';
+import OrderPlacementAction from '@/actions/OrderPlacementAction';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_TOKEN!, {
   apiVersion: "2025-07-30.basil",
@@ -35,9 +35,7 @@ export async function POST(req: NextRequest) {
 
       // Trigger stock update
       try {
-        await axios.post(new URL("/api/order", req.url).toString(), {
-          order_id: order_id,
-        });
+        await OrderPlacementAction(order_id)
       } catch (error) {
         console.error("❌ Failed to update product stock:", error);
       }

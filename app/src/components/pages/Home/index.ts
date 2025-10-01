@@ -1,7 +1,6 @@
 /* _____ Landing page components ...*/
 export {default as HeroSection} from "./Hero/Hero";
 export {default as Section_2} from "./Section-2/Section-2";
-export {default as Section_3} from "./Section-3/Section-3";
 export {default as Section_4} from "./Section-4/Section-4";
 export {default as Section_5} from "./Section-5/Section-5";
 export {default as Section_6} from "./Section-6/Section-6";

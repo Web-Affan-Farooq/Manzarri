@@ -1,27 +1,24 @@
 "use client";
-import React from 'react';
-import { useCatalog } from '@/stores/catalog';
-import { Product } from '@/@types/product';
-import ProductCard from '../Marketplace/Card';
-import Link from 'next/link';
+import React from "react";
+import { useCatalog } from "@/stores/catalog";
+import { Product } from "@/@types/product";
+import ProductCard from "../Marketplace/Card";
 
-const RelatedSearches = ({sku_id , id}:{sku_id:string; id:string}) => {
-    const {products} = useCatalog();
-    const sameCategory = products.filter((item:Product) => {
-        // Filter products that belongs to same sku but different id with respect to product's id shown in products details page
-      return item.stockKeepingUnit === sku_id && item._id !== id ; 
-    });    
+const RelatedSearches = ({ sku_id, id }: { sku_id: string; id: string }) => {
+  const { products } = useCatalog();
+  const sameCategory = products.filter((item: Product) => {
+    // Filter products that belongs to same sku but different id with respect to product's id shown in products details page
+    return item.stockKeepingUnit === sku_id && item._id !== id;
+  });
   return (
-        <section>
-            <div className="max-sm:p-1 sm:p-8 xl:w-[80vw] xl:mx-auto grid max-sm:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 sm:gap-6 max-sm:gap-3 ">
-                {sameCategory.map((product: Product, idx: number) => (
-                    <Link href={`/marketplace/${product._id}`} key={idx}>
-                        <ProductCard product={product} />
-                    </Link>
-                ))}
-            </div>
-        </section>
-  )
-}
+    <section>
+      <div className="max-sm:p-1 sm:p-8 xl:w-[80vw] xl:mx-auto grid max-sm:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 sm:gap-6 max-sm:gap-3 ">
+        {sameCategory.map((product: Product, idx: number) => (
+          <ProductCard product={product} key={idx} />
+        ))}
+      </div>
+    </section>
+  );
+};
 
-export default RelatedSearches
+export default RelatedSearches;

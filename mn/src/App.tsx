@@ -13,7 +13,7 @@ import { SignupPage } from "./components/pages/SignupPage";
 import { NotificationPanel } from "./components/NotificationPanel";
 
 export default function App() {
-  const [showNotifications, setShowNotifications] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(true);
 
   return (
     <Router>

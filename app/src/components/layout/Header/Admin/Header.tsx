@@ -2,7 +2,7 @@
 import "./style.css";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import {
   Accounts,
@@ -144,13 +144,15 @@ const AdminHeader = () => {
           >
             <nav className="flex flex-col justify-between h-full">
               <div>
-                <h2 className="text-2xl font-bold mb-8">Admin Dashboard</h2>
-                <div className="flex flex-col gap-4">
+                <h1 className="text-xl font-bold mt-[19px] mb-[30px]">
+                  Admin dashboard
+                </h1>
+                <div className="flex flex-col gap-3">
                   {itemLinks.map((link, idx) => (
                     <Link href={link.url} key={idx}>
                       <div className="group hover:text-blue-500 w-full transition-all duration-150 ease-in-out cursor-pointer py-2 px-3 rounded-md flex flex-row flex-nowrap items-center gap-[10px]">
-                        {link.icon}{" "}
-                        <span className="max-sm:text-sm">{link.name}</span>
+                        {link.icon}
+                        <span className="lg:text-md text-sm">{link.name}</span>
                       </div>
                     </Link>
                   ))}

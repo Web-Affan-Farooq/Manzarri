@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect } from "react";
 import useDashboardCache from "@/stores/admin";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 

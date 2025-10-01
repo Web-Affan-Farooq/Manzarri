@@ -8,6 +8,9 @@ const nextConfig: NextConfig = {
       {
         hostname: "cdn.sanity.io",
         protocol: "https",
+      },{
+        hostname:"images.unsplash.com",
+        protocol:"https"
       }
     ]
   }

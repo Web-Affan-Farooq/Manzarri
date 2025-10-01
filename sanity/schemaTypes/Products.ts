@@ -12,8 +12,7 @@ export default {
         },
         {
             name: 'productDescription',
-            type: "array",
-            of: [{ type: "block" }],
+            type: "string",
             title: "Enter product description",
             validation: (Rule: any) => Rule.required().min(1),
         },
@@ -41,7 +40,7 @@ export default {
             name: 'jewelleryType',
             type: 'string',
             options: {
-                list: ['Earrings', 'Necklace', "Bracelet", "Nose jewellery", "Hair jewellery"],
+                list: ['Earrings', 'Necklace', "Bracelet", "Nose jewellery", "Hair jewellery", "Rings"],
                 layout: 'radio',
             },
             initialValue:"Necklace"

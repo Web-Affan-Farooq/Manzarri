@@ -1,91 +1,212 @@
-"use client"
-import React from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+"use client";
+import React from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import {
+  Facebook,
+  Instagram,
+  Twitter,
+  MapPin,
+  Phone,
+  Mail,
+} from "lucide-react";
+import { Input } from "@/components/ui/input";
 
 const Footer = () => {
-    const pathname = usePathname();
-    if (pathname.startsWith("/Admin") || pathname.startsWith("/profile")) {
-        return <></>
-    }
-    return (
-        <>
-            <footer className='text-center bg-[var(--faun-light)] text-white'>
-                <div className='flex flex-row flex-wrap gap-6 justify-evenly max-sm:justify-start items-center p-4'>
-                    <div className='p-3'>
-                        <h2 className='text-[20px] font-bold font-libre-bodoni'>MY ACCOUNT</h2>
-                        <br />
-                        <div className='flex flex-col flex-wrap text-left gap-2'>
-                            <span>
-                                <Link href={'/'} className='font-lato'>Career at Eldy</Link>
-                            </span>
-                            <span>
-                                <Link href={'/'} className='font-lato'>About us</Link>
-                            </span>
-                            <span>
-                                <Link href={'/'} className='font-lato'>Sustainability</Link>
-                            </span>
-                            <span>
-                                <Link href={'/'} className='font-lato'>Press</Link>
-                            </span>
-                        </div>
-                    </div>
-
-                    <div className='p-3'>
-                        <h2 className='text-[20px] font-bold font-libre-bodoni'>HELP</h2>
-                        <br />
-                        <div className='flex flex-col flex-wrap text-left gap-2'>
-                            <span>
-                                <Link href={'/'} className='font-lato'>FAQ</Link>
-                            </span>
-                            <span>
-                                <Link href={'/'} className='font-lato'>Shipping</Link>
-                            </span>
-                            <span>
-                                <Link href={'/'} className='font-lato'>Returns</Link>
-                            </span>
-                            <span>
-                                <Link href={'/'} className='font-lato'>Order Status</Link>
-                            </span>
-                        </div>
-                    </div>
-
-                    <div className='p-3'>
-                        <h2 className='text-[20px] font-bold font-libre-bodoni'>FOLLOW US ON</h2>
-                        <br />
-                        <div className='flex flex-col flex-wrap text-left gap-2'>
-                            <span>
-                                <Link href={'/'} className='font-lato'>Twitter </Link>
-                            </span>
-                            <span>
-                                <Link href={'/'} className='font-lato'>Facebook</Link>
-                            </span>
-                            <span>
-                                <Link href={'/'} className='font-lato'>Google Plus</Link>
-                            </span>
-                            <span>
-                                <Link href={'/'} className='font-lato'>Instagram</Link>
-                            </span>
-                        </div>
-                    </div>
-
-                    <div className='p-3'>
-                        <h2 className='text-[20px] font-bold font-libre-bodoni'>ABOUT US</h2>
-                        <br />
-                        <div className='flex flex-col flex-wrap text-left gap-2'>
-                            <div className='text-black font-lato'>Email:<span className='text-white font-lato'>purity_jewel@gmail.com</span></div>
-                            <div className='text-black font-lato'>Phone:<span className='text-white font-lato'>0987654321</span></div>
-                        </div>
-                    </div>
-                </div>
-
-            </footer>
-            <div className='text-white text-center p-5 bg-[#5e5844]'>
-                <p>&copy; MANZARRI X Muhammad Affan 2024 | All rights reserved .</p>
+  const pathname = usePathname();
+  if (pathname.startsWith("/Admin") || pathname.startsWith("/profile")) {
+    return <></>;
+  }
+  return (
+    <footer className="bg-manzarri-black text-manzarri-white">
+      <div className="container mx-auto px-4 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* Brand Section */}
+          <div className="space-y-4">
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 bg-manzarri-reddish-brown rounded-full flex items-center justify-center">
+                <span className="text-manzarri-white font-bold">M</span>
+              </div>
+              <span className="text-2xl font-bold">Manzarri</span>
             </div>
-        </>
-    )
-}
+            <p className="text-manzarri-white/80 leading-relaxed">
+              Exquisite jewelry crafted with passion and precision. Discover
+              timeless pieces that celebrate your unique style and precious
+              moments.
+            </p>
+            <div className="flex space-x-4">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-manzarri-white hover:text-manzarri-faun hover:bg-manzarri-white/10"
+              >
+                <Facebook className="w-5 h-5" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-manzarri-white hover:text-manzarri-faun hover:bg-manzarri-white/10"
+              >
+                <Instagram className="w-5 h-5" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-manzarri-white hover:text-manzarri-faun hover:bg-manzarri-white/10"
+              >
+                <Twitter className="w-5 h-5" />
+              </Button>
+            </div>
+          </div>
+
+          {/* Quick Links */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold text-manzarri-faun">
+              Quick Links
+            </h3>
+            <div className="space-y-2">
+              <Link
+                href="/"
+                className="block text-manzarri-white/80 hover:text-manzarri-faun transition-colors"
+              >
+                Home
+              </Link>
+              <Link
+                href="/marketplace"
+                className="block text-manzarri-white/80 hover:text-manzarri-faun transition-colors"
+              >
+                Marketplace
+              </Link>
+              <Link
+                href="/profile"
+                className="block text-manzarri-white/80 hover:text-manzarri-faun transition-colors"
+              >
+                My Account
+              </Link>
+              <Link
+                href="#"
+                className="block text-manzarri-white/80 hover:text-manzarri-faun transition-colors"
+              >
+                About Us
+              </Link>
+              <Link
+                href="#"
+                className="block text-manzarri-white/80 hover:text-manzarri-faun transition-colors"
+              >
+                Contact
+              </Link>
+            </div>
+          </div>
+
+          {/* Categories */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold text-manzarri-faun">
+              Categories
+            </h3>
+            <div className="space-y-2">
+              <Link
+                href="#"
+                className="block text-manzarri-white/80 hover:text-manzarri-faun transition-colors"
+              >
+                Rings
+              </Link>
+              <Link
+                href="#"
+                className="block text-manzarri-white/80 hover:text-manzarri-faun transition-colors"
+              >
+                Necklaces
+              </Link>
+              <Link
+                href="#"
+                className="block text-manzarri-white/80 hover:text-manzarri-faun transition-colors"
+              >
+                Earrings
+              </Link>
+              <Link
+                href="#"
+                className="block text-manzarri-white/80 hover:text-manzarri-faun transition-colors"
+              >
+                Bracelets
+              </Link>
+              <Link
+                href="#"
+                className="block text-manzarri-white/80 hover:text-manzarri-faun transition-colors"
+              >
+                Custom Jewelry
+              </Link>
+            </div>
+          </div>
+
+          {/* Contact & Newsletter */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold text-manzarri-faun">
+              Stay Connected
+            </h3>
+            <div className="space-y-3">
+              <div className="flex items-center space-x-3 text-manzarri-white/80">
+                <Mail className="w-4 h-4 text-manzarri-faun" />
+                <span className="text-sm">hello@manzarri.com</span>
+              </div>
+              <div className="flex items-center space-x-3 text-manzarri-white/80">
+                <Phone className="w-4 h-4 text-manzarri-faun" />
+                <span className="text-sm">+1 (555) 123-4567</span>
+              </div>
+              <div className="flex items-center space-x-3 text-manzarri-white/80">
+                <MapPin className="w-4 h-4 text-manzarri-faun" />
+                <span className="text-sm">New York, NY</span>
+              </div>
+            </div>
+
+            <div className="pt-4">
+              <p className="text-sm text-manzarri-white/80 mb-3">
+                Subscribe to our newsletter
+              </p>
+              <div className="flex space-x-2">
+                <Input
+                  placeholder="Your email"
+                  className="bg-manzarri-white/10 border-manzarri-white/20 text-manzarri-white placeholder:text-manzarri-white/60"
+                />
+                <Button className="bg-manzarri-reddish-brown hover:bg-manzarri-reddish-brown/90 text-manzarri-white">
+                  Subscribe
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Section */}
+        <div className="border-t border-manzarri-white/20 mt-12 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+            <div className="text-sm text-manzarri-white/60">
+              © 2024 Manzarri. All rights reserved.
+            </div>
+            <div className="flex space-x-6 text-sm">
+              <Link
+                href="#"
+                className="text-manzarri-white/60 hover:text-manzarri-faun transition-colors"
+              >
+                Privacy Policy
+              </Link>
+              <Link
+                href="#"
+                className="text-manzarri-white/60 hover:text-manzarri-faun transition-colors"
+              >
+                Terms of Service
+              </Link>
+              <Link
+                href="#"
+                className="text-manzarri-white/60 hover:text-manzarri-faun transition-colors"
+              >
+                Return Policy
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+};
 
 export default Footer;
 

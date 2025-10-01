@@ -1,33 +1,32 @@
 ## Manzarri
 
 Milestones : 
-| Feature             | Status |
-| ------------------- | ------ |
-| Product Listing     | Completed|
-| Product Detail Page | Completed|
-| Cart System         | Completed|
-| Checkout & Order    | Completed|
-| Authentication      | Completed|
-| Wishlist            | Completed|
-| Order table         | Completed|
-| Order details       | Completed|
-| g.analytics setup   | Completed|
-| Payment Integration | Completed|
-| Orderplacementcycle | Completed|
-| Profile             | 🔲       |
-| Finance management  | 🔲       |
-| Search & Filter     | 🔲       |
-| Reviews / Ratings   | 🔲       |
-| Account functions   | 🔲       |
-| Email server int.   | 🔲       |
-| Dashboard           | 🔲       |
-| Notifications       | 🔲       |
-| agent               | 🔲       |
-| Inventory management| 🔲       |
-| Landing ui update   | 🔲       |
-| Error Fallback ui   | 🔲       |
-| Code testing        | 🔲       |
-| Security testing    | 🔲       |
+| Feature                             | Status |
+| ------------------------------------| ------ |
+| Product Listing                     | Completed|
+| Product Detail Page                 | Completed|
+| Cart System                         | Completed|
+| Checkout & Order                    | Completed|
+| Authentication                      | Completed|
+| Wishlist                            | Completed|
+| Order table                         | Completed|
+| Order details                       | Completed|
+| g.analytics setup                   | Completed|
+| Payment Integration                 | Completed|
+| Orderplacementcycle                 | Completed|
+| Profile                             | 🔲       |
+| Finance management                  | 🔲       |
+| Search & Filter                     | 🔲       |
+| Reviews / Ratings                   | 🔲       |
+| Account functions                   | 🔲       |
+| Email server int.                   | 🔲       |
+| Dashboard                           | 🔲       |
+| Notifications                       | 🔲       |
+| agent                               | 🔲       |
+| Inventory management                | 🔲       |
+| Error Fallback ui                   | 🔲       |
+| Code testing                        | 🔲       |
+| Security testing                    | 🔲       |
 
 Timestamps :
 - 2-6-2025.1:30 pm    fixed login token issue
@@ -96,10 +95,7 @@ Timestamps :
 - Create a finances section for managing finances 
 - Maintain the code for better readability 
 - implement push notifications on admin dashboard
-- create notification card for notification display and use vercel notification bar as inspiration
 - create and customize notifications for success and failures .
-- create a zustand state for storing email ,name , isadmin , is blocked ,
-- check in the header is user is admin , or not and render link for admin dashboard
 - Implement header functionality. If user is not authorized, the header that's shown can contains options or buttons for login and signup
 - handover the store to ai agent . Agent should run the administration in the store as well as warehouse systems
 - Create search product functionality
@@ -107,8 +103,10 @@ Timestamps :
 - Create edit profile functionality in profiles
 - Create ratings system
 - implement social auth using next auth 
+- implement pagination in main marketplace
+- implement a section for adding product from dashboard in a user friendly way
+- implment session storage in zustand in all states
 [Landing page ui design idea](https://www.pinterest.com/pin/595038169537303209/)
-
 
 ## Code snippets:
 **Backend api code for deleting all the notifications of past accounts**:
@@ -187,3 +185,8 @@ userId
   )
 };
 ```
+
+
+I want some mock json data for my app in development , please provide me 
+read the following schema from above and generate data for 40 products also make sure the following 
+- The ratings should be array of numbers which are only from 1 to 5 . It doesnt contains zeros and doesnt contains number greater than 5

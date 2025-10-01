@@ -7,10 +7,10 @@ import { useForm } from "react-hook-form";
 import ContactFormSchema from "@/validations/ContactSchema";
 
 // ___ Libraries ...
-import toast from "react-hot-toast";
-import axios from "axios";
+import { toast } from "sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import ContactFormHandler from "@/actions/ContactFormHandler";
 
 /* _____ Interface for contact data ... */
 type ContactFormData = z.infer<typeof ContactFormSchema>;
@@ -29,14 +29,14 @@ const Main = () => {
 
   const handleContactFormSubmission = async (data: ContactFormData) => {
     setdisabled(true);
-    try {
-      /* _____ Submit the data to api route and show error/ success popup... */
-      const response = await axios.post("/api/contact", data);
-      toast.success(response.data.message);
-    } catch (err) {
-      console.log(err);
+    /* _____ Submit the data to api route and show error/ success popup... */
+    const { message, success } = await ContactFormHandler(data);
+
+    if (!success) {
+      console.log(message);
       toast.error("Error while submitting your message");
     }
+    toast.success(message);
     setdisabled(false);
   };
   return (

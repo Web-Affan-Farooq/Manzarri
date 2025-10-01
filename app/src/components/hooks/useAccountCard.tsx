@@ -1,59 +1,63 @@
 import { useState } from "react";
-import axios from "axios";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 import { handleNotificationPush } from "@/utils/PushNotifications";
 import useDashboardCache from "@/stores/admin";
+import DeleteAccountAction from "@/actions/DeleteAccountAction";
+import BlockAccountAction from "@/actions/BlockAccountAction";
 
-const useAccountCard = ({ userId, isBlocked }: { userId: string; isBlocked: boolean }) => {
+const useAccountCard = ({
+  userId,
+  isBlocked,
+}: {
+  userId: string;
+  isBlocked: boolean;
+}) => {
+  const [deleteText, setdeleteText] = useState("");
+  const { deleteAccount, blockAccount } = useDashboardCache();
 
-    const [deleteText, setdeleteText] = useState("");
-    const { deleteAccount, blockAccount } = useDashboardCache();
+  /* _____ handle account deletion ...*/
+  const handleDelete = async () => {
+    if (deleteText.trim() !== "") {
+      const { message, success, user } = await DeleteAccountAction(userId);
+      if (!success && !user) {
+        toast.error(message);
+      }
 
-    /* _____ handle account deletion ...*/
-    const handleDelete = async () => {
-        // const authUserId = window.localStorage.getItem("userID");
-        if (deleteText.trim() !== "") {
-            const response = await axios.post("/api/Admin/delete-account", {
-                id: userId,
-                text: deleteText,
-            });
-            if (response.status !== 200) {
-                toast.error(response.statusText);
-            }
-            toast.success("Account deleted successfully");
-            deleteAccount(userId);
-            handleNotificationPush({
-                userId: userId,
-                text: `Please make sure to email ${response.data.user.name} at ${response.data.user.email} . `,
-                type: "Success",
-                title: "User account deleted"
-            })
-        }
-    }
+      toast.success(message);
+      deleteAccount(userId);
 
-    /* _____ handle block account logic ... */
-    const handleAccountBlockandUnblock = async () => {
-        const response = await axios.post("/api/Admin/block-account", {
-            id: userId,
-            block: !isBlocked,
+      if (user) {
+        handleNotificationPush({
+          userId: userId,
+          text: `Please make sure to email ${user.name} at ${user.email} . `,
+          type: "Success",
+          title: "User account deleted",
         });
-        if (response.status !== 200) {
-            toast.error(response.statusText);
-            return;
-        }
-        toast.success(response.data.message);
-        blockAccount(userId, !isBlocked);
+      }
     }
+  };
 
-    const handleDeleteInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setdeleteText(e.target.value);
-    }
+  /* _____ handle block account logic ... */
+  const handleAccountBlockandUnblock = async () => {
+    const { message, success } = await BlockAccountAction(userId, !isBlocked);
 
-    return {
-        handleDelete,
-        handleAccountBlockandUnblock,
-        handleDeleteInput,
+    if (!success) {
+      toast.error(message);
+      return;
     }
-}
+    toast.success(message);
+    blockAccount(userId, !isBlocked);
+  };
+
+  const handleDeleteInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setdeleteText(e.target.value);
+  };
+
+  return {
+    handleDelete,
+    handleAccountBlockandUnblock,
+    handleDeleteInput,
+  };
+};
 
 export default useAccountCard;

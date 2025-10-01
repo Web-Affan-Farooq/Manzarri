@@ -1,12 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Header, Footer } from "@/components/layout";
-import { Toaster } from "react-hot-toast";
-import { GoogleAnalytics } from '@next/third-parties/google'
-// import {
-//   QueryClient,
-//   QueryClientProvider
-// } from "@tanstack/react-query";
+import { Header, Footer, NotificationPanel } from "@/components/layout";
+import { GoogleAnalytics } from "@next/third-parties/google";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "Manzarri | Drape Yourself in Luxury",
@@ -18,22 +14,26 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // const client = new QueryClient();
-
   return (
     <html lang="en">
       <head>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossOrigin="anonymous" referrerPolicy="no-referrer" />
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+          integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+          crossOrigin="anonymous"
+          referrerPolicy="no-referrer"
+        />
       </head>
       <body>
-        {/* <QueryClientProvider client={client}> */}
-          <Toaster reverseOrder={false} position="top-left" />
-          <Header />
-          {children}
-          <Footer />
+        <Toaster position="top-left" />
+        <Header />
+        <NotificationPanel />
+        {children}
+        <Footer />
         {/* </QueryClientProvider> */}
       </body>
-      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_G_TAG_ID!}/>
+      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_G_TAG_ID!} />
     </html>
   );
 }

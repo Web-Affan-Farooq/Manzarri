@@ -16,7 +16,7 @@ const Card = ({ cartProduct }: { cartProduct: CartProduct }) => {
       <div className="max-sm:w-[200px] sm:w-[120px] h-[150px] sm:h-[120px] flex-shrink-0">
         <Link href={`/marketplace/${cartProduct.item._id}`}>
           <Image
-            src={cartProduct.item.images[0].asset.url}
+            src={cartProduct.item.images[0]}
             alt={cartProduct.item.productName}
             width={120}
             height={120}
@@ -49,11 +49,25 @@ const Card = ({ cartProduct }: { cartProduct: CartProduct }) => {
           <div className="flex flex-row flex-nowrap gap-[10px] items-center text-sm text-gray-500 mt-1">
             <span> Quantity: {cartProduct.quantity}</span>
             <div>
-              <button type="button" className="bg-black text-white w-[20px] h-[20px] rounded-full font-bold" onClick={() => handlecounter(true)}>+</button>
-              <button type="button" className="bg-black text-white w-[20px] h-[20px] rounded-full font-bold ml-[5px]" onClick={() => handlecounter(false)}>-</button>
+              <button
+                type="button"
+                className="bg-black text-white w-[20px] h-[20px] rounded-full font-bold"
+                onClick={() => handlecounter(true)}
+              >
+                +
+              </button>
+              <button
+                type="button"
+                className="bg-black text-white w-[20px] h-[20px] rounded-full font-bold ml-[5px]"
+                onClick={() => handlecounter(false)}
+              >
+                -
+              </button>
             </div>
           </div>
-          <span className={`bg-black text-white rounded-full py-1 px-3 `}>{cartProduct.size}</span>
+          <span className={`bg-black text-white rounded-full py-1 px-3 `}>
+            {cartProduct.size}
+          </span>
         </div>
 
         {/* Price */}

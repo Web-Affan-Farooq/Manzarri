@@ -12,7 +12,7 @@ const Card = ({ wishlistProduct }: { wishlistProduct: Product }) => {
       <div className="max-sm:w-[200px] sm:w-[120px] h-[150px] sm:h-[120px] flex-shrink-0">
         <Link href={`/marketplace/${wishlistProduct._id}`}>
           <Image
-            src={wishlistProduct.images[0].asset.url}
+            src={wishlistProduct.images[0]}
             alt={wishlistProduct.productName}
             width={120}
             height={120}

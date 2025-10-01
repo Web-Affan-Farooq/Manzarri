@@ -1,16 +1,20 @@
 "use client";
-import React, { useEffect } from 'react'
-import toast from 'react-hot-toast';
+import React, { useEffect } from "react";
+import { toast } from "sonner";
 
-const Fallback = ({success,message}:{success:boolean; message?:string}) => {
+const Fallback = ({
+  success,
+  message,
+}: {
+  success: boolean;
+  message?: string;
+}) => {
   useEffect(() => {
-    if(!success && message) {
-        toast.error(message)
+    if (!success && message) {
+      toast.error(message);
     }
-  },[success,message])
-    return (
-    <></>
-  )
-}
+  }, [success, message]);
+  return <></>;
+};
 
-export default Fallback
+export default Fallback;

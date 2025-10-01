@@ -1,58 +1,120 @@
 "use client";
-import React from 'react';
-import Image from 'next/image';
-import { Product } from '@/@types/product';
-import { useWishlist } from '@/stores/wishlist';
-import toast from 'react-hot-toast';
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { Star, Heart, ShoppingBag } from "lucide-react";
+import { Card } from "@/components/ui/card";
+import { Product } from "@/@types/product";
+import { useWishlist } from "@/stores/wishlist";
+import { toast } from "sonner";
+import Link from "next/link";
 
 const ProductCard = ({
-  product
+  product,
+  isListView = false,
 }: {
-  product:Product,
+  product: Product;
+  isListView?: boolean;
 }) => {
-  const {addToWishlist} = useWishlist();
+  const { addToWishlist } = useWishlist();
   return (
-    <div className="rounded-xl shadow-md overflow-hidden transition-transform duration-300 hover:scale-[1.02] bg-white">
-      {/* Image with hover zoom effect */}
-      <div className="overflow-hidden">
+    <Card
+      className={`group cursor-pointer overflow-hidden border-manzarri-black/10 hover:shadow-xl transition-all duration-300 ${isListView ? "flex" : ""}`}
+    >
+      <div className={`relative ${isListView ? "w-48 flex-shrink-0" : ""}`}>
         <Image
-          src={product.images[0].asset.url}
-          alt="product image"
-          width={500}
-          height={500}
-          className="w-full max-sm:h-[150px] rounded-md h-[250px] object-cover transition-transform duration-300 hover:scale-105"
+          src={product.images[0]}
+          alt={product.productName}
+          width={400}
+          height={400}
+          className={`${
+            isListView ? "w-full h-48" : "w-full h-64"
+          } object-cover group-hover:scale-105 transition-transform duration-300`}
         />
-      </div>
-
-      {/* Content */}
-      <div className="p-4">
-        {/* Product Name */}
-        <h2
-          className="font-lato font-bold text-[18px] sm:text-[20px] md:text-[22px] text-gray-800 truncate"
-        >
-          {product.productName}
-        </h2>
-
-        {/* Price + Heart */}
-        <div className="flex justify-between items-center mt-3">
-          <span className="text-[18px] text-faun-light font-semibold">
-            $ {product.price.toLocaleString()}
-          </span>
-
-          <button
-            className="w-10 h-10 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-full cursor-pointer flex items-center justify-center transition-colors duration-200"
-            aria-label="Add to Wishlist"
+        {/* {product.badge && (
+          <Badge
+            className={`absolute top-4 left-4 ${
+              product.badge === "Bestseller"
+                ? "bg-manzarri-reddish-brown"
+                : product.badge === "New"
+                  ? "bg-manzarri-green"
+                  : product.badge === "Limited"
+                    ? "bg-manzarri-faun"
+                    : "bg-manzarri-black"
+            } text-manzarri-white`}
+          >
+            {product.badge}
+          </Badge>
+        )} */}
+        <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+          <Button
+            size="sm"
+            variant="ghost"
             onClick={() => {
               addToWishlist(product);
-              toast.success(`${product.productName} Added to wishlist`)
+              toast.success("Product added to cart succesfully");
             }}
+            className="w-8 h-8 p-0 bg-manzarri-white/90 hover:bg-manzarri-white"
           >
-            <i className="fa-regular fa-heart"></i>
-          </button>
+            <Heart className="w-4 h-4 text-manzarri-reddish-brown" />
+          </Button>
         </div>
       </div>
-    </div>
+      <div className={`p-6 ${isListView ? "flex-1" : ""}`}>
+        <div
+          className={`${isListView ? "flex justify-between items-start" : ""}`}
+        >
+          <div className={`${isListView ? "flex-1 pr-6" : ""}`}>
+            <h3 className="text-xl font-semibold text-manzarri-black mb-2 group-hover:text-manzarri-reddish-brown transition-colors">
+              {product.productName}
+            </h3>
+            <div className="flex items-center mb-3">
+              <div className="flex items-center">
+                {[...Array(5)].map((_, i) => (
+                  <Star
+                    key={i}
+                    className={`w-4 h-4 ${"text-manzarri-faun fill-current"}`}
+                  />
+                ))}
+              </div>
+              {/* <span className="text-sm text-manzarri-black/60 ml-2">
+                ({product.reviews})
+              </span> */}
+            </div>
+            {isListView && (
+              <p className="text-manzarri-black/70 mb-4">
+                Exquisite craftsmanship meets timeless design in this stunning
+                piece that elevates any collection.
+              </p>
+            )}
+          </div>
+          <div
+            className={`${isListView ? "text-right" : "flex items-center justify-between"}`}
+          >
+            <div
+              className={`${isListView ? "mb-4" : "flex items-center space-x-2"}`}
+            >
+              <span className="text-2xl font-bold text-manzarri-reddish-brown">
+                ${product.price.toLocaleString()}
+              </span>
+              {/* {product.o > product.price && (
+                <span className="text-lg text-manzarri-black/50 line-through">
+                  ${product.originalPrice.toLocaleString()}
+                </span>
+              )} */}
+            </div>
+            <Link href={`/marketplace/${product._id}`}>
+              <Button
+                size="sm"
+                className="bg-manzarri-black hover:bg-manzarri-black/90 text-manzarri-white"
+              >
+                <ShoppingBag className="w-4 h-4 mr-2" />
+                Add to Cart
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </div>
+    </Card>
   );
 };
-
 export default ProductCard;
