@@ -1,7 +1,6 @@
 "use server"
 import sanityClient from "@/lib/sanity";
 
-
 const DeleteAccountAction = async (id:string) :Promise<
 {
     message:string;

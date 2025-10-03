@@ -1,12 +1,10 @@
-import React from 'react';
-import {ProfileSidebar} from "@/components/layout";
-import { CartSection } from '@/components/pages/Profile';
+import React from "react";
+import { CartSection } from "@/components/pages/Profile";
 
-const CartPage= () => {
-  return ( 
+const CartPage = () => {
+  return (
     <main className="flex min-h-screen">
-      <ProfileSidebar />
-      <CartSection/>
+      <CartSection />
     </main>
   );
 };

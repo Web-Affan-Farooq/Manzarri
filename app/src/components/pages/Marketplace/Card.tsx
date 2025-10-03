@@ -16,6 +16,7 @@ const ProductCard = ({
   isListView?: boolean;
 }) => {
   const { addToWishlist } = useWishlist();
+
   return (
     <Card
       className={`group cursor-pointer overflow-hidden border-manzarri-black/10 hover:shadow-xl transition-all duration-300 ${isListView ? "flex" : ""}`}
@@ -30,21 +31,6 @@ const ProductCard = ({
             isListView ? "w-full h-48" : "w-full h-64"
           } object-cover group-hover:scale-105 transition-transform duration-300`}
         />
-        {/* {product.badge && (
-          <Badge
-            className={`absolute top-4 left-4 ${
-              product.badge === "Bestseller"
-                ? "bg-manzarri-reddish-brown"
-                : product.badge === "New"
-                  ? "bg-manzarri-green"
-                  : product.badge === "Limited"
-                    ? "bg-manzarri-faun"
-                    : "bg-manzarri-black"
-            } text-manzarri-white`}
-          >
-            {product.badge}
-          </Badge>
-        )} */}
         <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
           <Button
             size="sm"
@@ -69,16 +55,16 @@ const ProductCard = ({
             </h3>
             <div className="flex items-center mb-3">
               <div className="flex items-center">
-                {[...Array(5)].map((_, i) => (
+                {[...Array(product.ratings)].map((_, i) => (
                   <Star
                     key={i}
                     className={`w-4 h-4 ${"text-manzarri-faun fill-current"}`}
                   />
                 ))}
               </div>
-              {/* <span className="text-sm text-manzarri-black/60 ml-2">
-                ({product.reviews})
-              </span> */}
+              <span className="text-sm text-manzarri-black/60 ml-2">
+                ({product.reviews.length})
+              </span>
             </div>
             {isListView && (
               <p className="text-manzarri-black/70 mb-4">
@@ -96,11 +82,6 @@ const ProductCard = ({
               <span className="text-2xl font-bold text-manzarri-reddish-brown">
                 ${product.price.toLocaleString()}
               </span>
-              {/* {product.o > product.price && (
-                <span className="text-lg text-manzarri-black/50 line-through">
-                  ${product.originalPrice.toLocaleString()}
-                </span>
-              )} */}
             </div>
             <Link href={`/marketplace/${product._id}`}>
               <Button

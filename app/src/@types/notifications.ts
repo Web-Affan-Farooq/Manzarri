@@ -1,13 +1,12 @@
 interface Notification {
-    _id?: string;
-    _type?: string;
-    _updatedAt?:string;
-    notificationTitle: string;
-    notificationText: string;
-    notificationType: "Success" | "Failure" | "Warning";
-    isSeen: boolean;
-    userId: string;
+    _id:string
+      isSeen:boolean
+notificationText:string
+notificationTitle:string
+notificationType:"Review" | "Promotion" | "Order" | "Product" | "Warning"
+userId:string
 }
+
 export type {
-    Notification,
+    Notification
 }

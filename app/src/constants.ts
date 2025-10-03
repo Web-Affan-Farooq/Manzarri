@@ -9,6 +9,12 @@ const pagesNotAllowed = [
     "/Admin/finances",
 ]
 
+const token = {
+    admin:"manzarri-admin-authorization-token",
+    user:"manzarri-authorization-token",
+}
+
 export {
-    pagesNotAllowed
+    pagesNotAllowed,
+    token
 }

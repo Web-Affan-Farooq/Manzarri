@@ -2,7 +2,10 @@ import { TokenPayload } from "@/@types/jwt";
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 import Logger from "../Logger";
+import { token as t} from "@/constants";
+
 const logger = new Logger("/utils/attachToken")
+
 const AttachToken = async (isAdmin: boolean, payload: TokenPayload) => {
     const clientCookies = await cookies();
       logger.log(7, "------------------- Getting cookies  -------------------",clientCookies)
@@ -11,7 +14,7 @@ const AttachToken = async (isAdmin: boolean, payload: TokenPayload) => {
     if (isAdmin) {
       logger.log(49, "------------------- Attahced admin token  -------------------","")
 
-        clientCookies.set("manzarri-admin-authorization-token", token, {
+        clientCookies.set(t.admin, token, {
             httpOnly: true,
             path: "/",
             maxAge: 60 * 60 * 24 * 30,
@@ -20,7 +23,7 @@ const AttachToken = async (isAdmin: boolean, payload: TokenPayload) => {
     }
     else {
       logger.log(49, "------------------- Attached token  -------------------","")
-        clientCookies.set("manzarri-authorization-token", token, {
+        clientCookies.set(t.user, token, {
             httpOnly: true,
             path: "/",
             maxAge: 60 * 60 * 24 * 30,

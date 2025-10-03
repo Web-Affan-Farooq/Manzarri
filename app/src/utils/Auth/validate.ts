@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { AuthPayload, SanitizeResult } from "@/@types/auth";
 import Logger from "../Logger";
+
 const logger = new Logger("/utils/validate.ts")
 const SanitizeData = (
     data: AuthPayload,

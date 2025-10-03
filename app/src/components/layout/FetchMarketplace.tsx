@@ -18,7 +18,6 @@ const FetchDMarketplaceData = ({ children }: { children: React.ReactNode }) => {
         // const newProducts = JSON.stringify(products, null, 2)
         //   .replace(/"([^"]+)":/g, "$1:") // remove quotes from keys
         //   .replace(/"/g, '"'); // optional: preserve quotes around values
-        console.log(JSON.stringify(products));
       } catch (err) {
         console.log(err);
       }

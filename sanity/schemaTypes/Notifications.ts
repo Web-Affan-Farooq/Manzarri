@@ -17,10 +17,11 @@ export default {
             name: 'notificationType',
             type: 'string',
             options: {
-                list: ["Success","Failure","Warning"],
+                list: ["Promotion","Order","Warning","Review","Product"],
                 layout: 'radio',
             },
         },
+        
         {
             name:"isSeen",
             type:"boolean",
@@ -34,4 +35,3 @@ export default {
         }
     ]
 }
-

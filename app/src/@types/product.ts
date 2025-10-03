@@ -1,3 +1,5 @@
+import { Review } from "./review";
+
 interface Product {
   _id: string;
   productName: string;
@@ -16,6 +18,7 @@ interface Product {
   material: string;
   availableSizes:string[];
   images: string[];
+  reviews:Review[]
 }
 
 export type {

@@ -152,10 +152,6 @@ export default function MarketplacePage() {
                   ))}
                 </div>
               </div>
-
-              <Button className="w-full bg-manzarri-reddish-brown hover:bg-manzarri-reddish-brown/90 text-manzarri-white">
-                Apply Filters
-              </Button>
             </Card>
           </div>
 

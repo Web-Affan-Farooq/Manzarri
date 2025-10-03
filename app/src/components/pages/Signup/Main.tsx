@@ -212,7 +212,7 @@ const Section_signup = () => {
                 onClick={handleSubmit(Signup)}
                 className={`w-full hover:bg-manzarri-reddish-brown/90 ${disabled ? "hover:bg-manzarri-reddish-brown/90 cursor-not-allowed" : "bg-manzarri-reddish-brown cursor-pointer"} text-manzarri-white py-6`}
               >
-                Create Account
+                {disabled ? "Please wait ..." : "Create account"}
               </Button>
 
               {/* Divider */}

@@ -165,10 +165,11 @@ const Section_login = () => {
               {/* Sign In Button */}
               <Button
                 type="submit"
+                disabled={disabled}
                 className="w-full bg-manzarri-reddish-brown hover:bg-manzarri-reddish-brown/90 text-manzarri-white py-6"
                 onClick={handleSubmit(Login)}
               >
-                Sign In
+                {disabled ? "Please wait ..." : "Sign in"}
               </Button>
 
               {/* Divider */}

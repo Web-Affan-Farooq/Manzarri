@@ -1,86 +1,33 @@
 "use client";
 
-/* _____ Importing Hooks ... */
-import React, { useEffect, useState } from "react";
-import { useCatalog } from "@/stores/catalog";
-import { usePathname, useRouter } from "next/navigation";
+/* _____ Hooks ... */
+import { useState } from "react";
 import { useWishlist } from "@/stores/wishlist";
 import { useCart } from "@/stores/cart";
+import { useIndivisualProduct } from "./useIndivisualProduct";
 
-/* _____ Importing Types ... */
-import { Product } from "@/@types/product";
-
-/* _____ Importing Components... */
-import Image from "next/image";
+/* _____ Components... */
 import RelatedSearches from "./RelatedSearches";
 import { ShoppingBag, Heart } from "@/components/icons";
+import { Button } from "@/components/ui/button";
+import { Tag } from "lucide-react";
+import Reviews from "./Reviews";
 
-/* ____ Functions ... */
+/* ____ Libraires ... */
 import { toast } from "sonner";
-import sanityClient from "@/lib/sanity";
 import { v4 } from "uuid";
+import ImageSelection from "./ImageSelection";
 
 const ProductDetails = ({ id }: { id: string }) => {
-  /* _____  Hooks related to Navigation ... */
-  const router = useRouter();
-  const pathname = usePathname();
-
   /* _____  State for controlling quantity count ... */
   const [count, setCount] = useState(1);
-
   /* _____  State for controlling size ... */
   const [size, setsize] = useState<string>("");
-
-  /* _____  State for storing product ... */
-  const [product, setProduct] = useState<Product | null>(null);
-
-  /*Optional : get products if fetched earlier for caching like experience ... */
-  const { products } = useCatalog();
 
   /* _____  Functions for adding products to wishlist / cart  ... */
   const { addToWishlist } = useWishlist();
   const { addToCart } = useCart();
-
-  /* _____  State for controlling current image shown in canvas (main product image) ... */
-  const [canvasImage, setcanvasImage] = useState<string>("");
-
-  /* _____ useEffect for dynamically setup product for details ... */
-  useEffect(() => {
-    const getIndivisualproduct = async (id: string) => {
-      const q = `*[_type == "Product" && _id == "${id}"]{
-_id,
-availableSizes,
-dimensions,
-  discountPercentage,
-images,
-jewelleryType,
-material,
-ocassions,
-price,
-productDescription,
-productName,
-stockKeepingUnit,
-stockQuantity,
-tags,
-weightInGrams,
-    "images": images[].asset->url
-  }`;
-
-      const response = await sanityClient.fetch(q);
-      setProduct(response[0]);
-      setcanvasImage(response[0].images[0]);
-    };
-
-    const found = products.find((p) => p._id === id);
-
-    if (found) {
-      setProduct(found);
-      setcanvasImage(found.images[0]);
-    } else {
-      const id = pathname.split("/")[pathname.split("/").length - 1];
-      getIndivisualproduct(id);
-    }
-  }, [id, products, router, pathname]);
+  const { product } = useIndivisualProduct(id);
 
   if (!product) {
     return (
@@ -92,52 +39,30 @@ weightInGrams,
 
   return (
     <>
-      <section className="pt-[180px] flex flex-row max-md:flex-col max-md:justify-start max-md:items-center max-md:px-[25px] flex-nowrap justify-evenly items-center gap-[30px]">
+      <section className="pt-[70px] flex flex-row max-md:flex-col max-md:justify-start max-md:items-center max-md:px-[25px] flex-nowrap justify-evenly items-center gap-[30px]">
         {/* product image canvas */}
-        <div className="flex flex-col flex-nowrap gap-[10px]">
-          <div className="rounded-md w-[300px] h-[300px]">
-            <Image
-              src={canvasImage}
-              alt={product.productName}
-              width={300}
-              height={300}
-              className="object-cover w-full h-full rounded-md"
-            />
-          </div>
-          <div className="flex flex-row flex-wrap gap-[10px]">
-            {product.images.map((image, idx: number) => {
-              return (
-                <div
-                  className="w-[50px] h-[50px] rounded-full active:border-2 active:border-solid active:border-gray-700"
-                  key={idx}
-                  onClick={() => {
-                    setcanvasImage(image);
-                  }}
-                >
-                  <Image
-                    src={image}
-                    alt={product.productName}
-                    width={100}
-                    height={100}
-                    className="object-cover rounded-full"
-                  />
-                </div>
-              );
-            })}
-          </div>
-        </div>
+        <ImageSelection
+          images={product.images}
+          productName={product.productName}
+        />
 
         {/* product details section */}
         <div className="md:w-[50vw] flex flex-col flex-wrap max-md:gap-[25px] md:gap-[20px] xl:gap-[20px]">
           <h1 className="font-bold max-md:text-[30px] md:text-[40px]">
             {product.productName}
           </h1>
-          <span className="text-[20px] text-gray-600 font-semibold">
-            $ {product.price}
-          </span>
-          <p className="text-gray-500 text-[15px]">
-            {product.productDescription}
-          </p>
+          <div className="flex flex-row flex-nowrap items-center gap-[20px]">
+            <span className="bg-manzarri-skin text-md max-md:text-sm font-semibold px-[15px] py-[3px] rounded-xl">
+              <span className="text-green-400">$</span> {product.price}
+            </span>
+            <span className="bg-manzarri-skin text-md max-md:text-sm font-semibold px-[15px] py-[3px] rounded-xl flex flex-row flex-nowrap gap-[5px] items-center">
+              <span className="text-green-400">
+                <Tag className="size-4" />
+              </span>
+              View offers
+            </span>
+          </div>
+          <p className="text-gray-500 text-sm">{product.productDescription}</p>
 
           <div className="flex flex-row max-md:flex-col max-md:gap-[30px] md:gap-[60px] xl:gap-[80px]">
             <div className="flex flex-col gap-[20px]">
@@ -149,7 +74,7 @@ weightInGrams,
                   {product.availableSizes.map((IndivisualSize, idx) => {
                     return (
                       <span
-                        className={`bg-white text-black rounded-full py-1 px-3 ${size === IndivisualSize ? "border-2 border-solid border-black" : ""}`}
+                        className={`text-sm cursor-pointer rounded-xl py-[1px] px-3 ${size === IndivisualSize ? "bg-manzarri-reddish-brown text-white" : ""}`}
                         onClick={() => {
                           setsize(IndivisualSize);
                         }}
@@ -161,9 +86,9 @@ weightInGrams,
                   })}
                 </div>
 
-                <div className="border-2 w-[80px] border-gray-400 border-solid flex flex-row justify-between items-center rounded-md font-bold px-[5px]">
+                <div className="w-[80px] border-gray-400 border-solid flex flex-row justify-between items-center rounded-md font-bold px-[5px] text-white ">
                   <span
-                    className="text-[25px] cursor-pointer"
+                    className="rounded-full text-center text-md cursor-pointer bg-manzarri-reddish-brown w-[25px] h-[25px]"
                     onClick={() => {
                       if (count < product.stockQuantity) {
                         setCount(count + 1);
@@ -174,9 +99,9 @@ weightInGrams,
                   >
                     +
                   </span>
-                  <span className="text-[20px]">{count}</span>
+                  <span className="text-[20px] text-black">{count}</span>
                   <span
-                    className="text-[25px] cursor-pointer"
+                    className="text-center rounded-full text-md cursor-pointer bg-manzarri-reddish-brown w-[25px] h-[25px]"
                     onClick={() => {
                       if (count > 0) {
                         setCount(count - 1);
@@ -193,51 +118,48 @@ weightInGrams,
               <h2 className="text-[18px] text-gray-600 font-semibold">
                 Details
               </h2>
-              <div className="flex gap-[10px] ">
-                <span className="text-gray-500 text-[15px]">Occasions :</span>
-                <div className="text-gray-500 text-[15px] flex gap-[10px]">
+              <div className="flex gap-[10px] text-sm">
+                <span className="text-gray-500">Occasions :</span>
+                <div className="text-gray-500 flex gap-[10px]">
                   {product.ocassions.map((occasion: string, idx: number) => {
                     return <span key={idx}>{occasion}</span>;
                   })}
                 </div>
               </div>
 
-              <div className="flex gap-[10px] ">
-                <span className="text-gray-500 text-[15px]">Material :</span>
-                <span className="text-gray-500 text-[15px]">
-                  {product.material}
-                </span>
+              <div className="flex gap-[10px] text-sm">
+                <span className="text-gray-500">Material :</span>
+                <span className="text-gray-500">{product.material}</span>
               </div>
 
-              <div className="flex gap-[10px] ">
-                <span className="text-gray-500 text-[15px]">Weightage :</span>
-                <span className="text-gray-500 text-[15px]">
+              <div className="flex gap-[10px] text-sm">
+                <span className="text-gray-500">Weightage :</span>
+                <span className="text-gray-500">
                   {product.weightInGrams} gm
                 </span>
               </div>
 
-              <div className="flex gap-[10px] ">
-                <span className="text-gray-500 text-[15px]">Dimesions :</span>
-                <span className="text-gray-500 text-[15px]">
-                  {product.dimensions}
-                </span>
+              <div className="flex gap-[10px] text-sm">
+                <span className="text-gray-500">Dimesions :</span>
+                <span className="text-gray-500">{product.dimensions}</span>
               </div>
             </div>
           </div>
 
-          <div className="flex flex-wrap gap-4 max-sm:gap-2">
-            <button
+          <div className="flex flex-col sm:flex-row gap-4">
+            <Button
+              size="lg"
               onClick={() => {
                 addToWishlist(product);
                 toast.success("Added to wishlist");
               }}
-              className="flex justify-center items-center gap-2 px-6 py-3 bg-faun-light hover:bg-purple text-white rounded-md font-semibold max-sm:px-2 max-sm:text-[16px] max-sm:py-2"
+              className="border-manzarri-black text-manzarri-white hover:bg-manzarri-black hover:text-manzarri-white px-8 py-5"
             >
               <Heart className="max-sm:w-[17px] max-sm:h-[17px]" />
               <span>Add to Wishlist</span>
-            </button>
-
-            <button
+            </Button>
+            <Button
+              size="lg"
               onClick={() => {
                 if (size.trim() !== "") {
                   const data = {
@@ -246,24 +168,26 @@ weightInGrams,
                     item: product,
                     size: size,
                   };
-                  // console.log("Data : ",data);
-
                   addToCart(data);
                   toast.success("Added to cart");
                 } else {
                   toast.error("Please select size");
                 }
               }}
-              className="flex justify-center items-center gap-2 px-6 py-3 bg-faun-light hover:bg-purple text-white rounded-md font-semibold max-sm:px-2 max-sm:text-[16px] max-sm:py-2"
+              variant="outline"
+              className="bg-manzarri-reddish-brown hover:bg-manzarri-reddish-brown/90 text-manzarri-white px-8 py-5"
             >
               <ShoppingBag className="max-sm:w-[17px] max-sm:h-[17px]" />
               <span>Add to Cart</span>
-            </button>
+            </Button>
           </div>
         </div>
       </section>
+      {/* ____ Reviews .. */}
+      <Reviews reviews={product.reviews} />
       {/* Related Products */}
       <div className="mt-16">
+        <h1 className="font-bold text-[24px] mx-13">Products you might like</h1>
         <RelatedSearches sku_id={product.stockKeepingUnit} id={product._id} />
       </div>
     </>

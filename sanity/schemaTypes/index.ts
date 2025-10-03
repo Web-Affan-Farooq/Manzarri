@@ -5,5 +5,6 @@ import FormSubmissions from "./FormSubmissions";
 import Dashboard from "./Dashboard";
 import Activity from "./Activity";
 import Notifications from "./Notifications";
+import Reviews from "./Reviews";
 
-export const schemaTypes = [Products,Accounts,Orders,FormSubmissions,Dashboard,Activity,Notifications]
+export const schemaTypes = [Products,Accounts,Orders,FormSubmissions,Dashboard,Activity,Notifications, Reviews]
