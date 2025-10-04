@@ -1,10 +1,10 @@
+import { ProfileSettings } from "@/components/pages/Settings";
 import React from "react";
-import { SettingsSection } from "@/components/pages/Profile";
 
 const SettingsPage = () => {
   return (
     <main className="flex min-h-screen w-full">
-      <SettingsSection />
+      <ProfileSettings />
     </main>
   );
 };

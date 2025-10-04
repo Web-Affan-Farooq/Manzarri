@@ -1,5 +1,5 @@
+import { CartSection } from "@/components/pages/Cart";
 import React from "react";
-import { CartSection } from "@/components/pages/Profile";
 
 const CartPage = () => {
   return (

@@ -108,14 +108,11 @@ Two critical issues have been identified where data persists after the associate
 
 ---
 
-Corrective Action Required: The backend code must be updated to target and delete orphaned records in the Orders document, mirroring the logic used for notifications.
-
-🔮 Future Implementations & Roadmap
-The following features and improvements are planned for future development cycles:
-
-### Core Functionality & UX:
-
-- Implement JWT (JSON Web Token) logic for enhanced security.
+### 🔮 Future Implementations & Roadmap
+The following features and improvements are planned for future development .
+- Create notifications section in profile section
+- Create this app a PWA
+- implement a membership functionality (mini gamification)
 - Implement a functionality for users to order custom-designed jewelry.
 - Implement a recommendation system for products.
 - Create a Ratings/Reviews system.
@@ -125,9 +122,6 @@ The following features and improvements are planned for future development cycle
 - Create an Accounts settings page UI.
 - Create an edit profile functionality in the profiles section.
 - Implement header functionality to show Login/Signup options if the user is unauthorized.
-
-### System & Administration :
-
 - Create an events section from which the admin can create events.
 - Create a finances section for managing financial data.
 - Implement push notifications on the Admin Dashboard.
@@ -136,6 +130,5 @@ The following features and improvements are planned for future development cycle
 - Implement a functionality to push a notification to all users when an offer is created.
 - Implement an AI Agent to handle administration and warehouse systems.
 - Create a search product functionality.
-
-### Code Quality & Maintenance :
-Maintain the codebase for better readability and long-term sustainability.
+- Maintain the codebase for better readability and long-term sustainability.
+- On the account deletion , all the orders and notifications related to that account should be deleted

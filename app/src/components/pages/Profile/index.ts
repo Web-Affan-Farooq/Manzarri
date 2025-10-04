@@ -1,9 +1,6 @@
-/* _____ Profile section ...*/
-export {default as ProfileSection} from "./ProfileSection";
-
-/* _____ Cart section ...*/
-export {default as CartSection} from "./Cart/Main";
-
-/* _____ Cart section ...*/
-export {default as WishlistSection} from "./Wishlist/Main";
-export {default as SettingsSection} from "./Settings/Main";
+export {default as SupportLinks} from "./SupportLinks"
+export {default as RecentOrders} from "./RecentOrders"
+export {default as QuickStats} from "./QuickStats"
+export {default as QuickActions} from "./QuickActions"
+export {default as MemberShip} from "./MemberShip"
+export {default as ProfileData} from "./ProfileData"
