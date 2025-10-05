@@ -9,6 +9,7 @@ const FetchDMarketplaceData = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const getData = async () => {
+      // await updateProducts();
       console.log(
         "-------------------Running data fetches -----------------------------"
       );

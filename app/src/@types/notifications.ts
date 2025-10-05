@@ -3,7 +3,7 @@ interface Notification {
       isSeen:boolean
 notificationText:string
 notificationTitle:string
-notificationType:"Review" | "Promotion" | "Order" | "Product" | "Warning"
+notificationType:"Review" | "Promotion" | "Order" | "Product" | "Warning" | "Notify"
 userId:string
 }
 

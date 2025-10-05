@@ -9,10 +9,12 @@ import Link from "next/link";
 import { useNotificationSectionVisibility } from "@/stores/notification-visibility";
 import { useCart } from "@/stores/cart";
 import { pagesNotAllowed } from "@/constants";
+import { useWishlist } from "@/stores/wishlist";
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { cart } = useCart();
+  const { wishlist } = useWishlist();
   const { toogleVisibility } = useNotificationSectionVisibility();
   const pathname = usePathname();
   const isActive = (path: string) => pathname === path;
@@ -20,7 +22,6 @@ export default function Header() {
   const hideHeaderOnRestrictedPages = pagesNotAllowed.some((page) =>
     pathname.startsWith(page)
   );
-  console.log(hideHeaderOnRestrictedPages);
 
   if (hideHeaderOnRestrictedPages) {
     return <></>;
@@ -222,7 +223,7 @@ export default function Header() {
                   variant="secondary"
                   className="bg-manzarri-faun text-manzarri-white"
                 >
-                  5
+                  {wishlist.length}
                 </Badge>
               </Link>
             </div>

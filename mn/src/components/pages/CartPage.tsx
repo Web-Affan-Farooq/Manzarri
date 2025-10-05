@@ -14,7 +14,6 @@ import { Card } from "../ui/card";
 import { Badge } from "../ui/badge";
 import { Input } from "../ui/input";
 import { Separator } from "../ui/separator";
-import { ImageWithFallback } from "../figma/ImageWithFallback";
 
 export function CartPage() {
   const cartItems = [
@@ -123,7 +122,7 @@ export function CartPage() {
                       <div key={item.id}>
                         <div className="flex flex-col sm:flex-row gap-4">
                           <div className="flex-shrink-0">
-                            <ImageWithFallback
+                            <img
                               src={item.image}
                               alt={item.name}
                               className="w-24 h-24 object-cover rounded-lg"
@@ -317,7 +316,7 @@ export function CartPage() {
                   </h3>
                   <div className="space-y-4">
                     <div className="flex items-center gap-3">
-                      <ImageWithFallback
+                      <img
                         src="https://images.unsplash.com/photo-1733761013921-89d19f4a2194?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxnb2xkJTIwbmVja2xhY2UlMjBlbGVnYW50JTIwamV3ZWxyeXxlbnwxfHx8fDE3NTkwNTAwMjN8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
                         alt="Gold Chain Necklace"
                         className="w-12 h-12 object-cover rounded"

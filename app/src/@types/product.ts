@@ -3,8 +3,7 @@ import { Review } from "./review";
 interface Product {
   _id: string;
   productName: string;
-  productDescription: string; // See below for PortableTextBlock type
-  discountPercentage: number;
+  productDescription: string; 
   applicableOffers: string []| null;
   stockKeepingUnit: string;
   jewelleryType: string;
@@ -18,6 +17,8 @@ interface Product {
   material: string;
   availableSizes:string[];
   images: string[];
+  addedToCartBy:string[]
+addedToWishlistBy:string[]
   reviews:Review[]
 }
 

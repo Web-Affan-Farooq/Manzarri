@@ -83,15 +83,7 @@ This section details the recent development and bug-fixing history, providing a 
 ---
 
 ## ⚠️ Known Bugs and Potential Pitfalls
-
 The following are the identified issues and areas of concern that require immediate attention:
-
-### Product Duplication on Order Details
-**Issue:** Possible duplication of products detected in some orders on the order details page (`/Admin/orders/___dynamic___`).
-**Possible Pitfalls:**
-* Zustand state management failure leading to inconsistent data.
-* Inaccurate product data collection in page hooks before order placement.
-* Product filtration error within page hooks or the dashboard components.
 
 ### Logout Failure
 **Issue:** Upon logging out in production environments, although tokens are correctly removed and logic runs, the user retains access to the profile page until a manual page refresh is performed.
@@ -108,27 +100,36 @@ Two critical issues have been identified where data persists after the associate
 
 ---
 
-### 🔮 Future Implementations & Roadmap
+### 🔮 Future Implementations & Roadmap :
 The following features and improvements are planned for future development .
-- Create notifications section in profile section
+**Primary :**
+- Create a search product functionality.
+- Implement header functionality to show Login/Signup options if the user is unauthorized.
+- On the account deletion , all the orders and notifications related to that account should be deleted
+- Create an edit profile functionality in the profiles section.
+- Implement push notifications on the Admin Dashboard.
+- Create and customize notifications for success and failure states.
+- Implement session storage in Zustand for all states.
 - Create this app a PWA
+- Implement pagination in the main marketplace.
+- Create an Accounts settings page UI.
+- Implement a functionality to push a notification to all users when an offer is created.
+- Maintain the codebase for better readability and long-term sustainability.
+
+**Secondary :**
+- Implement dashboard guest mode
 - implement a membership functionality (mini gamification)
 - Implement a functionality for users to order custom-designed jewelry.
 - Implement a recommendation system for products.
 - Create a Ratings/Reviews system.
 - Implement Social Authentication using NextAuth.
-- Implement pagination in the main marketplace.
 - Create a user-friendly section for adding products from the dashboard.
-- Create an Accounts settings page UI.
-- Create an edit profile functionality in the profiles section.
-- Implement header functionality to show Login/Signup options if the user is unauthorized.
+
+**Advanced :**
 - Create an events section from which the admin can create events.
 - Create a finances section for managing financial data.
-- Implement push notifications on the Admin Dashboard.
-- Create and customize notifications for success and failure states.
-- Implement session storage in Zustand for all states.
-- Implement a functionality to push a notification to all users when an offer is created.
 - Implement an AI Agent to handle administration and warehouse systems.
-- Create a search product functionality.
-- Maintain the codebase for better readability and long-term sustainability.
-- On the account deletion , all the orders and notifications related to that account should be deleted
+- Integrate Facebook ads automation 
+- Integrate paypal
+- Integrate shipment api
+- Create notifications section in profile section

@@ -14,6 +14,8 @@ productName,
 stockKeepingUnit,
 stockQuantity,
 tags,
+addedToCartBy,
+addedToWishlistBy,
 weightInGrams,
     "images": images[].asset->url
   }`;
@@ -52,6 +54,8 @@ productName,
 stockKeepingUnit,
 stockQuantity,
 tags,
+addedToCartBy,
+addedToWishlistBy,
 weightInGrams,
     "images": images[].asset->url
   }`;

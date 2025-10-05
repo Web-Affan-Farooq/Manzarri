@@ -12,7 +12,6 @@ import {
 } from "../ui/select";
 import { Checkbox } from "../ui/checkbox";
 import { Slider } from "../ui/slider";
-import { ImageWithFallback } from "../figma/ImageWithFallback";
 
 export function MarketplacePage() {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
@@ -130,7 +129,7 @@ export function MarketplacePage() {
       } ${!product.inStock ? "opacity-75" : ""}`}
     >
       <div className={`relative ${isListView ? "w-48 flex-shrink-0" : ""}`}>
-        <ImageWithFallback
+        <img
           src={product.image}
           alt={product.name}
           className={`${

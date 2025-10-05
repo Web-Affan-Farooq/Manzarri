@@ -17,7 +17,7 @@ export default {
             name: 'notificationType',
             type: 'string',
             options: {
-                list: ["Promotion","Order","Warning","Review","Product"],
+                list: ["Promotion","Order","Warning","Review","Product", "Notify"],
                 layout: 'radio',
             },
         },

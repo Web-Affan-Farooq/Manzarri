@@ -4,7 +4,6 @@ import { Heart, ShoppingBag, Star, Trash2, Share2, ArrowLeft } from 'lucide-reac
 import { Button } from '../ui/button';
 import { Card } from '../ui/card';
 import { Badge } from '../ui/badge';
-import { ImageWithFallback } from '../figma/ImageWithFallback';
 
 export function WishlistPage() {
   const wishlistItems = [
@@ -131,7 +130,7 @@ export function WishlistPage() {
                   !item.inStock ? 'opacity-75' : ''
                 }`}>
                   <div className="relative">
-                    <ImageWithFallback
+                    <img
                       src={item.image}
                       alt={item.name}
                       className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"

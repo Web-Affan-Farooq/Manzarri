@@ -1,12 +1,33 @@
-import { WishlistSection } from "@/components/pages/Wishlist";
+"use client";
 import React from "react";
+import { useWishlist } from "@/stores/wishlist";
+import {
+  EmptyWishlist,
+  WishlistCTA,
+  WishlistGrid,
+  WishlistTop,
+} from "@/components/pages/Wishlist";
 
-const CartPage = () => {
+export default function WishlistPage() {
+  const { wishlist } = useWishlist();
   return (
-    <main className="flex min-h-screen">
-      <WishlistSection />
-    </main>
-  );
-};
+    <div className="min-h-screen bg-manzarri-white">
+      {/* Header */}
+      <WishlistTop />
 
-export default CartPage;
+      <div className="container mx-auto px-4 py-8">
+        {wishlist.length > 0 ? (
+          <>
+            {/* ____ Main wishlist ... */}
+            <WishlistGrid />
+            {/* Wishlist Summary */}
+            <WishlistCTA />
+          </>
+        ) : (
+          /* Empty Wishlist */
+          <EmptyWishlist />
+        )}
+      </div>
+    </div>
+  );
+}

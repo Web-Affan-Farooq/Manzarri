@@ -5,7 +5,6 @@ import { token } from "./constants";
 export const middleware = async (req: NextRequest) => {
   const userToken = req.cookies.get(token.user)?.value;
   const adminToken = req.cookies.get(token.admin)?.value;
-
   const pathname = req.nextUrl.pathname;
 
   // Protect Admin Routes
@@ -13,7 +12,6 @@ export const middleware = async (req: NextRequest) => {
     if (!adminToken) {
       return NextResponse.redirect(new URL("/login", req.url));
     }
-      return NextResponse.next();
   }
 
   // Protect User Profile Routes
@@ -21,7 +19,13 @@ export const middleware = async (req: NextRequest) => {
     if (!adminToken && !userToken) {
       return NextResponse.redirect(new URL("/login", req.url));
     }
-      return NextResponse.next();
+  }  
+
+  // Protect checkout Routes
+  else if (pathname.startsWith("/checkout")) {
+    if (!adminToken && !userToken) {
+      return NextResponse.redirect(new URL("/login", req.url));
+    }
   }  
     return NextResponse.next();
 
