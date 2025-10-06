@@ -13,6 +13,7 @@ export default function MarketplacePage() {
   const { products } = useCatalog();
   const [showFilters, setShowFilters] = useState(false);
   const [priceRange, setPriceRange] = useState([0, 5000]);
+  const [ratingsRange, setRatingsRange] = useState([5]);
   const [selectedCategories, setSelectedCategories] = useState([
     "earrings",
     "necklace",
@@ -38,9 +39,10 @@ export default function MarketplacePage() {
           product.jewelleryType.toLowerCase().trim()
         ) &&
         product.price > priceRange[0] &&
-        product.price < priceRange[1]
+        product.price < priceRange[1] &&
+        ratingsRange.includes(product.ratings)
     );
-  }, [products, selectedCategories, priceRange]);
+  }, [products, selectedCategories, priceRange, ratingsRange]);
 
   return (
     <div className="min-h-screen bg-manzarri-white">
@@ -133,7 +135,20 @@ export default function MarketplacePage() {
                 <div className="space-y-3">
                   {[5, 4, 3, 2, 1].map((rating) => (
                     <div key={rating} className="flex items-center space-x-2">
-                      <Checkbox id={`rating-${rating}`} />
+                      <Checkbox
+                        id={`rating-${rating}`}
+                        checked={ratingsRange.includes(rating)}
+                        onCheckedChange={(check) => {
+                          if (!check) {
+                            const updatedRatingsRange = ratingsRange.filter(
+                              (range) => range !== rating
+                            );
+                            setRatingsRange(updatedRatingsRange);
+                          } else {
+                            setRatingsRange([...ratingsRange, rating]);
+                          }
+                        }}
+                      />
                       <label
                         htmlFor={`rating-${rating}`}
                         className="flex items-center text-sm text-manzarri-black/80"
