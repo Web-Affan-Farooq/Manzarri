@@ -24,6 +24,7 @@ export default function RootLayout({
           crossOrigin="anonymous"
           referrerPolicy="no-referrer"
         />
+        <link rel="manifest" href="/manifest.webmanifest" />
       </head>
       <body>
         <Toaster position="top-left" />

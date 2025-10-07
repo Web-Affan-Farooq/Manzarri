@@ -11,13 +11,17 @@ const RelatedSearches = ({ sku_id, id }: { sku_id: string; id: string }) => {
     return item.stockKeepingUnit === sku_id && item._id !== id;
   });
   return (
-    <section>
-      <div className="max-sm:p-1 sm:p-8 xl:w-[80vw] xl:mx-auto grid max-sm:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 sm:gap-6 max-sm:gap-3 ">
-        {sameCategory.map((product: Product, idx: number) => (
-          <ProductCard product={product} key={idx} />
-        ))}
-      </div>
-    </section>
+    <div className="py-[40px] columns-2 md:columns-3 lg:columns-4">
+      {sameCategory.length <= 0 ? (
+        <p className="text-manzarri-reddish-brown md:text-md text-sm text-center">
+          No products found ...
+        </p>
+      ) : (
+        sameCategory.map((product) => (
+          <ProductCard key={product._id} product={product} />
+        ))
+      )}
+    </div>
   );
 };
 

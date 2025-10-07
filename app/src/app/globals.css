@@ -20,7 +20,6 @@
   --manzarri-skin: #cdbcab;
   --manzarri-white: #efe9e1;
 
-  
   --background: var(--manzarri-white);
   --foreground: var(--manzarri-black);
   --card: var(--manzarri-white);
@@ -109,7 +108,7 @@
   --color-manzarri-green: var(--manzarri-green);
   --color-manzarri-skin: var(--manzarri-skin);
   --color-manzarri-white: var(--manzarri-white);
-  
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);

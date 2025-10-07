@@ -10,10 +10,6 @@ import { useWishlist } from "@/stores/wishlist";
 import { toast } from "sonner";
 import { v4 } from "uuid";
 
-// ____ Actions ...
-import AddedByCartAction from "@/actions/AddedByCartAction";
-import AddedByWishlistAction from "@/actions/AddedByWishlistAction";
-
 // ____ Components ...
 import { Button } from "@/components/ui/button";
 import { Heart, ShoppingBag } from "lucide-react";

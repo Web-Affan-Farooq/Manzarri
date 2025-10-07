@@ -83,7 +83,7 @@ export default function Header() {
                     variant="secondary"
                     className="absolute -top-2 -right-2 w-5 h-5 p-0 flex items-center justify-center text-xs bg-manzarri-faun text-manzarri-white"
                   >
-                    5
+                    {wishlist.length}
                   </Badge>
                 </Button>
               </Link>
@@ -99,7 +99,7 @@ export default function Header() {
                     variant="secondary"
                     className="absolute -top-2 -right-2 w-5 h-5 p-0 flex items-center justify-center text-xs bg-manzarri-faun text-manzarri-white"
                   >
-                    2
+                    {cart.length}
                   </Badge>
                 </Button>
               </Link>
@@ -168,15 +168,6 @@ export default function Header() {
       {isMobileMenuOpen && (
         <div className="md:hidden bg-manzarri-white border-t border-manzarri-black/10 shadow-lg">
           <div className="container mx-auto px-4 py-6 space-y-6">
-            {/* Mobile search */}
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-manzarri-black/60 w-4 h-4" />
-              <Input
-                placeholder="Search for jewelry..."
-                className="pl-10 bg-manzarri-skin border-manzarri-black/20"
-              />
-            </div>
-
             {/* Mobile navigation */}
             <div className="space-y-4">
               <Link

@@ -1,19 +1,19 @@
 "use client";
 import { CartProduct } from "@/@types/cart";
-import CheckoutButton from "./CheckoutButton";
+// import CheckoutButton from "./CheckoutButton";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ShoppingBag } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 
 const CartSummary = ({ cart }: { cart: CartProduct[] }) => {
-  const [totalItems, setTotalItems] = useState(0);
+  // const [totalItems, setTotalItems] = useState(0);
   const totalPrice = useMemo(() => {
     return cart.reduce((sum, item) => sum + item.item.price * item.quantity, 0);
   }, [cart]);
-
+  const savings = 0;
   return (
     <>
       <div className="lg:col-span-1">

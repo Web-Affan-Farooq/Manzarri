@@ -109,7 +109,6 @@ The following features and improvements are planned for future development .
 - Create an edit profile functionality in the profiles section.
 - Implement push notifications on the Admin Dashboard.
 - Create and customize notifications for success and failure states.
-- Implement session storage in Zustand for all states.
 - Create this app a PWA
 - Implement pagination in the main marketplace.
 - Create an Accounts settings page UI.

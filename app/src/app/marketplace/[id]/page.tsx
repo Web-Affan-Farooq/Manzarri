@@ -118,10 +118,8 @@ const ProductDetails = () => {
       {/* ____ Reviews .. */}
       <Reviews reviews={product.reviews} />
       {/* Related Products */}
-      <div className="mt-16">
-        <h1 className="font-bold text-[24px] mx-13">Products you might like</h1>
-        <RelatedSearches sku_id={product.stockKeepingUnit} id={product._id} />
-      </div>
+      <h1 className="font-bold text-[24px] mx-13">Products you might like</h1>
+      <RelatedSearches sku_id={product.stockKeepingUnit} id={product._id} />
     </>
   );
 };

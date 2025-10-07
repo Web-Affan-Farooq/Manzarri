@@ -4,6 +4,7 @@ import {
   Minus,
   Plus,
   Trash2,
+  // ShoppingBag,
   ArrowLeft,
   Shield,
   Truck,
@@ -11,25 +12,26 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+// import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 import { useCart } from "@/stores/cart";
-import { EmptyCart } from "@/components/pages/Cart";
+import { CartSummary, EmptyCart } from "@/components/pages/Cart";
 
 export default function CartPage() {
-  const { cart, removeFromCart, clearCart, updateQuantity } = useCart();
+  const { cart } = useCart();
 
-  const subtotal = cart.reduce(
-    (sum, item) => sum + item.item.price * item.quantity,
-    0
-  );
-  const savings = cart.reduce(
-    (sum, item) => sum + item.item.price * item.quantity,
-    0
-  );
-  const shipping = subtotal > 500 ? 0 : 25;
-  const tax = subtotal * 0.08;
-  const total = subtotal + shipping + tax;
+  // const subtotal = cart.reduce(
+  //   (sum, item) => sum + item.item.price * item.quantity,
+  //   0
+  // );
+  // const savings = cart.reduce(
+  //   (sum, item) => sum + item.item.price * item.quantity,
+  //   0
+  // );
+  // const shipping = subtotal > 500 ? 0 : 25;
+  // const tax = subtotal * 0.08;
+  // const total = subtotal + shipping + tax;
 
   const features = [
     {
@@ -55,7 +57,7 @@ export default function CartPage() {
       <div className="bg-manzarri-skin/20 py-8">
         <div className="container mx-auto px-4">
           <div className="flex items-center gap-4 mb-4">
-            <Link href="/marketplace">
+            <Link href="/marketplace" className="cursor-pointer">
               <Button
                 variant="ghost"
                 size="sm"
@@ -69,7 +71,7 @@ export default function CartPage() {
           <h1 className="text-3xl font-bold text-manzarri-black">
             Shopping Cart
           </h1>
-          <p className="text-manzarri-black/70">
+          <p className="text-sm md:text-md text-manzarri-black/70">
             Review and complete your purchase
           </p>
         </div>
@@ -90,7 +92,6 @@ export default function CartPage() {
                       variant="ghost"
                       size="sm"
                       className="text-manzarri-black/60 hover:text-manzarri-reddish-brown"
-                      onClick={clearCart}
                     >
                       Clear All
                     </Button>
@@ -125,6 +126,16 @@ export default function CartPage() {
                                   <span className="text-lg font-bold text-manzarri-reddish-brown">
                                     ${item.item.price.toLocaleString()}
                                   </span>
+                                  {/* {item.originalPrice > item.price && (
+                                    <span className="text-sm text-manzarri-black/50 line-through">
+                                      ${item.originalPrice.toLocaleString()}
+                                    </span>
+                                  )} */}
+                                  {/* {item.originalPrice > item.price && (
+                                    <Badge className="bg-manzarri-green text-manzarri-white text-xs">
+                                      Save ${item.originalPrice - item.price}
+                                    </Badge>
+                                  )} */}
                                 </div>
                               </div>
 
@@ -134,12 +145,6 @@ export default function CartPage() {
                                     variant="ghost"
                                     size="sm"
                                     className="h-8 w-8 p-0 hover:bg-manzarri-skin/50"
-                                    onClick={() => {
-                                      updateQuantity({
-                                        ...item,
-                                        quantity: item.quantity - 1,
-                                      });
-                                    }}
                                   >
                                     <Minus className="w-3 h-3" />
                                   </Button>
@@ -150,12 +155,6 @@ export default function CartPage() {
                                     variant="ghost"
                                     size="sm"
                                     className="h-8 w-8 p-0 hover:bg-manzarri-skin/50"
-                                    onClick={() => {
-                                      updateQuantity({
-                                        ...item,
-                                        quantity: item.quantity + 1,
-                                      });
-                                    }}
                                   >
                                     <Plus className="w-3 h-3" />
                                   </Button>
@@ -165,7 +164,6 @@ export default function CartPage() {
                                   variant="ghost"
                                   size="sm"
                                   className="text-manzarri-black/60 hover:text-red-600"
-                                  onClick={() => removeFromCart(item.id)}
                                 >
                                   <Trash2 className="w-4 h-4" />
                                 </Button>
@@ -207,6 +205,7 @@ export default function CartPage() {
             </div>
 
             {/* Order Summary */}
+            <CartSummary cart={cart} />
           </div>
         ) : (
           /* Empty Cart */
