@@ -1,39 +1,44 @@
 "use client";
 import React, { useEffect } from "react";
-import useDashboardCache from "@/stores/admin";
-import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import axios from "axios";
+import { useOffers } from "@/stores/admin/offer";
+import useAccounts from "@/stores/admin/accounts";
+import useInventory from "@/stores/admin/inventory";
+import useOrders from "@/stores/admin/orders";
+import useFormSubmissions from "@/stores/admin/form-submissions";
 
 const FetchDashboardData = ({ children }: { children: React.ReactNode }) => {
-  const { feedAccounts, feedInventory, feedFormSubmissions, feedOrders } =
-    useDashboardCache();
-  const router = useRouter();
+  const { fetchAccounts } = useAccounts();
+  const { fetchInventory } = useInventory();
+  const { fetchOffers } = useOffers();
+  const { fetchOrders } = useOrders();
+  const { fetchFormSubmissions } = useFormSubmissions();
 
+  const router = useRouter();
   useEffect(() => {
     const getData = async () => {
-      try {
-        const response = await axios.get("/api/Admin/dashboard");
-        const { data } = response;
-        feedAccounts(data.accounts);
-        feedFormSubmissions(data.formSubmissions);
-        feedInventory(data.products);
-        feedOrders(data.orders);
-      } catch (err) {
-        console.log(err);
-        toast.error("An error occurred");
-        router.push("/profile");
-      }
+      fetchFormSubmissions();
+      fetchOrders();
+      fetchAccounts();
+      fetchInventory();
+      fetchOffers();
     };
 
-    // fetch immediately on mount
     getData();
-
     // then repeat every 10 minutes
-    const timeInterval = setInterval(getData, 600000);
+    const timeInterval = setInterval(() => {
+      getData();
+    }, 600000);
 
     return () => clearInterval(timeInterval);
-  }, [router, feedOrders, feedFormSubmissions, feedInventory, feedAccounts]);
+  }, [
+    router,
+    fetchAccounts,
+    fetchInventory,
+    fetchOffers,
+    fetchOrders,
+    fetchFormSubmissions,
+  ]);
 
   return <>{children}</>;
 };

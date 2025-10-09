@@ -36,7 +36,6 @@ The following table summarizes the completion status of the core features and de
 | Error Fallback UI | 🔲 Pending |
 | Code testing | 🔲 Pending |
 | Security testing | 🔲 Pending |
-
 ---
 
 ## 🕰️ Development Timestamps - Recent Activity Log
@@ -103,6 +102,8 @@ Two critical issues have been identified where data persists after the associate
 ### 🔮 Future Implementations & Roadmap :
 The following features and improvements are planned for future development .
 **Primary :**
+- Create edit offer functionality .
+- Take and store more user data on account like address , phonenumber
 - Create a search product functionality.
 - Implement header functionality to show Login/Signup options if the user is unauthorized.
 - On the account deletion , all the orders and notifications related to that account should be deleted
@@ -125,7 +126,6 @@ The following features and improvements are planned for future development .
 - Create a user-friendly section for adding products from the dashboard.
 
 **Advanced :**
-- Create an events section from which the admin can create events.
 - Create a finances section for managing financial data.
 - Implement an AI Agent to handle administration and warehouse systems.
 - Integrate Facebook ads automation 

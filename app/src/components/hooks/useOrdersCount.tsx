@@ -1,5 +1,5 @@
 import { Order } from "@/@types/order";
-import useDashboardCache from "@/stores/admin";
+import useOrders from "@/stores/admin/orders";
 import { useMemo } from "react";
 
 interface DataObject {
@@ -8,13 +8,23 @@ interface DataObject {
 }
 
 const useOrdersCount = () => {
-  const { orders } = useDashboardCache();
+  const { orders } = useOrders();
 
   const dataArray: DataObject[] = useMemo(() => {
     const date = new Date();
     const months = [
-      "January", "February", "March", "April", "May", "June",
-      "July", "August", "September", "October", "November", "December"
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
     ];
 
     // Initialize counts for each month
@@ -37,16 +47,15 @@ const useOrdersCount = () => {
       month,
       orders: counts[idx],
     }));
-    return array.slice(0, date.getMonth() + 1)
+    return array.slice(0, date.getMonth() + 1);
   }, [orders]);
 
   return {
-    data: dataArray
+    data: dataArray,
   };
 };
 
 export default useOrdersCount;
-
 
 /* Hook logic for getting the orders in each year */
 // import { Order } from "@/@types/order";

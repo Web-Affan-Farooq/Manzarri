@@ -11,5 +11,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <FetchDashboardData>{children}</FetchDashboardData>;
+  return (
+    <>
+      <FetchDashboardData>{children}</FetchDashboardData>
+    </>
+  );
 }

@@ -13,7 +13,7 @@ import {
   ShoppingCart,
 } from "@/components/icons";
 import Link from "next/link";
-import { Calendar, BadgeDollarSign } from "lucide-react";
+import { BadgeDollarSign, Tag } from "lucide-react";
 
 const itemLinks = [
   {
@@ -47,9 +47,9 @@ const itemLinks = [
     url: "/Admin/messages",
   },
   {
-    name: "Events",
-    icon: <Calendar className={`text-gray-custom w-[20px] h-[20px]`} />,
-    url: "/Admin/events",
+    name: "Offers",
+    icon: <Tag className={`text-gray-custom w-[20px] h-[20px]`} />,
+    url: "/Admin/offers",
   },
   {
     name: "Finance",

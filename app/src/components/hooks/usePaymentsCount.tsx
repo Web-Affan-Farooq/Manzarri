@@ -1,5 +1,5 @@
 import { Order } from "@/@types/order";
-import useDashboardCache from "@/stores/admin";
+import useOrders from "@/stores/admin/orders";
 import { useMemo } from "react";
 
 interface DataObject {
@@ -8,13 +8,23 @@ interface DataObject {
 }
 
 const usePaymentsCount = () => {
-  const { orders } = useDashboardCache();
+  const { orders } = useOrders();
 
   const dataArray: DataObject[] = useMemo(() => {
     const date = new Date();
     const months = [
-      "January", "February", "March", "April", "May", "June",
-      "July", "August", "September", "October", "November", "December"
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
     ];
 
     // Initialize counts for each month
@@ -27,7 +37,7 @@ const usePaymentsCount = () => {
 
         if (year === 2025) {
           const monthIndex = date.getMonth(); // 0 for January
-          counts[monthIndex ]+= order.amountPayable;
+          counts[monthIndex] += order.amountPayable;
         }
       }
     });
@@ -37,12 +47,12 @@ const usePaymentsCount = () => {
       month,
       payments: counts[idx],
     }));
-    
-    return array.slice(0, date.getMonth() + 1)
+
+    return array.slice(0, date.getMonth() + 1);
   }, [orders]);
 
   return {
-    data: dataArray
+    data: dataArray,
   };
 };
 

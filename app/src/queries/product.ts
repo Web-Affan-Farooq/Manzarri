@@ -59,10 +59,8 @@ addedToWishlistBy,
 weightInGrams,
     "images": images[].asset->url
   }`;
-
   return q;
 };
-
 
 export {
     productQuery,

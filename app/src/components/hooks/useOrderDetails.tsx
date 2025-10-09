@@ -1,11 +1,13 @@
 "use client";
-import useDashboardCache from "@/stores/admin";
 import { useEffect, useState } from "react";
 import { Order, OrderedProducts } from "@/@types/order";
+import useOrders from "@/stores/admin/orders";
+import useInventory from "@/stores/admin/inventory";
 
 const useOrderDetails = (id: string) => {
   // ____ Global state ...
-  const { orders, inventory } = useDashboardCache();
+  const { orders } = useOrders();
+  const { inventory } = useInventory();
 
   // _____ Order required for details and products ordered in it ...
   const [requiredOrder, setrequiredOrder] = useState<Order>();

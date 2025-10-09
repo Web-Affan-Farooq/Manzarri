@@ -1,8 +1,11 @@
-import useDashboardCache from "@/stores/admin";
+import useInventory from "@/stores/admin/inventory";
+import useOrders from "@/stores/admin/orders";
 import { useMemo, useState } from "react";
 
 const useSoldProductDetails = (id: string) => {
-  const { orders, inventory } = useDashboardCache();
+  const { orders } = useOrders();
+  const { inventory } = useInventory();
+
   const requiredInventoryProduct = useMemo(() => {
     return inventory.find((p) => p._id === id);
   }, [inventory, id]);

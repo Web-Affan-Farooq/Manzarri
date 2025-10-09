@@ -2,7 +2,7 @@ export { default as OrdersSection } from "./orders/Main";
 export { default as SettingsSection } from "./settings/Main";
 export { default as MessagesSection } from "./messages/Main";
 export { default as DashboardSection } from "./dashboard/Main";
-export { default as EventsSection } from "./events/Main";
+export { default as OffersSection } from "./offers/Main";
 
 /* ____ Dashboard ... */
 export { default as Flashcards } from "./dashboard/Flashcards";

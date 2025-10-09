@@ -27,6 +27,14 @@ export default {
             name:"discountPercentage",
             type:"number",
             title:"Discount percentage"
+        }, 
+        {
+            name:"bannerImage",
+            type:"image",
+            title:"Banner Image",
+            options:{
+                hotspot:true,
+            }
         }
     ]
 }

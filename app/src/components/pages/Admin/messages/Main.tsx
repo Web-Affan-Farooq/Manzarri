@@ -1,21 +1,21 @@
-'use client'
+"use client";
 /* _____ This is client component because we're using dates here ... */
 
-import React from 'react'
+import React from "react";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import useDashboardCache from '@/stores/admin';
+import useFormSubmissions from "@/stores/admin/form-submissions";
 
 const Main = () => {
-  const { formSubmissions } = useDashboardCache();
+  const { formSubmissions } = useFormSubmissions();
 
   return (
     <section className="w-full p-4">
-      <div className='flex flex-col'>
+      <div className="flex flex-col">
         {formSubmissions.length === 0 ? (
           <p className="text-gray-400">No messages found.</p>
         ) : (
@@ -35,16 +35,20 @@ const Main = () => {
 
                 <AccordionContent className="mt-2 space-y-1 text-sm text-gray-400">
                   <p>
-                    <strong className="text-gray-500">Message from:</strong> {message.customerName}
+                    <strong className="text-gray-500">Message from:</strong>{" "}
+                    {message.customerName}
                   </p>
                   <p>
-                    <strong className="text-gray-500">Email:</strong> {message.customerEmail}
+                    <strong className="text-gray-500">Email:</strong>{" "}
+                    {message.customerEmail}
                   </p>
                   <p>
-                    <strong className="text-gray-500">Message:</strong> {message.customerMessage}
+                    <strong className="text-gray-500">Message:</strong>{" "}
+                    {message.customerMessage}
                   </p>
                   <p>
-                    <strong className="text-gray-500">Phone Number:</strong> {message.userPhonenumber}
+                    <strong className="text-gray-500">Phone Number:</strong>{" "}
+                    {message.userPhonenumber}
                   </p>
                 </AccordionContent>
               </AccordionItem>
@@ -53,7 +57,7 @@ const Main = () => {
         )}
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Main
+export default Main;
