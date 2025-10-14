@@ -3,7 +3,7 @@ import React from "react";
 import { Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ProductCard } from "@/components/pages/Marketplace";
-import { useCatalog } from "@/stores/catalog";
+import { useMarketplaceData } from "@/stores/catalog";
 import { Input } from "@/components/ui/input";
 import { useMarketplaceFilters } from "./useMarketplaceFilters";
 import {
@@ -14,7 +14,7 @@ import {
 
 export default function MarketplacePage() {
   const { filteredList } = useMarketplaceFilters();
-  const { products } = useCatalog();
+  const { products } = useMarketplaceData();
 
   return (
     <div className="min-h-screen bg-manzarri-white">

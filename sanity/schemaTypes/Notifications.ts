@@ -21,7 +21,6 @@ export default {
                 layout: 'radio',
             },
         },
-        
         {
             name:"isSeen",
             type:"boolean",
@@ -30,8 +29,9 @@ export default {
         },
         {
             name:"userId",
-            type:"string",
+            type:"reference",
             title:"User id",
+            to:[{type:"Accounts"}]
         }
     ]
 }

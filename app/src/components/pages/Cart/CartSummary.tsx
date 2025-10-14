@@ -1,19 +1,20 @@
 "use client";
-import { CartProduct } from "@/@types/cart";
-// import CheckoutButton from "./CheckoutButton";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ShoppingBag } from "lucide-react";
-import { useMemo } from "react";
+import { useCartSummary } from "./useCartSummary";
+import { useMarketplaceData } from "@/stores/catalog";
 
-const CartSummary = ({ cart }: { cart: CartProduct[] }) => {
-  // const [totalItems, setTotalItems] = useState(0);
-  const totalPrice = useMemo(() => {
-    return cart.reduce((sum, item) => sum + item.item.price * item.quantity, 0);
-  }, [cart]);
-  const savings = 0;
+const CartSummary = () => {
+  const { offers } = useMarketplaceData();
+  const {
+    selectedOffer,
+    setSelectedOffer,
+    totalPriceWithoutDiscount,
+    totalSaved,
+    checkout,
+  } = useCartSummary();
   return (
     <>
       <div className="lg:col-span-1">
@@ -27,70 +28,64 @@ const CartSummary = ({ cart }: { cart: CartProduct[] }) => {
               <div className="flex justify-between">
                 <span className="text-manzarri-black/70">Subtotal</span>
                 <span className="font-medium">
-                  ${totalPrice.toLocaleString()}
+                  ${totalPriceWithoutDiscount}
                 </span>
               </div>
-              {savings > 0 && (
+              {totalSaved > 0 && (
                 <div className="flex justify-between text-manzarri-green">
                   <span>You save</span>
                   <span className="font-medium">
-                    -${savings.toLocaleString()}
+                    -${totalSaved}{" "}
+                    {`(${selectedOffer ? selectedOffer.discountPercentage : 0}% off)`}
                   </span>
                 </div>
               )}
-              {/* <div className="flex justify-between">
-                      <span className="text-manzarri-black/70">Shipping</span>
-                      <span className="font-medium">
-                        {shipping === 0 ? (
-                          <span className="text-manzarri-green">Free</span>
-                        ) : (
-                          `$${shipping}`
-                        )}
-                      </span>
-                    </div> */}
-              {/* <div className="flex justify-between">
-                      <span className="text-manzarri-black/70">Tax</span>
-                      <span className="font-medium">${tax.toFixed(2)}</span>
-                    </div> */}
               <Separator />
               <div className="flex justify-between text-lg font-bold">
                 <span>Total</span>
                 <span className="text-manzarri-reddish-brown">
-                  ${totalPrice.toFixed(2)}
+                  ${totalPriceWithoutDiscount - totalSaved}
                 </span>
               </div>
             </div>
 
-            {/* Promo Code */}
+            {/* Offer selection */}
             <div className="mb-6">
-              <label className="text-sm font-medium text-manzarri-black mb-2 block">
-                Promo Code
-              </label>
-              <div className="flex gap-2">
-                <Input
-                  placeholder="Enter code"
-                  className="border-manzarri-black/20"
-                />
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="border-manzarri-black/20 whitespace-nowrap"
-                >
-                  Apply
-                </Button>
-              </div>
+              {offers.length <= 0 ? (
+                <p className="text-xs text-manzarri-reddish-brown">
+                  No offers available ..
+                </p>
+              ) : (
+                <>
+                  <label className="text-sm font-medium text-manzarri-black mb-2 block">
+                    Selected Offer
+                  </label>
+                  <select
+                    name="offer"
+                    id="offer"
+                    className="w-full px-5 py-2 bg-manzarri-skin/50 rounded-md"
+                  >
+                    {offers.map((offer, idx) => (
+                      <option
+                        value={offer.promoCode}
+                        key={idx}
+                        onClick={() => setSelectedOffer(offer)}
+                      >
+                        {offer.offerName}
+                      </option>
+                    ))}
+                  </select>
+                </>
+              )}
             </div>
 
             <div className="space-y-3">
-              <Button className="w-full bg-manzarri-reddish-brown hover:bg-manzarri-reddish-brown/90 text-manzarri-white py-6">
+              <Button
+                className="cursor-pointer w-full bg-manzarri-reddish-brown hover:bg-manzarri-reddish-brown/90 text-manzarri-white py-6"
+                onClick={checkout}
+              >
                 <ShoppingBag className="w-5 h-5 mr-2" />
                 Proceed to Checkout
-              </Button>
-              <Button
-                variant="outline"
-                className="w-full border-manzarri-black/20"
-              >
-                Save for Later
               </Button>
             </div>
 

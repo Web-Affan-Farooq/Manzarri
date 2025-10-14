@@ -1,25 +1,13 @@
 "use client";
 import Link from "next/link";
-import {
-  Minus,
-  Plus,
-  Trash2,
-  // ShoppingBag,
-  ArrowLeft,
-  Shield,
-  Truck,
-  RefreshCw,
-} from "lucide-react";
+import { ArrowLeft, Shield, Truck, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-// import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
-import Image from "next/image";
 import { useCart } from "@/stores/cart";
-import { CartSummary, EmptyCart } from "@/components/pages/Cart";
+import { CartCard, CartSummary, EmptyCart } from "@/components/pages/Cart";
 
 export default function CartPage() {
-  const { cart } = useCart();
+  const { cart, clearCart } = useCart();
 
   // const subtotal = cart.reduce(
   //   (sum, item) => sum + item.item.price * item.quantity,
@@ -92,6 +80,7 @@ export default function CartPage() {
                       variant="ghost"
                       size="sm"
                       className="text-manzarri-black/60 hover:text-manzarri-reddish-brown"
+                      onClick={clearCart}
                     >
                       Clear All
                     </Button>
@@ -99,82 +88,7 @@ export default function CartPage() {
 
                   <div className="space-y-6">
                     {cart.map((item, index) => (
-                      <div key={item.id}>
-                        <div className="flex flex-col sm:flex-row gap-4">
-                          <div className="flex-shrink-0">
-                            <Image
-                              src={item.item.images[0]}
-                              alt={item.item.productName}
-                              width={400}
-                              height={400}
-                              className="w-24 h-24 object-cover rounded-lg"
-                            />
-                          </div>
-
-                          <div className="flex-1">
-                            <div className="flex flex-col sm:flex-row sm:justify-between gap-4">
-                              <div className="flex-1">
-                                <h3 className="font-semibold text-manzarri-black mb-1">
-                                  {item.item.productName}
-                                </h3>
-                                {item.size && (
-                                  <p className="text-sm text-manzarri-black/60 mb-2">
-                                    Size: {item.size}
-                                  </p>
-                                )}
-                                <div className="flex items-center gap-2">
-                                  <span className="text-lg font-bold text-manzarri-reddish-brown">
-                                    ${item.item.price.toLocaleString()}
-                                  </span>
-                                  {/* {item.originalPrice > item.price && (
-                                    <span className="text-sm text-manzarri-black/50 line-through">
-                                      ${item.originalPrice.toLocaleString()}
-                                    </span>
-                                  )} */}
-                                  {/* {item.originalPrice > item.price && (
-                                    <Badge className="bg-manzarri-green text-manzarri-white text-xs">
-                                      Save ${item.originalPrice - item.price}
-                                    </Badge>
-                                  )} */}
-                                </div>
-                              </div>
-
-                              <div className="flex items-center gap-4">
-                                <div className="flex items-center border border-manzarri-black/20 rounded-md">
-                                  <Button
-                                    variant="ghost"
-                                    size="sm"
-                                    className="h-8 w-8 p-0 hover:bg-manzarri-skin/50"
-                                  >
-                                    <Minus className="w-3 h-3" />
-                                  </Button>
-                                  <span className="px-3 py-1 text-sm font-medium">
-                                    {item.quantity}
-                                  </span>
-                                  <Button
-                                    variant="ghost"
-                                    size="sm"
-                                    className="h-8 w-8 p-0 hover:bg-manzarri-skin/50"
-                                  >
-                                    <Plus className="w-3 h-3" />
-                                  </Button>
-                                </div>
-
-                                <Button
-                                  variant="ghost"
-                                  size="sm"
-                                  className="text-manzarri-black/60 hover:text-red-600"
-                                >
-                                  <Trash2 className="w-4 h-4" />
-                                </Button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        {index < cart.length - 1 && (
-                          <Separator className="mt-6" />
-                        )}
-                      </div>
+                      <CartCard cartProduct={item} key={index} />
                     ))}
                   </div>
                 </div>
@@ -205,7 +119,7 @@ export default function CartPage() {
             </div>
 
             {/* Order Summary */}
-            <CartSummary cart={cart} />
+            <CartSummary />
           </div>
         ) : (
           /* Empty Cart */

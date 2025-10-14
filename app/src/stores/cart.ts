@@ -8,7 +8,7 @@ interface CartState {
   cart: CartProduct[];
   setCart: (list: CartProduct[]) => void;
   addToCart: (item: CartProduct) => void;
-  updateQuantity: (item: CartProduct) => void;
+  updateQuantity: (cartProductId:string ,size:string,count : number) => void;
   removeFromCart: (id: string) => void;
   clearCart: () => void;
 }
@@ -22,20 +22,20 @@ export const useCart = create<CartState>()(
           cart: list,
         })),
 
-      updateQuantity: (item) => {
+      updateQuantity: (cartProductId,size,count) => {
         //1.  _____ Get the list...
         const { cart } = get();
 
         //2.  _____ Find the product in the list...
         const findProduct = cart.find(
-          (i) => i.id === item.id && i.size === item.size
+          (i) => i.id === cartProductId && i.size === size
         );
 
         //3.  _____ If found update the quantity ... (to update quantity , product must be found)
         if (findProduct) {
           const updatedCart = cart.map((cartProduct) => {
-            if (cartProduct.id === item.id && cartProduct.size === item.size) {
-              return { ...cartProduct, quantity: item.quantity };
+            if (cartProduct.id === cartProductId && cartProduct.size === size) {
+              return { ...cartProduct, quantity:count};
             } else return cartProduct;
           });
           return set({
@@ -77,7 +77,6 @@ export const useCart = create<CartState>()(
           const { success, message } = await AddedByCartAction(
             item.item._id,
             item.item.productName,
-            item.item.addedToCartBy // only a list of all users of have added the same product in thier cart
           );
           if (!success) {
             toast.error(message);

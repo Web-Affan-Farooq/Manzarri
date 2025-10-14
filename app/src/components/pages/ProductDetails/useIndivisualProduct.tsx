@@ -1,10 +1,10 @@
-import { useCatalog } from "@/stores/catalog";
+import { useMarketplaceData } from "@/stores/catalog";
 import { useEffect, useState } from "react";
 import { Product } from "@/@types/product";
 
 const useIndivisualProduct = (id: string) => {
   // _____ Getting products list ....
-  const { products } = useCatalog();
+  const { products } = useMarketplaceData();
 
   const [product, setProduct] = useState<Product>();
 

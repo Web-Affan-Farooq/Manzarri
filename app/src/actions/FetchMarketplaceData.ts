@@ -4,7 +4,7 @@ import { Review } from "@/@types/review"
 import sanityClient from "@/lib/sanity"
 import { productQuery } from "@/queries/product"
 import { reviewQuery } from "@/queries/reviews"
-
+import { Offer } from "@/@types/offer"
 // _____ Interface for typing the raw data from api ...
 interface RawProduct extends Omit<Product, "ratings"> {
   ratings:number[]
@@ -34,3 +34,28 @@ export const FetchMarketplaceProducts = async () :Promise<Product[]>=> {
 
     return updatedProducts
 } 
+
+export const FetchOffers = async () :Promise<Offer[]>=> {
+    // ____ Fetch offers from database ...
+  const q = `*[_type == "Offers"]{
+    _id,
+    _updatedAt,
+      "assetId":bannerImage.asset._ref,
+    discountPercentage,
+    offerDescription,
+    offerName,
+    offerValidity,
+    products,
+    promoCode,
+    isActive,
+    engagementCount,
+    "bannerImage":bannerImage.asset->url,
+  }`;
+
+    const response = await sanityClient.fetch(q, {},{
+      next:{
+        revalidate:10
+      }
+    });
+    return response;
+}

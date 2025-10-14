@@ -1,9 +1,10 @@
 // ____ Hooks ...
 import { useMemo } from "react";
-import { useCatalog } from "@/stores/catalog";
+import { useMarketplaceData } from "@/stores/catalog";
 
 // _____ Libraries ...
 import { create } from "zustand";
+import { Product } from "@/@types/product";
 
 // ____ Type for central state ...
 interface FiltersState {
@@ -46,7 +47,7 @@ const useFilters = create<FiltersState>()((set) => ({
 
 export const useMarketplaceFilters = () => {
   // _____ Extract products from global state ...
-  const { products } = useCatalog();
+  const { products } = useMarketplaceData();
 
   // _____ Get the states and setters ...
   const {
@@ -71,7 +72,7 @@ export const useMarketplaceFilters = () => {
   // _____ Resultant filtered list , created automatically when any of the filter selected ...
   const filteredList = useMemo(() => {
     return products.filter(
-      (product) =>
+      (product: Product) =>
         selectedCategories.includes(
           product.jewelleryType.toLowerCase().trim()
         ) &&

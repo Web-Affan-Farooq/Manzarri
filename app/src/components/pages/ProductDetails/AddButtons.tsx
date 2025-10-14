@@ -40,7 +40,7 @@ const AddButtons = ({
         size="lg"
         onClick={() => {
           // _____ If size is selected ...
-          if (size.trim() !== "") {
+          if (size.split("").length > 0) {
             const data = {
               id: v4(),
               quantity: quantity,

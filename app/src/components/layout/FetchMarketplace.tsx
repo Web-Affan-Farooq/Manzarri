@@ -1,27 +1,18 @@
 "use client";
 
-import { FetchMarketplaceProducts } from "@/actions/FetchMarketplaceProducts";
-import { useCatalog } from "@/stores/catalog";
+import { useMarketplaceData } from "@/stores/catalog";
 import React, { useEffect } from "react";
 
 const FetchDMarketplaceData = ({ children }: { children: React.ReactNode }) => {
-  const { setProducts } = useCatalog();
+  const { fetchOffers, fetchProducts } = useMarketplaceData();
 
   useEffect(() => {
     const getData = async () => {
-      // await updateProducts();
       console.log(
         "-------------------Running data fetches -----------------------------"
       );
-      try {
-        const products = await FetchMarketplaceProducts();
-        setProducts(products);
-        // const newProducts = JSON.stringify(products, null, 2)
-        //   .replace(/"([^"]+)":/g, "$1:") // remove quotes from keys
-        //   .replace(/"/g, '"'); // optional: preserve quotes around values
-      } catch (err) {
-        console.log(err);
-      }
+      fetchProducts();
+      fetchOffers();
       console.log(
         "-------------------Fetches completed -----------------------------"
       );
@@ -30,7 +21,7 @@ const FetchDMarketplaceData = ({ children }: { children: React.ReactNode }) => {
     setInterval(() => {
       getData();
     }, 180000);
-  }, [setProducts]);
+  }, [fetchOffers, fetchProducts]);
   return <>{children}</>;
 };
 export default FetchDMarketplaceData;

@@ -5,8 +5,9 @@ export default {
     fields: [
         {
             name: "userId",
-            type: "string",
-            title: "user Id"
+            type: "reference",
+            title: "User",
+            to: [{type:"Accounts"}]
         },
         {
             name:"status",

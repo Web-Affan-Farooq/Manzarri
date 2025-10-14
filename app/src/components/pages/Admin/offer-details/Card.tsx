@@ -33,9 +33,6 @@ const ProductCard = ({
           Price : $ <ins className="no-underline">{discountedPrice} </ins>
           <del>{product.price}</del>
         </p>
-        <p className="text-gray-500 text-sm">
-          Quantity : {product.stockQuantity}
-        </p>
       </div>
     </div>
   );

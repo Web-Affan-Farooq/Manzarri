@@ -1,7 +1,7 @@
 "use server";
 import sanityClient from "@/lib/sanity";
 import GetTokenPayload from "@/utils/GetTokenPayload";
-import { handleNotificationPush } from "@/utils/PushNotifications";
+import { HandleNotificationPush } from "@/utils/PushNotifications";
 
 const DeleteAccountAction = async (
   id: string
@@ -23,20 +23,23 @@ const DeleteAccountAction = async (
     }
 
     const deletedAccount = await sanityClient.delete(id);
+    const userName = deletedAccount.results[0].document.userName;
+    const userEmail = deletedAccount.results[0].document.userEmail;
 
-    handleNotificationPush({
-      userId: tokenPayload.accountId,
-      text: `Please make sure to email ${deletedAccount.results[0].document.userName} at ${deletedAccount.results[0].document.userEmail} . `,
-      type: "Success",
-      title: "User account deleted",
-    });
+    const { createNotification } = new HandleNotificationPush(
+      `${userName} leaved your store .`,
+      `Please make sure to email ${userName} at ${userEmail} . `,
+      true,
+      "Notify"
+    );
+    createNotification();
 
     return {
       message: "Account deleted successfully",
       success: true,
       user: {
-        email: deletedAccount.results[0].document.userEmail,
-        name: deletedAccount.results[0].document.userName,
+        email: userEmail,
+        name: userName,
       },
     };
   } catch (err) {
@@ -48,19 +51,19 @@ const DeleteAccountAction = async (
   }
 };
 
-
-const BlockAccountAction = async (id:string, block:boolean) :Promise<
-{
-    message:string;
-    success:boolean;
-}>=> {
-    await sanityClient.patch(id).set({ isBlocked: block }).commit();
-    if (block) {
-        return { message: "Account blocked successfully" , success:true };
-    }
-    else {
-        return { message: "Account unblocked successfully", success:true };
-    }
-}
+const BlockAccountAction = async (
+  id: string,
+  block: boolean
+): Promise<{
+  message: string;
+  success: boolean;
+}> => {
+  await sanityClient.patch(id).set({ isBlocked: block }).commit();
+  if (block) {
+    return { message: "Account blocked successfully", success: true };
+  } else {
+    return { message: "Account unblocked successfully", success: true };
+  }
+};
 
 export { DeleteAccountAction, BlockAccountAction };

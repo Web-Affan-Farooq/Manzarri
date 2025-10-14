@@ -2,13 +2,11 @@
 
 import sanityClient from "@/lib/sanity";
 import GetTokenPayload from "@/utils/GetTokenPayload";
-import PushNotificationAction from "./PushNotification";
-import { v4 } from "uuid";
+import { HandleNotificationPush } from "@/utils/PushNotifications";
 
 const AddedByCartAction = async (
   id: string,
-  productName:string,
-  array: string[]
+  productName: string
 ): Promise<{
   success: boolean;
   message: string;
@@ -20,27 +18,30 @@ const AddedByCartAction = async (
       message: "Please login first",
     };
   }
-  const updatedList = [...array, payload.accountId];
   // ____ update in products ...
   try {
     await sanityClient
       .patch(id)
-      .set({
-        addedToCartBy: updatedList,
+      .setIfMissing({
+        addedToCartBy: [],
       })
+      .append("addedToCartBy", [
+        {
+          _type: "reference",
+          _ref: payload.accountId,
+        },
+      ])
       .commit();
 
-      // ____ Notifi admin about the action ...
-       await PushNotificationAction({
-        notification:{
-          notificationText:`A user ${payload.accountId} had added ${productName} to wishlist at ${new Date().toLocaleString()}`,
-          notificationTitle:"A new engagement in marketplace",
-          notificationType:"Notify",
-          isSeen:false,
-          _id:v4(),
-          userId:process.env.ADMIN_ACCOUNT_ID!
-        }
-      })
+    // ____ Notifi admin about the action ...
+    const notify = new HandleNotificationPush(
+      "A new engagement in marketplace",
+      `A user ${payload.accountId} had added ${productName} to cart at ${new Date().toLocaleString()}`,
+      true,
+      "Notify"
+    );
+
+    notify.createNotification();
     return {
       success: true,
       message: "Product added to cart successfully",

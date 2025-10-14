@@ -1,40 +1,76 @@
 export default {
-    name: "Accounts",
-    type: "document",
-    title: "Accounts",
-    fields: [
+  name: 'Accounts',
+  type: 'document',
+  title: 'Accounts',
+  fields: [
+    {
+      name: 'userName',
+      type: 'string',
+      title: 'User name',
+    },
+    {
+      name: 'userPassword',
+      type: 'string',
+      title: 'User password',
+    },
+    {
+      name: 'userEmail',
+      type: 'string',
+      title: 'User email',
+    },
+    {
+      name: 'isBlocked',
+      type: 'boolean',
+      title: 'Is blocked',
+      initialValue: false,
+    },
+    {
+      name: 'isAdmin',
+      type: 'boolean',
+      title: 'Admin',
+      initialValue: false,
+    },
+    {
+      name: 'lastLogin',
+      type: 'datetime',
+      title: 'Last login',
+    },
+    {
+      name: 'phoneNumber',
+      type: 'string',
+      title: 'Phone number',
+    },
+    {
+      name: 'country',
+      type: 'string',
+      title: 'Country',
+    },
+    {
+      name: 'postalCode',
+      type: 'string',
+      title: 'Postal code',
+    },
+    {
+      name: 'city',
+      type: 'string',
+      title: 'City',
+    },
+    {
+      name: 'address',
+      type: 'string',
+      title: 'Address',
+    },
+    {
+      name: 'orders',
+      type: 'array',
+      title: 'Orders',
+      initialValue: [],
+      of: [
         {
-            name: "userName",
-            type: "string",
-            title: "User name"
+          type: 'reference',
+          to: [{type: 'Orders'}],
         },
-        {
-            name: "userPassword",
-            type: "string",
-            title: "User password"
-        },
-        {
-            name: "userEmail",
-            type: "string",
-            title: "User email"
-        },
-        {
-            name: "isBlocked",
-            type: "boolean",
-            title: "Is blocked",
-            initialValue: false,
-        },
-        {
-            name: "isAdmin",
-            type: "boolean",
-            title: "Admin",
-            initialValue: false
-        },
-        {
-            name: "invited",
-            type: "boolean",
-            title: "Invited on dashboard",
-            initialValue: false,
-        },
-    ]
+      ],
+    },
+  ],
 }

@@ -1,11 +1,11 @@
 "use client";
 import React from "react";
-import { useCatalog } from "@/stores/catalog";
+import { useMarketplaceData } from "@/stores/catalog";
 import { Product } from "@/@types/product";
 import ProductCard from "../Marketplace/Card";
 
 const RelatedSearches = ({ sku_id, id }: { sku_id: string; id: string }) => {
-  const { products } = useCatalog();
+  const { products } = useMarketplaceData();
   const sameCategory = products.filter((item: Product) => {
     // Filter products that belongs to same sku but different id with respect to product's id shown in products details page
     return item.stockKeepingUnit === sku_id && item._id !== id;

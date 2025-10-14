@@ -3,8 +3,8 @@ import type { Metadata } from "next";
 import { OfferPopup } from "@/components/common";
 
 export const metadata: Metadata = {
-  title: "Marketplace | Manzarri",
-  description: "Explore various varieties of jewelleries ",
+  title: "Profile | Manzarri",
+  description: "Check your profile",
 };
 
 export default function MarketplaceLayout({

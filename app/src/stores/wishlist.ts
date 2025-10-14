@@ -32,7 +32,6 @@ export const useWishlist = create<WishlistState>()(
         const { success, message } = await AddedByWishlistAction(
           item._id,
           item.productName,
-          item.addedToWishlistBy // only a list of all users of have added the same product in thier wishlist
         );
         // 3.  ______ If admin is not notified show error ...
         if (!success) {

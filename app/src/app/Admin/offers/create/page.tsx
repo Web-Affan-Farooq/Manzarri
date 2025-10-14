@@ -199,16 +199,16 @@ const CreateEvent = () => {
             {/* message title */}
             <div>
               <label className="block text-sm text-gray-400 mb-1">
-                Message title
+                Offer headline
               </label>
               <input
                 type="text"
-                {...register("messageTitle")}
+                {...register("offerHeadline")}
                 className="w-full md:w-[40vw] p-2 rounded-md bg-gray-800 text-white outline-none focus:ring-2 focus:ring-purple-600"
               />
-              {errors.messageTitle && (
+              {errors.offerHeadline && (
                 <p className="text-red-400 text-xs mt-1">
-                  {errors.messageTitle.message}
+                  {errors.offerHeadline.message}
                 </p>
               )}
             </div>
@@ -216,16 +216,15 @@ const CreateEvent = () => {
             {/* message description */}
             <div>
               <label className="block text-sm text-gray-400 mb-1">
-                Message
+                Offer Description
               </label>
-              <input
-                type="text"
-                {...register("messageDescription")}
+              <textarea
+                {...register("offerDescription")}
                 className="w-full md:w-[40vw] p-2 rounded-md bg-gray-800 text-white outline-none focus:ring-2 focus:ring-purple-600"
-              />
-              {errors.messageDescription && (
+              ></textarea>
+              {errors.offerDescription && (
                 <p className="text-red-400 text-xs mt-1">
-                  {errors.messageDescription.message}
+                  {errors.offerDescription.message}
                 </p>
               )}
             </div>
@@ -251,8 +250,8 @@ const CreateEvent = () => {
               <label className="block text-sm text-gray-400 mb-1">
                 Preview
               </label>
-              <div className="w-[300px] h-[300px] rounded-md">
-                {imagePreview && (
+              {imagePreview && (
+                <div className="w-[300px] h-[300px] rounded-md">
                   <Image
                     src={imagePreview}
                     alt="Preview"
@@ -260,8 +259,8 @@ const CreateEvent = () => {
                     height={400}
                     className="object-cover"
                   />
-                )}
-              </div>
+                </div>
+              )}
             </div>
             <div>
               <Button

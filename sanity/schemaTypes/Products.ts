@@ -126,17 +126,21 @@ export default {
     {
       name: 'addedToCartBy',
       type: 'array',
-      of: [{type: 'string'}],
+      of: [{
+        type: 'reference',
+        to:[{type:"Accounts"}]
+      }],
       title: 'Added to cart by them',
-      initialValue: [],
     },
-
     {
       name: 'addedToWishlistBy',
       type: 'array',
-      of: [{type: 'string'}],
+      of: [{
+        type: 'reference',
+        to:[{type:"Accounts"}]
+      }],
       title: 'Added to wishlist by them',
-      initialValue: [],
     },
+
   ],
 }

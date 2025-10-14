@@ -102,8 +102,11 @@ Two critical issues have been identified where data persists after the associate
 ### 🔮 Future Implementations & Roadmap :
 The following features and improvements are planned for future development .
 **Primary :**
-- Create edit offer functionality .
-- Take and store more user data on account like address , phonenumber
+- Implement referencing throughout the code .
+- Create a different section on the admin dashboard from where the admin would enter email or phone number to send a dashboard invite link . Send the invite link
+- Complete setup of google analytics .
+- Fix the advertisement component showed on marketplace .
+- Take and store more user data on account like address , phonenumber , last login , phone number (optional) , country , orders array referencing to created orders
 - Create a search product functionality.
 - Implement header functionality to show Login/Signup options if the user is unauthorized.
 - On the account deletion , all the orders and notifications related to that account should be deleted
