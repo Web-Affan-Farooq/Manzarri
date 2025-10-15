@@ -1,56 +1,34 @@
 "use client";
-
-/* _____ Hooks ... */
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
-
-/* _____ Libraries... */
-import axios from "axios";
-import { toast } from "sonner";
-import { zodResolver } from "@hookform/resolvers/zod";
-import z from "zod";
-
-/* _____ Types and schemas... */
-import LoginSchema from "@/validations/LoginSchema";
-
-/* _____ Components... */
 import Link from "next/link";
-import { Eye, EyeOff, Mail, Lock } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
+import { Eye, EyeOff, Lock } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { Checkbox } from "@/components/ui/checkbox";
+import z from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 
-type LoginFormData = z.infer<typeof LoginSchema>;
+const InviteSchema = z
+  .object({
+    key: z
+      .string({ message: "Invalid string" })
+      .min(6, "Enter 6 characters code")
+      .max(6, "Enter 6 characters code"),
+  })
+  .strict();
 
-const Section_login = () => {
-  const router = useRouter();
-  /* _____ React hook form... */
+const AcceptInvite = () => {
   const {
+    // handleSubmit,
     register,
-    handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm({
-    mode: "onChange",
-    resolver: zodResolver(LoginSchema),
+    resolver: zodResolver(InviteSchema),
   });
-  /* _____ For controlling button... */
-
-  const Login = async (data: LoginFormData) => {
-    /* _____ Handles form submission... */
-    try {
-      const response = await axios.post("/api/login", data);
-      toast.success(response.data.message);
-      router.push(response.data.redirect);
-    } catch (err) {
-      toast.error("An error occured while login");
-      console.log(err);
-    }
-  };
-
   const [showPassword, setShowPassword] = useState(false);
 
   return (
@@ -76,38 +54,15 @@ const Section_login = () => {
                 Sign In
               </h1>
               <p className="text-manzarri-black/70">
-                Access your account to continue shopping
+                Enter your credentials to get onboard
               </p>
             </div>
 
             <form className="space-y-6">
-              {/* Email Field */}
-              <div>
-                <Label htmlFor="email" className="text-manzarri-black">
-                  Email Address
-                </Label>
-                <div className="relative mt-2">
-                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-manzarri-black/60 w-5 h-5" />
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="Enter your email"
-                    className="pl-12 border-manzarri-black/20 focus:border-manzarri-reddish-brown"
-                    required
-                    {...register("email")}
-                  />
-                  {errors.email && (
-                    <p className="text-red-500 text-sm">
-                      {errors.email.message}
-                    </p>
-                  )}
-                </div>
-              </div>
-
-              {/* Password Field */}
+              {/* Invitee key */}
               <div>
                 <Label htmlFor="password" className="text-manzarri-black">
-                  Password
+                  Enter your key
                 </Label>
                 <div className="relative mt-2">
                   <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-manzarri-black/60 w-5 h-5" />
@@ -117,12 +72,10 @@ const Section_login = () => {
                     placeholder="Enter your password"
                     className="pl-12 pr-12 border-manzarri-black/20 focus:border-manzarri-reddish-brown"
                     required
-                    {...register("password")}
+                    {...register("key")}
                   />
-                  {errors.password && (
-                    <p className="text-red-500 text-sm">
-                      {errors.password.message}
-                    </p>
+                  {errors.key && (
+                    <p className="text-red-500 text-sm">{errors.key.message}</p>
                   )}
                   <Button
                     type="button"
@@ -164,7 +117,7 @@ const Section_login = () => {
                 type="submit"
                 disabled={isSubmitting}
                 className="w-full bg-manzarri-reddish-brown hover:bg-manzarri-reddish-brown/90 text-manzarri-white py-6"
-                onClick={handleSubmit(Login)}
+                // onClick={handleSubmit(Login)}
               >
                 {isSubmitting ? "Please wait ..." : "Sign in"}
               </Button>
@@ -240,7 +193,7 @@ const Section_login = () => {
         {/* Additional Info */}
         <div className="text-center mt-8">
           <p className="text-sm text-manzarri-black/60">
-            By signing in, you agree to our{" "}
+            By signing in, you agree to our
             <Link
               href="/terms"
               className="text-manzarri-reddish-brown hover:text-manzarri-reddish-brown/80"
@@ -260,5 +213,4 @@ const Section_login = () => {
     </div>
   );
 };
-
-export default Section_login;
+export default AcceptInvite;

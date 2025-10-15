@@ -13,7 +13,7 @@ import {
   ShoppingCart,
 } from "@/components/icons";
 import Link from "next/link";
-import { BadgeDollarSign, Tag } from "lucide-react";
+import { BadgeDollarSign, Contact, Tag } from "lucide-react";
 
 const itemLinks = [
   {
@@ -56,12 +56,16 @@ const itemLinks = [
     icon: <BadgeDollarSign className={`text-gray-custom w-[20px] h-[20px]`} />,
     url: "/Admin/finances",
   },
+  {
+    name: "Invite",
+    icon: <Contact className={`text-gray-custom w-[20px] h-[20px]`} />,
+    url: "/Admin/invite",
+  },
 ];
 
 import {
   Sheet,
   SheetContent,
-  // SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,

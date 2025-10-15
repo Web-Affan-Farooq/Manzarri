@@ -135,3 +135,85 @@ The following features and improvements are planned for future development .
 - Integrate paypal
 - Integrate shipment api
 - Create notifications section in profile section
+
+
+Read the following sanity schema :
+```typescript
+export default {
+    name:"Invitations",
+    type:"document",
+    title:"Invitations",
+    fields: [
+        {
+            name:"inviteKey",
+            type:"string",
+            title:"Invitee key"
+        },{
+            name:"expiration",
+            type:"datetime",
+            title:"Expiration time"
+        },{
+            name:"hasJoined",
+            type:"boolean",
+            title:"Has joined"
+        },{
+            name:"joinedAt",
+            type:"datetime",
+            title:"Joined timestamp"
+        },{
+            name:"logs",
+            type:"array",
+            of:[{type:"string"}],
+            title:"Logs"
+        }
+    ]
+}
+```
+
+and also read the following server action used by server side for creating a invite 
+```typescript
+"use server";
+import sanityClient from "@/lib/sanity";
+import GenerateString from "@/utils/GenerateString";
+
+export const InviteUserAction = async (): Promise<{
+  message: string;
+  success: boolean;
+  invite?: {
+    _id: string;
+    inviteKey: string;
+  };
+}> => {
+  try {
+    const data = await sanityClient.create({
+      _type: "Invitations",
+      inviteKey: GenerateString(6),
+    });
+    return {
+      message: "Invitation activated",
+      success: true,
+      invite: {
+        _id:data._id,
+        inviteKey:data.inviteKey
+      }
+    };
+  } catch (err) {
+    console.log(err);
+    return {
+      message: "An error occured",
+      success: false,
+    };
+  }
+};
+
+```
+
+
+also you've created the form for the frontend of invite panel of admin dashboard . 
+
+## What you've to do ?
+from the component you've created above , it's copying the url correctly , this link should be pointing towards a get request api route like this as i have edited this 
+```typescript
+        const link = `${base}/api/accept-invite/${invite._id}?key=${invite.inviteKey}`;
+```
+please create this nextjs api route which verifys the key from query parameters from sanity, and return error if no session found , if session found  edits the has joined joinedAt date with current timestamp set a jwt token called manzarri-invite-session with {id:idextracted from url , key: key extracted fromurl} . and redirects user to /Admin 

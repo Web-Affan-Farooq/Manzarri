@@ -6,5 +6,6 @@ import Dashboard from "./Dashboard";
 import Notifications from "./Notifications";
 import Reviews from "./Reviews";
 import Offers from "./Offers";
+import Invitation from "./Invitation";
 
-export const schemaTypes = [Products,Accounts,Orders,FormSubmissions,Dashboard,Notifications, Reviews,Offers]
+export const schemaTypes = [Products,Accounts,Orders,FormSubmissions,Dashboard,Notifications, Reviews,Offers , Invitation]
