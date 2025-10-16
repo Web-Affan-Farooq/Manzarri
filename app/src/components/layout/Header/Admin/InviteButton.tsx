@@ -1,4 +1,4 @@
-import { InviteUserAction } from "@/actions/Admin/InviteUserAction";
+import { InviteUserAction } from "@/actions/Admin/InviteActions";
 import {
   AlertDialog,
   AlertDialogAction,

@@ -36,7 +36,7 @@ const ProductCard = ({ product }: { product: Product }) => {
           <span className="w-6 h-6 sm:w-7 sm:h-7 rounded-md bg-manzarri-skin flex justify-center items-center">
             <Heart className="cursor-pointer fill-current size-4 sm:size-5 stroke-manzarri-reddish-brown" />
           </span>
-          <Link href={`/marketplace/${product._id}`}>
+          <Link href={`/marketplace/${product._id}`} id="details-link">
             <span className="cursor-pointer w-6 h-6 sm:w-7 sm:h-7 rounded-md bg-manzarri-skin flex justify-center items-center">
               <ShoppingCart className="fill-current size-4 sm:size-5 stroke-manzarri-reddish-brown" />
             </span>

@@ -34,7 +34,7 @@ const AddButtons = ({
         className="border-manzarri-black text-manzarri-white hover:bg-manzarri-black hover:text-manzarri-white px-8 py-5"
       >
         <Heart className="max-sm:w-[17px] max-sm:h-[17px]" />
-        <span>Add to Wishlist</span>
+        <span>Add to wishlist</span>
       </Button>
       <Button
         size="lg"
@@ -57,7 +57,7 @@ const AddButtons = ({
         className="bg-manzarri-reddish-brown hover:bg-manzarri-reddish-brown/90 text-manzarri-white px-8 py-5"
       >
         <ShoppingBag className="max-sm:w-[17px] max-sm:h-[17px]" />
-        <span>Add to Cart</span>
+        <span>Add to cart</span>
       </Button>
     </div>
   );

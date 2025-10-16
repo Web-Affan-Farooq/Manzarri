@@ -16,5 +16,5 @@ const token = {
 
 export {
     pagesNotAllowed,
-    token
+    token,
 }

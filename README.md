@@ -217,3 +217,28 @@ from the component you've created above , it's copying the url correctly , this 
         const link = `${base}/api/accept-invite/${invite._id}?key=${invite.inviteKey}`;
 ```
 please create this nextjs api route which verifys the key from query parameters from sanity, and return error if no session found , if session found  edits the has joined joinedAt date with current timestamp set a jwt token called manzarri-invite-session with {id:idextracted from url , key: key extracted fromurl} . and redirects user to /Admin 
+
+
+
+
+## Writing test for cart page :
+I've setted up the playwright with nextjs You've to write test to test the following cart flow
+
+- Goto the page http://localhost:3000/marketplace
+- Here cards would be displayed with this button 
+
+```html
+          <Link href={`/marketplace/${product._id}`} id="details-link">
+            <span className="cursor-pointer w-6 h-6 sm:w-7 sm:h-7 rounded-md bg-manzarri-skin flex justify-center items-center">
+              <ShoppingCart className="fill-current size-4 sm:size-5 stroke-manzarri-reddish-brown" />
+            </span>
+          </Link>
+```
+
+- click on this button and expect the url to be `http://lcoalhost:3000/marketplace/{dynamic_id}` 
+
+- then this page would have button which has exact text `Add to cart`
+- expect a toast to be shown with text "Please select size"
+
+- then click on the button with text `sm`
+- then click on this button 

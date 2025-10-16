@@ -4,7 +4,7 @@ import { AdminPanelSidebar } from "@/components/layout";
 // import { MessagesSection } from "@/components/pages/Admin";
 import { Contact, Copy, Check, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { InviteUserAction } from "@/actions/Admin/InviteUserAction";
+import { InviteUserAction } from "@/actions/Admin/InviteActions";
 import { toast } from "sonner";
 
 const InvitePage: React.FC = () => {

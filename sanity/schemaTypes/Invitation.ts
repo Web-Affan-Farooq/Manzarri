@@ -14,7 +14,7 @@ export default {
         },{
             name:"hasJoined",
             type:"boolean",
-            title:"Has joined"
+            title:"Has joined",
         },{
             name:"joinedAt",
             type:"datetime",
