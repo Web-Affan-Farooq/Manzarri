@@ -1,8 +1,13 @@
 // middleware.ts
 import { NextRequest, NextResponse } from "next/server";
 import { token } from "./constants";
+import Logger from "@/utils/Logger";
+
+const logger = new Logger("./middleware.ts");
 
 export const middleware = async (req: NextRequest) => {
+  logger.log(9,"Running middleware ...", "--------------------------------------------");
+  
   const userToken = req.cookies.get(token.user)?.value;
   const adminToken = req.cookies.get(token.admin)?.value;
   const pathname = req.nextUrl.pathname;
