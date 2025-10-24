@@ -1,7 +1,6 @@
 "use client";
 import "./style.css";
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import {
@@ -72,8 +71,8 @@ import {
 } from "@/components/ui/sheet";
 import { NotificationBell } from "@/components/icons";
 import NotificationCard from "@/components/pages/Admin/NotificationCard";
-import sanityClient from "@/lib/sanity";
 import { Notification } from "@/@types/notifications";
+import LogoutAction from "@/actions/Auth/Logout";
 
 const AdminHeader = () => {
   /* _____ router instance ... */
@@ -83,37 +82,13 @@ const AdminHeader = () => {
   const [navOpen, setNavOpen] = useState(false);
 
   /* State for notifications  */
-  const [notifications, setnotifications] = useState([]);
+  const notifications: Notification[] = [];
   /* onclick Event : attemp GET request on logout api and redirect the user to landing page ... */
   const handleLogout = async () => {
-    const response = await axios.get("/api/logout");
-    const data = await response.data;
-    if (!data.success) {
-      toast.error(data.message);
-    }
-    toast.success(data.message);
+    const { message } = await LogoutAction();
+    toast.success(message);
     router.push("/");
   };
-
-  useEffect(() => {
-    const getData = async () => {
-      const userID = window.localStorage.getItem("userID");
-      if (userID) {
-        const q = `*[_type == "Notifications" && userId == "${userID}"]{
-    notificationTitle,
-    notificationText,
-    notificationType,
-    isSeen,
-    userId,
-        }`;
-        const response = await sanityClient.fetch(q);
-        // console.log(response[0].notifications);
-
-        setnotifications(response);
-      }
-    };
-    getData();
-  }, []);
 
   return (
     <>

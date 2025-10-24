@@ -1,7 +1,8 @@
+"use server"
 import { cookies } from "next/headers";
 import { token } from "@/constants";
 
-export const GET = async () => {
+const LogoutAction = async () => {
     const clientCookies = await cookies();
     const userToken = clientCookies.get(token.user)?.value;
     const adminToken = clientCookies.get(token.admin)?.value;
@@ -19,3 +20,4 @@ export const GET = async () => {
             redirect: "/marketplace"
         }
 }
+export default LogoutAction
