@@ -8,7 +8,7 @@ import { UpdateEngagementCount } from "../UpdateEngagementCountAction";
 const stripe = new Stripe(process.env.STRIPE_SECRET_TOKEN!, {
   apiVersion: "2025-07-30.basil",
 });
-const app_url = process.env.APP_URL!;
+const app_url = process.env.NEXT_PUBLIC_APP_URL!;
 
 const logger = new Logger("/api/checkout/route.ts");
 

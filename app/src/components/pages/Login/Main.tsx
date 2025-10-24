@@ -6,10 +6,10 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 
 /* _____ Libraries... */
-import axios from "axios";
 import { toast } from "sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
+import { LoginAction } from "@/actions/Auth";
 
 /* _____ Types and schemas... */
 import LoginSchema from "@/validations/LoginSchema";
@@ -42,9 +42,13 @@ const Section_login = () => {
   const Login = async (data: LoginFormData) => {
     /* _____ Handles form submission... */
     try {
-      const response = await axios.post("/api/login", data);
-      toast.success(response.data.message);
-      router.push(response.data.redirect);
+      const result = await LoginAction(data);
+      if (!result.success) {
+        toast.error(result.message);
+        return;
+      }
+      toast.success(result.message);
+      router.push(result.redirect || "/profile");
     } catch (err) {
       toast.error("An error occured while login");
       console.log(err);

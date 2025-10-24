@@ -1,7 +1,6 @@
 interface ProfileData  {
   _id:string
   _updatedAt:string
-invited:boolean
 isAdmin:boolean
 isBlocked:boolean
 lastLogin:string

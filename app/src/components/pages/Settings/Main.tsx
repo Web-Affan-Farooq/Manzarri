@@ -26,6 +26,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import AccountActions from "./AccountActions";
 
 export default function SettingsPage() {
   return (
@@ -285,18 +286,6 @@ export default function SettingsPage() {
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between p-4 bg-manzarri-skin/10 rounded-lg">
-                    <div>
-                      <h4 className="font-medium text-manzarri-black">
-                        Two-Factor Authentication
-                      </h4>
-                      <p className="text-sm text-manzarri-black/70">
-                        Add an extra layer of security to your account
-                      </p>
-                    </div>
-                    <Switch />
-                  </div>
-
                   <div className="flex justify-end">
                     <Button className="bg-manzarri-reddish-brown hover:bg-manzarri-reddish-brown/90 text-manzarri-white">
                       Update Password
@@ -384,142 +373,8 @@ export default function SettingsPage() {
                 </div>
               </div>
             </Card>
-
-            {/* Payment Settings */}
-            <Card id="payment" className="border-manzarri-black/10">
-              <div className="p-6">
-                <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-xl font-semibold text-manzarri-black">
-                    Payment Methods
-                  </h2>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="border-manzarri-reddish-brown text-manzarri-reddish-brown hover:bg-manzarri-reddish-brown hover:text-manzarri-white"
-                  >
-                    Add New Card
-                  </Button>
-                </div>
-
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between p-4 border border-manzarri-black/10 rounded-lg">
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-8 bg-manzarri-black rounded flex items-center justify-center">
-                        <span className="text-manzarri-white text-xs font-bold">
-                          VISA
-                        </span>
-                      </div>
-                      <div>
-                        <p className="font-medium text-manzarri-black">
-                          **** **** **** 4242
-                        </p>
-                        <p className="text-sm text-manzarri-black/60">
-                          Expires 12/26
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex gap-2">
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="text-manzarri-black/60 hover:text-manzarri-reddish-brown"
-                      >
-                        Edit
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="text-manzarri-black/60 hover:text-red-600"
-                      >
-                        Remove
-                      </Button>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center justify-between p-4 border border-manzarri-black/10 rounded-lg">
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-8 bg-manzarri-reddish-brown rounded flex items-center justify-center">
-                        <span className="text-manzarri-white text-xs font-bold">
-                          MC
-                        </span>
-                      </div>
-                      <div>
-                        <p className="font-medium text-manzarri-black">
-                          **** **** **** 8888
-                        </p>
-                        <p className="text-sm text-manzarri-black/60">
-                          Expires 08/27
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex gap-2">
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="text-manzarri-black/60 hover:text-manzarri-reddish-brown"
-                      >
-                        Edit
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="text-manzarri-black/60 hover:text-red-600"
-                      >
-                        Remove
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </Card>
-
             {/* Account Actions */}
-            <Card className="border-manzarri-black/10 border-red-200 bg-red-50/20">
-              <div className="p-6">
-                <h2 className="text-xl font-semibold text-manzarri-black mb-4">
-                  Danger Zone
-                </h2>
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h4 className="font-medium text-manzarri-black">
-                        Deactivate Account
-                      </h4>
-                      <p className="text-sm text-manzarri-black/70">
-                        Temporarily disable your account
-                      </p>
-                    </div>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="border-red-300 text-red-600 hover:bg-red-50"
-                    >
-                      Deactivate
-                    </Button>
-                  </div>
-
-                  <Separator />
-
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h4 className="font-medium text-manzarri-black">
-                        Delete Account
-                      </h4>
-                      <p className="text-sm text-manzarri-black/70">
-                        Permanently delete your account and all data
-                      </p>
-                    </div>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="border-red-600 text-red-600 hover:bg-red-600 hover:text-white"
-                    >
-                      Delete Account
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </Card>
+            <AccountActions />
           </div>
         </div>
       </div>

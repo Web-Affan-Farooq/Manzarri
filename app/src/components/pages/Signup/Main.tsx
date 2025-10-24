@@ -10,7 +10,6 @@ import SignupSchema from "@/validations/SignupSchema";
 
 /* _____ Libraries... */
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
 import { toast } from "sonner";
 import * as z from "zod";
 
@@ -23,34 +22,29 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
+import SignupAction from "@/actions/Auth/SignupAction";
 
 type SignupFormData = z.infer<typeof SignupSchema>;
 
 const Section_signup = () => {
   const router = useRouter();
-  /* _____ For controlling button ... */
-  const [disabled, setdisabled] = useState(false);
   /* _____ React hook form... */
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm({
     resolver: zodResolver(SignupSchema),
     mode: "onChange",
   });
   /* _____ Handle signup... */
   const Signup = async (data: SignupFormData) => {
-    setdisabled(true);
-    try {
-      const response = await axios.post("/api/signup", data);
-      toast.success(response.data.message);
-      router.push(response.data.redirect);
-    } catch (err) {
-      console.log(err);
-      toast.error("An error occured while creating account");
+    const { message, success, redirect } = await SignupAction(data);
+    if (!success) {
+      toast.error(message);
     }
-    setdisabled(false);
+    toast.success(message);
+    router.push(redirect ? redirect : "/profile");
   };
   const [showPassword, setShowPassword] = useState(false);
 
@@ -210,9 +204,9 @@ const Section_signup = () => {
               <Button
                 type="submit"
                 onClick={handleSubmit(Signup)}
-                className={`w-full hover:bg-manzarri-reddish-brown/90 ${disabled ? "hover:bg-manzarri-reddish-brown/90 cursor-not-allowed" : "bg-manzarri-reddish-brown cursor-pointer"} text-manzarri-white py-6`}
+                className={`w-full hover:bg-manzarri-reddish-brown/90 ${isSubmitting ? "hover:bg-manzarri-reddish-brown/90 cursor-not-allowed" : "bg-manzarri-reddish-brown cursor-pointer"} text-manzarri-white py-6`}
               >
-                {disabled ? "Please wait ..." : "Create account"}
+                {isSubmitting ? "Please wait ..." : "Create account"}
               </Button>
 
               {/* Divider */}

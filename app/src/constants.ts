@@ -14,7 +14,12 @@ const token = {
     user:"manzarri-authorization-token",
 }
 
+const urls = {
+    dev:"http://localhost:3000",
+    prod:"https://manzarri-ecommerce.vercel.app",
+}
 export {
     pagesNotAllowed,
     token,
+    urls
 }

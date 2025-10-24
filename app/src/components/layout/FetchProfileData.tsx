@@ -2,44 +2,35 @@
 
 import { useProfile } from "@/stores/profile";
 import { useEffect } from "react";
-import {
-  FetchProfileAction,
-  FetchNotificationAction,
-} from "@/actions/FetchProfileAction";
-import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
 const FetchProfile = ({ children }: { children: React.ReactNode }) => {
   // ____ for setting data in global state ...
-  const { setInfo, setNotifications } = useProfile();
+  const { setInfo, isAuthenticated } = useProfile();
   const router = useRouter();
 
   useEffect(() => {
-    const getData = async () => {
-      try {
-        const { message, success, info, redirect } = await FetchProfileAction();
-        if (!success && !info) {
-          toast.error(message);
-        } else if (redirect && !success) {
-          router.push("/login");
-        } else if (info) {
-          const notifications = await FetchNotificationAction(info._id);
-          if (notifications) {
-            setInfo(info);
-            setNotifications(notifications);
-          }
-        }
-      } catch (err) {
-        console.log(err);
-        toast.error("An error occured");
-      }
+    const getData = () => {
+      console.log(
+        "------------------Running data fetches ----------------------"
+      );
+      setInfo();
+      console.log(
+        "------------------Running data fetches ----------------------"
+      );
     };
 
     getData();
     setInterval(() => {
       getData();
     }, 180000);
-  }, [router, setInfo, setNotifications]);
+  }, [router, setInfo]);
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      router.push("/login");
+    }
+  }, [isAuthenticated, router]);
 
   return <>{children}</>;
 };

@@ -1,6 +1,6 @@
-import { FetchMarketplaceData } from "@/components/layout";
 import type { Metadata } from "next";
 import { OfferPopup } from "@/components/common";
+import FetchProfile from "@/components/layout/FetchProfileData";
 
 export const metadata: Metadata = {
   title: "Profile | Manzarri",
@@ -15,7 +15,7 @@ export default function MarketplaceLayout({
   return (
     <>
       <OfferPopup />
-      <FetchMarketplaceData>{children}</FetchMarketplaceData>
+      <FetchProfile>{children}</FetchProfile>
     </>
   );
 }

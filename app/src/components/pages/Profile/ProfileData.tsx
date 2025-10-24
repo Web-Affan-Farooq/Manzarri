@@ -1,10 +1,13 @@
+"use client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Star, Settings } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { useProfile } from "@/stores/profile";
 
 const ProfileData = () => {
+  const { userName, userEmail } = useProfile();
   return (
     <div className="bg-manzarri-skin/20 py-12">
       <div className="container mx-auto px-4">
@@ -12,14 +15,14 @@ const ProfileData = () => {
           <Avatar className="w-24 h-24">
             <AvatarImage src="" alt="Profile" />
             <AvatarFallback className="bg-manzarri-reddish-brown text-manzarri-white text-2xl">
-              JD
+              {userName.slice(0, 2).toUpperCase()}
             </AvatarFallback>
           </Avatar>
           <div className="flex-1">
             <h1 className="text-3xl font-bold text-manzarri-black mb-2">
-              John Doe
+              {userName}
             </h1>
-            <p className="text-manzarri-black/70 mb-4">john.doe@email.com</p>
+            <p className="text-manzarri-black/70 mb-4">{userEmail}</p>
             <div className="flex items-center gap-4">
               <Badge className="bg-manzarri-faun text-manzarri-white">
                 <Star className="w-3 h-3 mr-1" />
