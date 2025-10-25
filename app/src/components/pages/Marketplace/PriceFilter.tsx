@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Slider } from "@/components/ui/slider";
 import { CircleDollarSign } from "lucide-react";
-import { useMarketplaceFilters } from "../../../app/marketplace/useMarketplaceFilters";
+import useMarketplaceFilters from "./hooks/useMarketplaceFilters";
 
 const PriceFilter = () => {
   const { priceRange, setPriceRange } = useMarketplaceFilters();

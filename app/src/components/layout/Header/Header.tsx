@@ -1,8 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import { Menu, X, Search, ShoppingBag, Heart, Bell, User } from "lucide-react";
+import { Menu, X, ShoppingBag, Heart, Bell, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
@@ -41,17 +40,6 @@ export default function Header() {
               Manzarri
             </span>
           </Link>
-
-          {/* Search bar - hidden on mobile */}
-          <div className="hidden md:flex flex-1 max-w-md mx-8">
-            <div className="relative w-full">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-manzarri-black/60 w-4 h-4" />
-              <Input
-                placeholder="Search for jewelry..."
-                className="pl-10 bg-manzarri-skin border-manzarri-black/20 focus:border-manzarri-reddish-brown"
-              />
-            </div>
-          </div>
 
           {/* Right side icons */}
           <div className="flex items-center space-x-4">

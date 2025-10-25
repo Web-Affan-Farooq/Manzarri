@@ -1,6 +1,6 @@
 "use client";
 
-import { useMarketplaceFilters } from "../../../app/marketplace/useMarketplaceFilters";
+import useMarketplaceFilters from "./hooks/useMarketplaceFilters";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   DropdownMenu,

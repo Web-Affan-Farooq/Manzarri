@@ -9,7 +9,7 @@ import {
 import { Star } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useMarketplaceFilters } from "../../../app/marketplace/useMarketplaceFilters";
+import useMarketplaceFilters from "./hooks/useMarketplaceFilters";
 
 const RatingsFilter = () => {
   const { ratingsRange, setRatingsRange } = useMarketplaceFilters();

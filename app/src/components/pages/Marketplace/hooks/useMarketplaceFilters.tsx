@@ -1,5 +1,5 @@
 // ____ Hooks ...
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useMarketplaceData } from "@/stores/catalog";
 
 // _____ Libraries ...
@@ -14,6 +14,8 @@ interface FiltersState {
   setRatingsRange: (range: number[]) => void;
   selectedCategories: string[];
   setSelectedCategories: (list: string[]) => void;
+  searchQuery: string;
+  updateSearchQuery: (q: string) => void;
 }
 
 // ____ main state or filters initializers ...
@@ -25,6 +27,11 @@ const useFilters = create<FiltersState>()((set) => ({
     })),
 
   ratingsRange: [2],
+  searchQuery: "",
+  updateSearchQuery: (q) =>
+    set({
+      searchQuery: q,
+    }),
   setRatingsRange: (range) =>
     set(() => ({
       ratingsRange: range,
@@ -45,7 +52,7 @@ const useFilters = create<FiltersState>()((set) => ({
 
 // _____ Hook which provide filtered products ...
 
-export const useMarketplaceFilters = () => {
+const useMarketplaceFilters = () => {
   // _____ Extract products from global state ...
   const { products } = useMarketplaceData();
 
@@ -57,6 +64,8 @@ export const useMarketplaceFilters = () => {
     setRatingsRange,
     selectedCategories,
     setSelectedCategories,
+    searchQuery,
+    updateSearchQuery,
   } = useFilters();
 
   // ______ Cetegories for rendering checkboxes ...
@@ -69,7 +78,7 @@ export const useMarketplaceFilters = () => {
     "rings",
   ];
 
-  // _____ Resultant filtered list , created automatically when any of the filter selected ...
+  // _____ Resultant filtered list , created automatically when any of the filter selected or search input changes ...
   const filteredList = useMemo(() => {
     return products.filter(
       (product: Product) =>
@@ -78,21 +87,29 @@ export const useMarketplaceFilters = () => {
         ) &&
         product.price > priceRange[0] &&
         product.price < priceRange[1] &&
-        ratingsRange.includes(product.ratings)
+        ratingsRange.includes(product.ratings) &&
+        product.productName
+          .toLowerCase()
+          .trim()
+          .startsWith(searchQuery.trim().toLowerCase())
     );
-  }, [products, selectedCategories, priceRange, ratingsRange]);
+  }, [products, selectedCategories, priceRange, ratingsRange, searchQuery]);
+
+  useEffect(() => {
+    updateSearchQuery("");
+  }, [updateSearchQuery]);
 
   return {
     priceRange,
     setPriceRange,
-
     ratingsRange,
     setRatingsRange,
-
     selectedCategories,
     setSelectedCategories,
     filteredList,
-
     categories,
+    searchQuery,
+    updateSearchQuery,
   };
 };
+export default useMarketplaceFilters;

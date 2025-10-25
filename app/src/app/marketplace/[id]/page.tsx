@@ -2,6 +2,10 @@
 
 /* _____ Hooks ... */
 import { useState } from "react";
+import { useParams } from "next/navigation";
+
+/* _____ Components... */
+import { Tag } from "lucide-react";
 import {
   Reviews,
   RelatedSearches,
@@ -11,11 +15,8 @@ import {
   Details,
 } from "@/components/pages/ProductDetails";
 
-/* _____ Components... */
-import { Tag } from "lucide-react";
 /* ____ Libraires ... */
 import { toast } from "sonner";
-import { useParams } from "next/navigation";
 
 const ProductDetails = () => {
   const { id } = useParams() as { id: string };
@@ -35,7 +36,7 @@ const ProductDetails = () => {
 
   return (
     <>
-      <section className="pt-[70px] flex flex-row max-md:flex-col max-md:justify-start max-md:items-center max-md:px-[25px] flex-nowrap justify-evenly items-center gap-[30px]">
+      <section className="flex flex-row max-md:flex-col max-md:justify-start max-md:items-center max-md:px-[25px] flex-nowrap justify-evenly items-center gap-[30px]">
         {/* product image canvas */}
         <ImageSelection
           images={product.images}

@@ -1,15 +1,14 @@
 "use client";
 import React from "react";
-import { Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ProductCard } from "@/components/pages/Marketplace";
 import { useMarketplaceData } from "@/stores/catalog";
-import { Input } from "@/components/ui/input";
-import { useMarketplaceFilters } from "./useMarketplaceFilters";
 import {
   PriceFilter,
   RatingsFilter,
   CategoryFilter,
+  SearchBar,
+  useMarketplaceFilters,
 } from "@/components/pages/Marketplace";
 
 export default function MarketplacePage() {
@@ -35,13 +34,7 @@ export default function MarketplacePage() {
           {/* Main Content */}
           <div className="flex-1">
             {/* Top Bar */}
-            <div className="relative my-3 sm:w-md">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-manzarri-black/60 w-4 h-4" />
-              <Input
-                placeholder="Search for jewelry..."
-                className="pl-10 bg-manzarri-skin border-manzarri-black/20"
-              />
-            </div>
+            <SearchBar />
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
               <div>
                 <p className="text-sm text-manzarri-black/70">
