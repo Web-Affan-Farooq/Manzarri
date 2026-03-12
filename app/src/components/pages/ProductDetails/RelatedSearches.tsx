@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { useMarketplaceData } from "@/stores/catalog";
+import { useMarketplaceData } from "@/stores/useCatalog";
 import { Product } from "@/@types/product";
 import ProductCard from "../Marketplace/Card";
 

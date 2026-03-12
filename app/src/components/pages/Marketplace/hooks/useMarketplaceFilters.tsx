@@ -1,6 +1,6 @@
 // ____ Hooks ...
 import { useEffect, useMemo } from "react";
-import { useMarketplaceData } from "@/stores/catalog";
+import { useMarketplaceData } from "@/stores/useCatalog";
 
 // _____ Libraries ...
 import { create } from "zustand";

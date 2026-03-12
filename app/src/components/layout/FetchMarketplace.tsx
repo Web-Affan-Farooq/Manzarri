@@ -1,6 +1,6 @@
 "use client";
 
-import { useMarketplaceData } from "@/stores/catalog";
+import { useMarketplaceData } from "@/stores/useCatalog";
 import React, { useEffect } from "react";
 
 const FetchDMarketplaceData = ({ children }: { children: React.ReactNode }) => {

@@ -1,5 +1,5 @@
 "use client";
-import { useWishlist } from "@/stores/wishlist";
+import { useWishlist } from "@/stores/useWishlist";
 import Image from "next/image";
 import { Product } from "@/@types/product";
 // import { useWishlist } from "@/stores/wishlist";
@@ -8,7 +8,7 @@ import React, { useState } from "react";
 import { Heart, ShoppingBag, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { useCart } from "@/stores/cart";
+import { useCart } from "@/stores/useCart";
 import { v4 } from "uuid";
 
 import {

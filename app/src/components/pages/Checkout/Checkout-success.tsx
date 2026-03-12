@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect } from 'react';
 import Link from 'next/link';
-import { useCart } from '@/stores/cart';
+import { useCart } from '@/stores/useCart';
 
 const Checkout_success = () => {
   const {clearCart} = useCart();

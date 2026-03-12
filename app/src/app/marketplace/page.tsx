@@ -2,7 +2,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { ProductCard } from "@/components/pages/Marketplace";
-import { useMarketplaceData } from "@/stores/catalog";
+import { useMarketplaceData } from "@/stores/useCatalog";
 import {
   PriceFilter,
   RatingsFilter,

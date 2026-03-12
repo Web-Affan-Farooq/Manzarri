@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { useWishlist } from "@/stores/wishlist";
+import { useWishlist } from "@/stores/useWishlist";
 import Link from "next/link";
 
 const WishlistCTA = () => {

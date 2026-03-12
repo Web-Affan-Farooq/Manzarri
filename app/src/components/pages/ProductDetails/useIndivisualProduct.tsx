@@ -1,4 +1,4 @@
-import { useMarketplaceData } from "@/stores/catalog";
+import { useMarketplaceData } from "@/stores/useCatalog";
 import { useEffect, useState } from "react";
 import { Product } from "@/@types/product";
 

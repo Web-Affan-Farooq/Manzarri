@@ -1,7 +1,7 @@
 "use client";
 
 // ____ Hooks ...
-import { useMarketplaceData } from "@/stores/catalog";
+import { useMarketplaceData } from "@/stores/useCatalog";
 import { useEffect, useState } from "react";
 
 // _____ Components ...

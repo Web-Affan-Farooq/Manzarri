@@ -1,6 +1,6 @@
 # Manzarri E-commerce Platform Documentation
 
-**Manzarri** is a rapidly developing e-commerce platform. This documentation provides an overview of the project's development milestones, recent activities, known issues, and future implementation goals.
+**Manzarri** is an e-commerce platform. This documentation provides an overview of the project's development milestones, recent activities, known issues, and future implementation goals.
 
 ## ⚠️ Known Bugs and Potential Pitfalls
 The following are the identified issues and areas of concern that require immediate attention:

@@ -3,8 +3,8 @@
 import { Product } from "@/@types/product";
 
 // ____ Hooks ...
-import { useCart } from "@/stores/cart";
-import { useWishlist } from "@/stores/wishlist";
+import { useCart } from "@/stores/useCart";
+import { useWishlist } from "@/stores/useWishlist";
 
 // ____ libraries ...
 import { toast } from "sonner";

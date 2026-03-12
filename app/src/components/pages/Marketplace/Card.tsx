@@ -2,10 +2,10 @@
 import Image from "next/image";
 import { Heart, ShoppingCart } from "lucide-react";
 import { Product } from "@/@types/product";
-import { useWishlist } from "@/stores/wishlist";
+import { useWishlist } from "@/stores/useWishlist";
 import Link from "next/link";
 import { useMemo } from "react";
-import { useCart } from "@/stores/cart";
+import { useCart } from "@/stores/useCart";
 
 const ProductCard = ({ product }: { product: Product }) => {
   const { wishlist } = useWishlist();

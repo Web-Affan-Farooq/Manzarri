@@ -1,9 +1,9 @@
 import { cookies } from "next/headers"
-import { TokenPayload } from "@/@types/jwt";
+import { TokenPayload } from "@/@types/Auth";
 import { token as t } from "@/constants";
 import jwt from "jsonwebtoken";
 
-interface Obj extends TokenPayload {
+type Obj =  TokenPayload & {
     isAdmin:boolean
 }
 

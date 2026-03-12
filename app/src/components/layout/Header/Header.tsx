@@ -6,9 +6,9 @@ import { Badge } from "@/components/ui/badge";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { useNotificationSectionVisibility } from "@/stores/notification-visibility";
-import { useCart } from "@/stores/cart";
+import { useCart } from "@/stores/useCart";
 import { pagesNotAllowed } from "@/constants";
-import { useWishlist } from "@/stores/wishlist";
+import { useWishlist } from "@/stores/useWishlist";
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
